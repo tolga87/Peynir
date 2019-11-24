@@ -1,0 +1,612 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FD5F74BD238B4CA100DCEED3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5F74BC238B4CA100DCEED3 /* AppDelegate.swift */; };
+		FD5F74BF238B4CA100DCEED3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5F74BE238B4CA100DCEED3 /* SceneDelegate.swift */; };
+		FD5F74C1238B4CA100DCEED3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5F74C0238B4CA100DCEED3 /* ViewController.swift */; };
+		FD5F74C4238B4CA100DCEED3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD5F74C2238B4CA100DCEED3 /* Main.storyboard */; };
+		FD5F74C7238B4CA100DCEED3 /* Peynir.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FD5F74C5238B4CA100DCEED3 /* Peynir.xcdatamodeld */; };
+		FD5F74C9238B4CA200DCEED3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD5F74C8238B4CA200DCEED3 /* Assets.xcassets */; };
+		FD5F74CC238B4CA200DCEED3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD5F74CA238B4CA200DCEED3 /* LaunchScreen.storyboard */; };
+		FD5F74D7238B4CA200DCEED3 /* PeynirTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5F74D6238B4CA200DCEED3 /* PeynirTests.swift */; };
+		FD5F74E2238B4CA200DCEED3 /* PeynirUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5F74E1238B4CA200DCEED3 /* PeynirUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FD5F74D3238B4CA200DCEED3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FD5F74B1238B4CA100DCEED3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FD5F74B8238B4CA100DCEED3;
+			remoteInfo = Peynir;
+		};
+		FD5F74DE238B4CA200DCEED3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FD5F74B1238B4CA100DCEED3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FD5F74B8238B4CA100DCEED3;
+			remoteInfo = Peynir;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		FD5F74B9238B4CA100DCEED3 /* Peynir.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Peynir.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FD5F74BC238B4CA100DCEED3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		FD5F74BE238B4CA100DCEED3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		FD5F74C0238B4CA100DCEED3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		FD5F74C3238B4CA100DCEED3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		FD5F74C6238B4CA100DCEED3 /* Peynir.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Peynir.xcdatamodel; sourceTree = "<group>"; };
+		FD5F74C8238B4CA200DCEED3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FD5F74CB238B4CA200DCEED3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		FD5F74CD238B4CA200DCEED3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FD5F74D2238B4CA200DCEED3 /* PeynirTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PeynirTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FD5F74D6238B4CA200DCEED3 /* PeynirTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeynirTests.swift; sourceTree = "<group>"; };
+		FD5F74D8238B4CA200DCEED3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FD5F74DD238B4CA200DCEED3 /* PeynirUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PeynirUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FD5F74E1238B4CA200DCEED3 /* PeynirUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeynirUITests.swift; sourceTree = "<group>"; };
+		FD5F74E3238B4CA200DCEED3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FD5F74B6238B4CA100DCEED3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FD5F74CF238B4CA200DCEED3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FD5F74DA238B4CA200DCEED3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FD5F74B0238B4CA100DCEED3 = {
+			isa = PBXGroup;
+			children = (
+				FD5F74BB238B4CA100DCEED3 /* Peynir */,
+				FD5F74D5238B4CA200DCEED3 /* PeynirTests */,
+				FD5F74E0238B4CA200DCEED3 /* PeynirUITests */,
+				FD5F74BA238B4CA100DCEED3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FD5F74BA238B4CA100DCEED3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FD5F74B9238B4CA100DCEED3 /* Peynir.app */,
+				FD5F74D2238B4CA200DCEED3 /* PeynirTests.xctest */,
+				FD5F74DD238B4CA200DCEED3 /* PeynirUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FD5F74BB238B4CA100DCEED3 /* Peynir */ = {
+			isa = PBXGroup;
+			children = (
+				FD5F74BC238B4CA100DCEED3 /* AppDelegate.swift */,
+				FD5F74BE238B4CA100DCEED3 /* SceneDelegate.swift */,
+				FD5F74C0238B4CA100DCEED3 /* ViewController.swift */,
+				FD5F74C2238B4CA100DCEED3 /* Main.storyboard */,
+				FD5F74C8238B4CA200DCEED3 /* Assets.xcassets */,
+				FD5F74CA238B4CA200DCEED3 /* LaunchScreen.storyboard */,
+				FD5F74CD238B4CA200DCEED3 /* Info.plist */,
+				FD5F74C5238B4CA100DCEED3 /* Peynir.xcdatamodeld */,
+			);
+			path = Peynir;
+			sourceTree = "<group>";
+		};
+		FD5F74D5238B4CA200DCEED3 /* PeynirTests */ = {
+			isa = PBXGroup;
+			children = (
+				FD5F74D6238B4CA200DCEED3 /* PeynirTests.swift */,
+				FD5F74D8238B4CA200DCEED3 /* Info.plist */,
+			);
+			path = PeynirTests;
+			sourceTree = "<group>";
+		};
+		FD5F74E0238B4CA200DCEED3 /* PeynirUITests */ = {
+			isa = PBXGroup;
+			children = (
+				FD5F74E1238B4CA200DCEED3 /* PeynirUITests.swift */,
+				FD5F74E3238B4CA200DCEED3 /* Info.plist */,
+			);
+			path = PeynirUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FD5F74B8238B4CA100DCEED3 /* Peynir */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FD5F74E6238B4CA200DCEED3 /* Build configuration list for PBXNativeTarget "Peynir" */;
+			buildPhases = (
+				FD5F74B5238B4CA100DCEED3 /* Sources */,
+				FD5F74B6238B4CA100DCEED3 /* Frameworks */,
+				FD5F74B7238B4CA100DCEED3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Peynir;
+			productName = Peynir;
+			productReference = FD5F74B9238B4CA100DCEED3 /* Peynir.app */;
+			productType = "com.apple.product-type.application";
+		};
+		FD5F74D1238B4CA200DCEED3 /* PeynirTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FD5F74E9238B4CA200DCEED3 /* Build configuration list for PBXNativeTarget "PeynirTests" */;
+			buildPhases = (
+				FD5F74CE238B4CA200DCEED3 /* Sources */,
+				FD5F74CF238B4CA200DCEED3 /* Frameworks */,
+				FD5F74D0238B4CA200DCEED3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FD5F74D4238B4CA200DCEED3 /* PBXTargetDependency */,
+			);
+			name = PeynirTests;
+			productName = PeynirTests;
+			productReference = FD5F74D2238B4CA200DCEED3 /* PeynirTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		FD5F74DC238B4CA200DCEED3 /* PeynirUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FD5F74EC238B4CA200DCEED3 /* Build configuration list for PBXNativeTarget "PeynirUITests" */;
+			buildPhases = (
+				FD5F74D9238B4CA200DCEED3 /* Sources */,
+				FD5F74DA238B4CA200DCEED3 /* Frameworks */,
+				FD5F74DB238B4CA200DCEED3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FD5F74DF238B4CA200DCEED3 /* PBXTargetDependency */,
+			);
+			name = PeynirUITests;
+			productName = PeynirUITests;
+			productReference = FD5F74DD238B4CA200DCEED3 /* PeynirUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FD5F74B1238B4CA100DCEED3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1120;
+				LastUpgradeCheck = 1120;
+				ORGANIZATIONNAME = "Tolga AKIN";
+				TargetAttributes = {
+					FD5F74B8238B4CA100DCEED3 = {
+						CreatedOnToolsVersion = 11.2;
+					};
+					FD5F74D1238B4CA200DCEED3 = {
+						CreatedOnToolsVersion = 11.2;
+						TestTargetID = FD5F74B8238B4CA100DCEED3;
+					};
+					FD5F74DC238B4CA200DCEED3 = {
+						CreatedOnToolsVersion = 11.2;
+						TestTargetID = FD5F74B8238B4CA100DCEED3;
+					};
+				};
+			};
+			buildConfigurationList = FD5F74B4238B4CA100DCEED3 /* Build configuration list for PBXProject "Peynir" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = FD5F74B0238B4CA100DCEED3;
+			productRefGroup = FD5F74BA238B4CA100DCEED3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FD5F74B8238B4CA100DCEED3 /* Peynir */,
+				FD5F74D1238B4CA200DCEED3 /* PeynirTests */,
+				FD5F74DC238B4CA200DCEED3 /* PeynirUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FD5F74B7238B4CA100DCEED3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FD5F74CC238B4CA200DCEED3 /* LaunchScreen.storyboard in Resources */,
+				FD5F74C9238B4CA200DCEED3 /* Assets.xcassets in Resources */,
+				FD5F74C4238B4CA100DCEED3 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FD5F74D0238B4CA200DCEED3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FD5F74DB238B4CA200DCEED3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FD5F74B5238B4CA100DCEED3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FD5F74C1238B4CA100DCEED3 /* ViewController.swift in Sources */,
+				FD5F74BD238B4CA100DCEED3 /* AppDelegate.swift in Sources */,
+				FD5F74C7238B4CA100DCEED3 /* Peynir.xcdatamodeld in Sources */,
+				FD5F74BF238B4CA100DCEED3 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FD5F74CE238B4CA200DCEED3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FD5F74D7238B4CA200DCEED3 /* PeynirTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FD5F74D9238B4CA200DCEED3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FD5F74E2238B4CA200DCEED3 /* PeynirUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FD5F74D4238B4CA200DCEED3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FD5F74B8238B4CA100DCEED3 /* Peynir */;
+			targetProxy = FD5F74D3238B4CA200DCEED3 /* PBXContainerItemProxy */;
+		};
+		FD5F74DF238B4CA200DCEED3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FD5F74B8238B4CA100DCEED3 /* Peynir */;
+			targetProxy = FD5F74DE238B4CA200DCEED3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		FD5F74C2238B4CA100DCEED3 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FD5F74C3238B4CA100DCEED3 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		FD5F74CA238B4CA200DCEED3 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FD5F74CB238B4CA200DCEED3 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		FD5F74E4238B4CA200DCEED3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		FD5F74E5238B4CA200DCEED3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		FD5F74E7238B4CA200DCEED3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 286BN4BY9J;
+				INFOPLIST_FILE = Peynir/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.tolgaakin.Peynir;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FD5F74E8238B4CA200DCEED3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 286BN4BY9J;
+				INFOPLIST_FILE = Peynir/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.tolgaakin.Peynir;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		FD5F74EA238B4CA200DCEED3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 286BN4BY9J;
+				INFOPLIST_FILE = PeynirTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.tolgaakin.PeynirTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Peynir.app/Peynir";
+			};
+			name = Debug;
+		};
+		FD5F74EB238B4CA200DCEED3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 286BN4BY9J;
+				INFOPLIST_FILE = PeynirTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.tolgaakin.PeynirTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Peynir.app/Peynir";
+			};
+			name = Release;
+		};
+		FD5F74ED238B4CA200DCEED3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 286BN4BY9J;
+				INFOPLIST_FILE = PeynirUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.tolgaakin.PeynirUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Peynir;
+			};
+			name = Debug;
+		};
+		FD5F74EE238B4CA200DCEED3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 286BN4BY9J;
+				INFOPLIST_FILE = PeynirUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.tolgaakin.PeynirUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Peynir;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FD5F74B4238B4CA100DCEED3 /* Build configuration list for PBXProject "Peynir" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FD5F74E4238B4CA200DCEED3 /* Debug */,
+				FD5F74E5238B4CA200DCEED3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FD5F74E6238B4CA200DCEED3 /* Build configuration list for PBXNativeTarget "Peynir" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FD5F74E7238B4CA200DCEED3 /* Debug */,
+				FD5F74E8238B4CA200DCEED3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FD5F74E9238B4CA200DCEED3 /* Build configuration list for PBXNativeTarget "PeynirTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FD5F74EA238B4CA200DCEED3 /* Debug */,
+				FD5F74EB238B4CA200DCEED3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FD5F74EC238B4CA200DCEED3 /* Build configuration list for PBXNativeTarget "PeynirUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FD5F74ED238B4CA200DCEED3 /* Debug */,
+				FD5F74EE238B4CA200DCEED3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		FD5F74C5238B4CA100DCEED3 /* Peynir.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				FD5F74C6238B4CA100DCEED3 /* Peynir.xcdatamodel */,
+			);
+			currentVersion = FD5F74C6238B4CA100DCEED3 /* Peynir.xcdatamodel */;
+			path = Peynir.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = FD5F74B1238B4CA100DCEED3 /* Project object */;
+}
