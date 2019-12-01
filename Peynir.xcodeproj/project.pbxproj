@@ -7,15 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FD53DDDE238B585B000F341D /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD53DDDD238B585B000F341D /* LoginManager.swift */; };
+		FD53DDE1238B5C63000F341D /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD53DDE0238B5C63000F341D /* KeychainWrapper.swift */; };
+		FD53DDE3238B5C89000F341D /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD53DDE2238B5C89000F341D /* KeychainItemAccessibility.swift */; };
+		FD53DDE5238B5CAE000F341D /* UserInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD53DDE4238B5CAE000F341D /* UserInfoManager.swift */; };
+		FD53DDE8238B5F8A000F341D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD53DDE7238B5F8A000F341D /* LoginViewController.swift */; };
+		FD53DDEB238B6BE6000F341D /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD53DDEA238B6BE6000F341D /* Coordinator.swift */; };
+		FD53DDED238B79A8000F341D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD53DDEC238B79A8000F341D /* HomeViewController.swift */; };
 		FD5F74BD238B4CA100DCEED3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5F74BC238B4CA100DCEED3 /* AppDelegate.swift */; };
 		FD5F74BF238B4CA100DCEED3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5F74BE238B4CA100DCEED3 /* SceneDelegate.swift */; };
-		FD5F74C1238B4CA100DCEED3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5F74C0238B4CA100DCEED3 /* ViewController.swift */; };
-		FD5F74C4238B4CA100DCEED3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD5F74C2238B4CA100DCEED3 /* Main.storyboard */; };
+		FD5F74C1238B4CA100DCEED3 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5F74C0238B4CA100DCEED3 /* RootViewController.swift */; };
 		FD5F74C7238B4CA100DCEED3 /* Peynir.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FD5F74C5238B4CA100DCEED3 /* Peynir.xcdatamodeld */; };
 		FD5F74C9238B4CA200DCEED3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD5F74C8238B4CA200DCEED3 /* Assets.xcassets */; };
 		FD5F74CC238B4CA200DCEED3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD5F74CA238B4CA200DCEED3 /* LaunchScreen.storyboard */; };
 		FD5F74D7238B4CA200DCEED3 /* PeynirTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5F74D6238B4CA200DCEED3 /* PeynirTests.swift */; };
 		FD5F74E2238B4CA200DCEED3 /* PeynirUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5F74E1238B4CA200DCEED3 /* PeynirUITests.swift */; };
+		FDCA867A2394395400E41718 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCA86792394395400E41718 /* JSON.swift */; };
+		FDCA867F23943A2100E41718 /* LoginCookie.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCA867E23943A2100E41718 /* LoginCookie.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,11 +44,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FD53DDDD238B585B000F341D /* LoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
+		FD53DDE0238B5C63000F341D /* KeychainWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
+		FD53DDE2238B5C89000F341D /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainItemAccessibility.swift; sourceTree = "<group>"; };
+		FD53DDE4238B5CAE000F341D /* UserInfoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoManager.swift; sourceTree = "<group>"; };
+		FD53DDE7238B5F8A000F341D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		FD53DDEA238B6BE6000F341D /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		FD53DDEC238B79A8000F341D /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		FD5F74B9238B4CA100DCEED3 /* Peynir.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Peynir.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD5F74BC238B4CA100DCEED3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FD5F74BE238B4CA100DCEED3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		FD5F74C0238B4CA100DCEED3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		FD5F74C3238B4CA100DCEED3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		FD5F74C0238B4CA100DCEED3 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		FD5F74C6238B4CA100DCEED3 /* Peynir.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Peynir.xcdatamodel; sourceTree = "<group>"; };
 		FD5F74C8238B4CA200DCEED3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FD5F74CB238B4CA200DCEED3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -51,6 +65,9 @@
 		FD5F74DD238B4CA200DCEED3 /* PeynirUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PeynirUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD5F74E1238B4CA200DCEED3 /* PeynirUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeynirUITests.swift; sourceTree = "<group>"; };
 		FD5F74E3238B4CA200DCEED3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FDCA86792394395400E41718 /* JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
+		FDCA867E23943A2100E41718 /* LoginCookie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCookie.swift; sourceTree = "<group>"; };
+		FDCA868223944F3500E41718 /* Peynir.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Peynir.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,9 +95,50 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FD53DDDC238B584A000F341D /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				FD53DDDD238B585B000F341D /* LoginManager.swift */,
+				FD53DDE4238B5CAE000F341D /* UserInfoManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		FD53DDDF238B5C3C000F341D /* SwiftKeychainWrapper */ = {
+			isa = PBXGroup;
+			children = (
+				FD53DDE0238B5C63000F341D /* KeychainWrapper.swift */,
+				FD53DDE2238B5C89000F341D /* KeychainItemAccessibility.swift */,
+			);
+			path = SwiftKeychainWrapper;
+			sourceTree = "<group>";
+		};
+		FD53DDE6238B5F7D000F341D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FD53DDE7238B5F8A000F341D /* LoginViewController.swift */,
+				FD53DDEC238B79A8000F341D /* HomeViewController.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		FD53DDE9238B6BDA000F341D /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				FD53DDEA238B6BE6000F341D /* Coordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
 		FD5F74B0238B4CA100DCEED3 = {
 			isa = PBXGroup;
 			children = (
+				FDCA867D23943A1400E41718 /* Login */,
+				FDCA86782394392300E41718 /* Utilities */,
+				FD53DDE9238B6BDA000F341D /* Coordinator */,
+				FD53DDE6238B5F7D000F341D /* Views */,
+				FD53DDDF238B5C3C000F341D /* SwiftKeychainWrapper */,
+				FD53DDDC238B584A000F341D /* Managers */,
 				FD5F74BB238B4CA100DCEED3 /* Peynir */,
 				FD5F74D5238B4CA200DCEED3 /* PeynirTests */,
 				FD5F74E0238B4CA200DCEED3 /* PeynirUITests */,
@@ -101,10 +159,10 @@
 		FD5F74BB238B4CA100DCEED3 /* Peynir */ = {
 			isa = PBXGroup;
 			children = (
+				FDCA868223944F3500E41718 /* Peynir.entitlements */,
 				FD5F74BC238B4CA100DCEED3 /* AppDelegate.swift */,
 				FD5F74BE238B4CA100DCEED3 /* SceneDelegate.swift */,
-				FD5F74C0238B4CA100DCEED3 /* ViewController.swift */,
-				FD5F74C2238B4CA100DCEED3 /* Main.storyboard */,
+				FD5F74C0238B4CA100DCEED3 /* RootViewController.swift */,
 				FD5F74C8238B4CA200DCEED3 /* Assets.xcassets */,
 				FD5F74CA238B4CA200DCEED3 /* LaunchScreen.storyboard */,
 				FD5F74CD238B4CA200DCEED3 /* Info.plist */,
@@ -129,6 +187,22 @@
 				FD5F74E3238B4CA200DCEED3 /* Info.plist */,
 			);
 			path = PeynirUITests;
+			sourceTree = "<group>";
+		};
+		FDCA86782394392300E41718 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				FDCA86792394395400E41718 /* JSON.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		FDCA867D23943A1400E41718 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				FDCA867E23943A2100E41718 /* LoginCookie.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -237,7 +311,6 @@
 			files = (
 				FD5F74CC238B4CA200DCEED3 /* LaunchScreen.storyboard in Resources */,
 				FD5F74C9238B4CA200DCEED3 /* Assets.xcassets in Resources */,
-				FD5F74C4238B4CA100DCEED3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,9 +335,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FD5F74C1238B4CA100DCEED3 /* ViewController.swift in Sources */,
+				FD53DDE8238B5F8A000F341D /* LoginViewController.swift in Sources */,
+				FDCA867F23943A2100E41718 /* LoginCookie.swift in Sources */,
+				FD53DDDE238B585B000F341D /* LoginManager.swift in Sources */,
+				FD53DDEB238B6BE6000F341D /* Coordinator.swift in Sources */,
+				FDCA867A2394395400E41718 /* JSON.swift in Sources */,
+				FD5F74C1238B4CA100DCEED3 /* RootViewController.swift in Sources */,
 				FD5F74BD238B4CA100DCEED3 /* AppDelegate.swift in Sources */,
+				FD53DDE1238B5C63000F341D /* KeychainWrapper.swift in Sources */,
 				FD5F74C7238B4CA100DCEED3 /* Peynir.xcdatamodeld in Sources */,
+				FD53DDED238B79A8000F341D /* HomeViewController.swift in Sources */,
+				FD53DDE3238B5C89000F341D /* KeychainItemAccessibility.swift in Sources */,
+				FD53DDE5238B5CAE000F341D /* UserInfoManager.swift in Sources */,
 				FD5F74BF238B4CA100DCEED3 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -301,14 +383,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		FD5F74C2238B4CA100DCEED3 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FD5F74C3238B4CA100DCEED3 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		FD5F74CA238B4CA200DCEED3 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -438,6 +512,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Peynir/Peynir.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 286BN4BY9J;
 				INFOPLIST_FILE = Peynir/Info.plist;
@@ -456,6 +531,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Peynir/Peynir.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 286BN4BY9J;
 				INFOPLIST_FILE = Peynir/Info.plist;
