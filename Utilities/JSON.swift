@@ -10,24 +10,14 @@ import Foundation
 
 public typealias JSON = [String: Any]
 
-public extension String {
-    func toJson() -> JSON? {
-        guard let data = self.data(using: .utf8) else {
-            return nil
-        }
-
-        do {
-            return try JSONSerialization.jsonObject(with: data, options: []) as? JSON
-        } catch {
-            return nil
-        }
-    }
-}
-
 public extension JSON {
+    func toData() -> Data? {
+        return try? JSONSerialization.data(withJSONObject: self, options: [])
+    }
+
     func toString() -> String? {
         guard
-            let data = try? JSONSerialization.data(withJSONObject: self, options: []),
+            let data = self.toData(),
             let string = String(data: data, encoding: .utf8) else {
                 return nil
         }
@@ -43,11 +33,17 @@ public protocol JSONConstructable {
     static func fromJson(json: JSON) -> Self?
 }
 
-extension Result {
-    public var successValue: Success? {
-        if case .success(let value) = self {
-            return value
+extension JSONConstructable where Self: Decodable {
+    static func fromJson(json: JSON) -> Self? {
+        guard let data = json.toData() else { return nil }
+
+        do {
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            return try decoder.decode(Self.self, from: data)
+        } catch {
+            print("Error: \(error)")
+            return nil
         }
-        return nil
     }
 }

@@ -8,11 +8,6 @@
 
 import Foundation
 
-//public enum NetworkResource {
-//    case string(String)
-//    case json(JSON)
-//}
-
 public enum NetworkError: Error {
     case invalidUrl
     case invalidData
@@ -28,12 +23,16 @@ public typealias StringResourceResultCallback = (StringResourceResult) -> Void
 public typealias JSONResourceResultCallback = (JSONResourceResult) -> Void
 
 public protocol NetworkManagerInterface {
-    func getData(atUrl url: String, completion: DataResourceResultCallback?)
-    func getString(atUrl url: String, completion: StringResourceResultCallback?)
-    func getJson(atUrl url: String, completion: JSONResourceResultCallback?)
+    var baseUrl: String { get }
+
+    func getData(atUrl urlString: String, completion: DataResourceResultCallback?)
+    func getString(atUrl urlString: String, completion: StringResourceResultCallback?)
+    func getJson(atUrl urlString: String, completion: JSONResourceResultCallback?)
 }
 
 public class NetworkManager: NetworkManagerInterface {
+    public let baseUrl = "https://cow.ceng.metu.edu.tr"
+
     public func getData(atUrl urlString: String, completion: DataResourceResultCallback?) {
         guard let url = URL(string: urlString) else {
             completion?(.failure(NetworkError.invalidUrl))
@@ -65,6 +64,15 @@ public class NetworkManager: NetworkManagerInterface {
         }
     }
 
-    public func getJson(atUrl url: String, completion: JSONResourceResultCallback?) {
+    public func getJson(atUrl urlString: String, completion: JSONResourceResultCallback?) {
+        self.getString(atUrl: urlString) { result in
+            guard
+                let string = result.successValue,
+                let json = string.toJson() else {
+                    completion?(.failure(NetworkError.invalidData))
+                    return
+            }
+            completion?(.success(json))
+        }
     }
 }

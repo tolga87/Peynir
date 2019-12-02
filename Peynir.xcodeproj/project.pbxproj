@@ -22,9 +22,17 @@
 		FD5F74CC238B4CA200DCEED3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD5F74CA238B4CA200DCEED3 /* LaunchScreen.storyboard */; };
 		FD5F74D7238B4CA200DCEED3 /* PeynirTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5F74D6238B4CA200DCEED3 /* PeynirTests.swift */; };
 		FD5F74E2238B4CA200DCEED3 /* PeynirUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5F74E1238B4CA200DCEED3 /* PeynirUITests.swift */; };
+		FD9A665C2394B6AB00A10060 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9A665B2394B6AB00A10060 /* String+Extensions.swift */; };
+		FD9A665E2394B6EA00A10060 /* Result+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9A665D2394B6EA00A10060 /* Result+Extensions.swift */; };
 		FDCA867A2394395400E41718 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCA86792394395400E41718 /* JSON.swift */; };
 		FDCA8684239473D800E41718 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCA8683239473D800E41718 /* CacheManager.swift */; };
 		FDCA86862394764400E41718 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCA86852394764400E41718 /* NetworkManager.swift */; };
+		FDCA86892394964A00E41718 /* CategoryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCA86882394964A00E41718 /* CategoryListViewController.swift */; };
+		FDCA868C239496B000E41718 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCA868B239496B000E41718 /* DataProvider.swift */; };
+		FDCA868E2394980400E41718 /* CategoryListDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCA868D2394980400E41718 /* CategoryListDataProvider.swift */; };
+		FDCA86902394987600E41718 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCA868F2394987600E41718 /* APIClient.swift */; };
+		FDCA86942394A05500E41718 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCA86932394A05500E41718 /* Category.swift */; };
+		FDCA86962394A07D00E41718 /* CategoryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCA86952394A07D00E41718 /* CategoryList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,10 +74,18 @@
 		FD5F74DD238B4CA200DCEED3 /* PeynirUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PeynirUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD5F74E1238B4CA200DCEED3 /* PeynirUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeynirUITests.swift; sourceTree = "<group>"; };
 		FD5F74E3238B4CA200DCEED3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FD9A665B2394B6AB00A10060 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		FD9A665D2394B6EA00A10060 /* Result+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+Extensions.swift"; sourceTree = "<group>"; };
 		FDCA86792394395400E41718 /* JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
 		FDCA868223944F3500E41718 /* Peynir.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Peynir.entitlements; sourceTree = "<group>"; };
 		FDCA8683239473D800E41718 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		FDCA86852394764400E41718 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		FDCA86882394964A00E41718 /* CategoryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListViewController.swift; sourceTree = "<group>"; };
+		FDCA868B239496B000E41718 /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
+		FDCA868D2394980400E41718 /* CategoryListDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListDataProvider.swift; sourceTree = "<group>"; };
+		FDCA868F2394987600E41718 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		FDCA86932394A05500E41718 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		FDCA86952394A07D00E41718 /* CategoryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +136,7 @@
 		FD53DDE6238B5F7D000F341D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				FDCA86872394963A00E41718 /* CategoryList */,
 				FD53DDE7238B5F8A000F341D /* LoginViewController.swift */,
 				FD53DDEC238B79A8000F341D /* HomeViewController.swift */,
 			);
@@ -137,6 +154,8 @@
 		FD5F74B0238B4CA100DCEED3 = {
 			isa = PBXGroup;
 			children = (
+				FDCA86912394A03A00E41718 /* Client */,
+				FDCA868A239496A300E41718 /* DataProvider */,
 				FDCA86782394392300E41718 /* Utilities */,
 				FD53DDE9238B6BDA000F341D /* Coordinator */,
 				FD53DDE6238B5F7D000F341D /* Views */,
@@ -196,8 +215,45 @@
 			isa = PBXGroup;
 			children = (
 				FDCA86792394395400E41718 /* JSON.swift */,
+				FD9A665B2394B6AB00A10060 /* String+Extensions.swift */,
+				FD9A665D2394B6EA00A10060 /* Result+Extensions.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		FDCA86872394963A00E41718 /* CategoryList */ = {
+			isa = PBXGroup;
+			children = (
+				FDCA86882394964A00E41718 /* CategoryListViewController.swift */,
+			);
+			path = CategoryList;
+			sourceTree = "<group>";
+		};
+		FDCA868A239496A300E41718 /* DataProvider */ = {
+			isa = PBXGroup;
+			children = (
+				FDCA868B239496B000E41718 /* DataProvider.swift */,
+				FDCA868D2394980400E41718 /* CategoryListDataProvider.swift */,
+			);
+			path = DataProvider;
+			sourceTree = "<group>";
+		};
+		FDCA86912394A03A00E41718 /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				FDCA86922394A04700E41718 /* Data */,
+				FDCA868F2394987600E41718 /* APIClient.swift */,
+			);
+			path = Client;
+			sourceTree = "<group>";
+		};
+		FDCA86922394A04700E41718 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				FDCA86932394A05500E41718 /* Category.swift */,
+				FDCA86952394A07D00E41718 /* CategoryList.swift */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -331,10 +387,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				FD53DDE8238B5F8A000F341D /* LoginViewController.swift in Sources */,
+				FD9A665C2394B6AB00A10060 /* String+Extensions.swift in Sources */,
 				FD53DDDE238B585B000F341D /* LoginManager.swift in Sources */,
+				FDCA86942394A05500E41718 /* Category.swift in Sources */,
+				FDCA868C239496B000E41718 /* DataProvider.swift in Sources */,
+				FDCA868E2394980400E41718 /* CategoryListDataProvider.swift in Sources */,
+				FD9A665E2394B6EA00A10060 /* Result+Extensions.swift in Sources */,
 				FD53DDEB238B6BE6000F341D /* Coordinator.swift in Sources */,
 				FDCA867A2394395400E41718 /* JSON.swift in Sources */,
+				FDCA86962394A07D00E41718 /* CategoryList.swift in Sources */,
 				FD5F74C1238B4CA100DCEED3 /* RootViewController.swift in Sources */,
+				FDCA86892394964A00E41718 /* CategoryListViewController.swift in Sources */,
 				FDCA8684239473D800E41718 /* CacheManager.swift in Sources */,
 				FD5F74BD238B4CA100DCEED3 /* AppDelegate.swift in Sources */,
 				FD53DDE1238B5C63000F341D /* KeychainWrapper.swift in Sources */,
@@ -344,6 +407,7 @@
 				FDCA86862394764400E41718 /* NetworkManager.swift in Sources */,
 				FD53DDE5238B5CAE000F341D /* UserInfoManager.swift in Sources */,
 				FD5F74BF238B4CA100DCEED3 /* SceneDelegate.swift in Sources */,
+				FDCA86902394987600E41718 /* APIClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

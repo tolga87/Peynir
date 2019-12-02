@@ -14,6 +14,7 @@ public enum LoginError: Error {
     case unknown
 }
 
+// TODO: Change this to use NetworkManager.
 protocol LoginManagerInterface {
     var isLoggedIn: Bool { get }
     func login(username: String, password: String, completion: LoginCallback?)
@@ -25,9 +26,11 @@ class LoginManager: LoginManagerInterface {
     var didLoginNotification = Notification.Name("LoginManagerDidLogin")
     var didLogoutNotification = Notification.Name("LoginManagerDidLogout")
 
-    private var userInfoManager: UserInfoManagerInterface?
+    private let userInfoManager: UserInfoManagerInterface
+    private let networkManager: NetworkManagerInterface
 
-    public init(userInfoManager: UserInfoManagerInterface) {
+    public init(networkManager: NetworkManagerInterface, userInfoManager: UserInfoManagerInterface) {
+        self.networkManager = networkManager
         self.userInfoManager = userInfoManager
     }
 
@@ -40,7 +43,7 @@ class LoginManager: LoginManagerInterface {
     }
 
     func login(username: String, password: String, completion: LoginCallback?) {
-        var request = URLRequest(url: Consts.loginUrl)
+        var request = URLRequest(url: self.loginUrl)
 
         request.httpMethod = "POST"
         request.httpBody = "username=\(username)&password=\(password)".data(using: .utf8)
@@ -69,8 +72,7 @@ class LoginManager: LoginManagerInterface {
 }
 
 private extension LoginManager {
-    struct Consts {
-        static let baseUrl = URL(string: "https://cow.ceng.metu.edu.tr/")!
-        static let loginUrl = URL(string: "https://cow.ceng.metu.edu.tr/auth/ldap/callback")!
+    var loginUrl: URL {
+        return URL(string: "\(self.networkManager.baseUrl)/auth/ldap/callback")!
     }
 }

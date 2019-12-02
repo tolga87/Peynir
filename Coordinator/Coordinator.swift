@@ -6,14 +6,16 @@
 //  Copyright © 2019 Tolga AKIN. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class Coordinator {
+    private let apiClient: APIClient
     private let userInfoManager: UserInfoManagerInterface
     private let loginManager: LoginManagerInterface
     private let rootViewController: RootViewController
 
-    public init(userInfoManager: UserInfoManagerInterface, loginManager: LoginManagerInterface, rootViewController: RootViewController) {
+    public init(apiClient: APIClient, userInfoManager: UserInfoManagerInterface, loginManager: LoginManagerInterface, rootViewController: RootViewController) {
+        self.apiClient = apiClient
         self.userInfoManager = userInfoManager
         self.loginManager = loginManager
         self.rootViewController = rootViewController
@@ -38,8 +40,18 @@ private extension Coordinator {
 
     func showHomeScreen() {
         DispatchQueue.main.async {
-            let homeViewController = HomeViewController()
+            let categoryListDataProvider = CategoryListDataProvider(apiClient: self.apiClient)
+            let categoryListViewController = CategoryListViewController(dataProvider: categoryListDataProvider)
+            let homeNavController = UINavigationController(rootViewController: categoryListViewController)
+            homeNavController.tabBarItem = UITabBarItem(title: "Home", image: nil, tag: 0)
+
+            let settingsViewController = UIViewController()
+            let settingsNavController = UINavigationController(rootViewController: settingsViewController)
+            settingsNavController.tabBarItem = UITabBarItem(title: "Settings", image: nil, tag: 0)
+
+            let homeViewController = HomeViewController(viewControllers: [homeNavController, settingsNavController])
             homeViewController.modalPresentationStyle = .fullScreen
+
             let presentingViewController = self.rootViewController.presentedViewController ?? self.rootViewController
             presentingViewController.present(homeViewController, animated: false, completion: nil)
         }

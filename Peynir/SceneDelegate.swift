@@ -28,9 +28,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window?.makeKeyAndVisible()
         self.window?.windowScene = windowScene
 
+        let networkManager = NetworkManager()
         let userInfoManager = UserInfoManager()
-        let loginManager = LoginManager(userInfoManager: userInfoManager)
-        self.coordinator = Coordinator(userInfoManager: userInfoManager, loginManager: loginManager, rootViewController: rootViewController)
+        let loginManager = LoginManager(networkManager: networkManager, userInfoManager: userInfoManager)
+        let apiClient = APIClient(networkManager: networkManager)
+        self.coordinator = Coordinator(apiClient: apiClient, userInfoManager: userInfoManager, loginManager: loginManager, rootViewController: rootViewController)
         self.coordinator?.start()
     }
 
