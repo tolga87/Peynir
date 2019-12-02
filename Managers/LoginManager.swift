@@ -8,7 +8,7 @@
 
 import Foundation
 
-typealias LoginCallback = (Bool, Error?) -> Void
+typealias LoginCallback = (LoginError?) -> Void
 
 public enum LoginError: Error {
     case unknown
@@ -32,51 +32,36 @@ class LoginManager: LoginManagerInterface {
     }
 
     var isLoggedIn: Bool {
-        let url = Consts.loginUrl
-
-        if HTTPCookieStorage.shared.cookies(for: url)?.first != nil {
-            return true
-        }
-        if let loginCookie = self.userInfoManager?.loginCookie {
-            HTTPCookieStorage.shared.setCookies([loginCookie.httpCookie], for: url, mainDocumentURL: nil)
-            return true
+        guard let cookies = HTTPCookieStorage.shared.cookies else {
+            return false
         }
 
-        return false
+        return (cookies.count > 0)
     }
 
     func login(username: String, password: String, completion: LoginCallback?) {
-        let url = Consts.loginUrl
         var request = URLRequest(url: Consts.loginUrl)
 
         request.httpMethod = "POST"
         request.httpBody = "username=\(username)&password=\(password)".data(using: .utf8)
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard
-                let httpResponse = response as? HTTPURLResponse,
-                let headers = httpResponse.allHeaderFields as? [String: String]
-                else {
-                    completion?(false, LoginError.unknown)
-                    return
+            var isLoggedIn = false
+            if let cookies = HTTPCookieStorage.shared.cookies {
+                // Look for a cookie named "_t"
+                isLoggedIn = cookies.reduce(false) { (foundToken, cookie) -> Bool in
+                    if foundToken {
+                        return true
+                    }
+                    return cookie.name == "_t"
+                }
             }
 
-//            let cookies = HTTPCookie.cookies(withResponseHeaderFields: headers, for: url)
-//            guard cookies.count > 0 else {
-//                completion?(false, LoginError.unknown)
-//                return
-//            }
-            guard let loginCookie = LoginCookie(headers: headers, url: url) else {
-                completion?(false, LoginError.unknown)
-                return
+            if isLoggedIn {
+                NotificationCenter.default.post(name: self.didLoginNotification, object: self)
+                completion?(nil)
+            } else {
+                completion?(.unknown)
             }
-
-            HTTPCookieStorage.shared.setCookies([loginCookie.httpCookie], for: url, mainDocumentURL: nil)
-            self.userInfoManager?.saveLoginCookie(newLoginCookie: loginCookie)
-
-            //  let cookie = httpResponse.allHeaderFields["Set-Cookie"]
-            print("Cookies updated!")
-            NotificationCenter.default.post(name: self.didLoginNotification, object: self)
-            completion?(true, nil)
         }
         task.resume()
 
@@ -84,27 +69,8 @@ class LoginManager: LoginManagerInterface {
 }
 
 private extension LoginManager {
-    func getMaxCookieAge(from headers: [String: String]) -> Int? {
-        guard let string = headers["Strict-Transport-Security"] else { return nil }
-
-        // Possible syntax:
-        // max-age=31536000
-        // max-age=31536000; includeSubDomains
-        // max-age=31536000; preload
-        let maxAgeString = "max-age"
-
-        let tokens = string.components(separatedBy: ";").map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
-        for token in tokens {
-            let maxAgeTokens = token.components(separatedBy: "=")
-            if maxAgeTokens.count == 2 && maxAgeTokens[0] == maxAgeString {
-                return Int(maxAgeTokens[1])
-            }
-        }
-
-        return nil
-    }
-
     struct Consts {
-        static let loginUrl = URL(string: "https://discourse.ceng.metu.edu.tr/auth/ldap/callback")!
+        static let baseUrl = URL(string: "https://cow.ceng.metu.edu.tr/")!
+        static let loginUrl = URL(string: "https://cow.ceng.metu.edu.tr/auth/ldap/callback")!
     }
 }

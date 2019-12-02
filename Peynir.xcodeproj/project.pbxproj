@@ -23,7 +23,8 @@
 		FD5F74D7238B4CA200DCEED3 /* PeynirTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5F74D6238B4CA200DCEED3 /* PeynirTests.swift */; };
 		FD5F74E2238B4CA200DCEED3 /* PeynirUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5F74E1238B4CA200DCEED3 /* PeynirUITests.swift */; };
 		FDCA867A2394395400E41718 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCA86792394395400E41718 /* JSON.swift */; };
-		FDCA867F23943A2100E41718 /* LoginCookie.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCA867E23943A2100E41718 /* LoginCookie.swift */; };
+		FDCA8684239473D800E41718 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCA8683239473D800E41718 /* CacheManager.swift */; };
+		FDCA86862394764400E41718 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCA86852394764400E41718 /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,8 +67,9 @@
 		FD5F74E1238B4CA200DCEED3 /* PeynirUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeynirUITests.swift; sourceTree = "<group>"; };
 		FD5F74E3238B4CA200DCEED3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FDCA86792394395400E41718 /* JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
-		FDCA867E23943A2100E41718 /* LoginCookie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCookie.swift; sourceTree = "<group>"; };
 		FDCA868223944F3500E41718 /* Peynir.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Peynir.entitlements; sourceTree = "<group>"; };
+		FDCA8683239473D800E41718 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
+		FDCA86852394764400E41718 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,8 @@
 			children = (
 				FD53DDDD238B585B000F341D /* LoginManager.swift */,
 				FD53DDE4238B5CAE000F341D /* UserInfoManager.swift */,
+				FDCA8683239473D800E41718 /* CacheManager.swift */,
+				FDCA86852394764400E41718 /* NetworkManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -133,7 +137,6 @@
 		FD5F74B0238B4CA100DCEED3 = {
 			isa = PBXGroup;
 			children = (
-				FDCA867D23943A1400E41718 /* Login */,
 				FDCA86782394392300E41718 /* Utilities */,
 				FD53DDE9238B6BDA000F341D /* Coordinator */,
 				FD53DDE6238B5F7D000F341D /* Views */,
@@ -195,14 +198,6 @@
 				FDCA86792394395400E41718 /* JSON.swift */,
 			);
 			path = Utilities;
-			sourceTree = "<group>";
-		};
-		FDCA867D23943A1400E41718 /* Login */ = {
-			isa = PBXGroup;
-			children = (
-				FDCA867E23943A2100E41718 /* LoginCookie.swift */,
-			);
-			path = Login;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -336,16 +331,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				FD53DDE8238B5F8A000F341D /* LoginViewController.swift in Sources */,
-				FDCA867F23943A2100E41718 /* LoginCookie.swift in Sources */,
 				FD53DDDE238B585B000F341D /* LoginManager.swift in Sources */,
 				FD53DDEB238B6BE6000F341D /* Coordinator.swift in Sources */,
 				FDCA867A2394395400E41718 /* JSON.swift in Sources */,
 				FD5F74C1238B4CA100DCEED3 /* RootViewController.swift in Sources */,
+				FDCA8684239473D800E41718 /* CacheManager.swift in Sources */,
 				FD5F74BD238B4CA100DCEED3 /* AppDelegate.swift in Sources */,
 				FD53DDE1238B5C63000F341D /* KeychainWrapper.swift in Sources */,
 				FD5F74C7238B4CA100DCEED3 /* Peynir.xcdatamodeld in Sources */,
 				FD53DDED238B79A8000F341D /* HomeViewController.swift in Sources */,
 				FD53DDE3238B5C89000F341D /* KeychainItemAccessibility.swift in Sources */,
+				FDCA86862394764400E41718 /* NetworkManager.swift in Sources */,
 				FD53DDE5238B5CAE000F341D /* UserInfoManager.swift in Sources */,
 				FD5F74BF238B4CA100DCEED3 /* SceneDelegate.swift in Sources */,
 			);

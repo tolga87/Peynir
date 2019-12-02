@@ -111,10 +111,10 @@ class LoginViewController: UIViewController {
         }
 
         self.spinner.startAnimating()
-        self.loginManager.login(username: username, password: password) { loggedIn, error in
+        self.loginManager.login(username: username, password: password) { error in
             DispatchQueue.main.async {
                 self.spinner.stopAnimating()
-                if loggedIn {
+                if error == nil {
                     self.userInfoManager.saveUserCredentials(newCredentials: UserCredentials(username: username, password: password))
                 }
             }

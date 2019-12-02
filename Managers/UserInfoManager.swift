@@ -16,9 +16,6 @@ struct UserCredentials {
 protocol UserInfoManagerInterface {
     var userCredentials: UserCredentials? { get }
     func saveUserCredentials(newCredentials: UserCredentials?)
-
-    var loginCookie: LoginCookie? { get }
-    func saveLoginCookie(newLoginCookie: LoginCookie)
 }
 
 class UserInfoManager: UserInfoManagerInterface {
@@ -44,30 +41,6 @@ class UserInfoManager: UserInfoManagerInterface {
         self.customKeychainWrapperInstance.set(credentials.username, forKey: Consts.usernameKey)
         self.customKeychainWrapperInstance.set(credentials.password, forKey: Consts.passwordKey)
     }
-
-    var loginCookie: LoginCookie? {
-        guard
-            let string = self.customKeychainWrapperInstance.string(forKey: Consts.loginCookieKey),
-            let data = string.data(using: .utf8) else {
-                return nil
-        }
-
-        let decoder = JSONDecoder()
-        return try? decoder.decode(LoginCookie.self, from: data)
-    }
-
-    func saveLoginCookie(newLoginCookie: LoginCookie) {
-        let encoder = JSONEncoder()
-        guard
-            let data = try? encoder.encode(newLoginCookie),
-            let string = String(data: data, encoding: .utf8) else {
-                // TODO: Return error?
-                return
-        }
-
-        self.customKeychainWrapperInstance.set(string, forKey: Consts.loginCookieKey)
-    }
-
 }
 
 private extension UserInfoManager {

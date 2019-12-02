@@ -33,8 +33,21 @@ public extension JSON {
         }
         return string
     }
+
+    func prettyPrint() {
+        self.forEach { print("\($0): \($1)") }
+    }
 }
 
 public protocol JSONConstructable {
     static func fromJson(json: JSON) -> Self?
+}
+
+extension Result {
+    public var successValue: Success? {
+        if case .success(let value) = self {
+            return value
+        }
+        return nil
+    }
 }
