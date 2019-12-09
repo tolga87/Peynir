@@ -12,9 +12,16 @@ enum APIError: Error {
     case badData
 }
 
+private typealias JSONCallback = (Result<JSON, Error>) -> Void
 typealias CategoryListCallback = (Result<CategoryList, Error>) -> Void
+typealias TopicListCallback = (Result<TopicList, Error>) -> Void
 
-class APIClient {
+protocol APIClientInterface {
+    func fetchCategoryList(completion: CategoryListCallback?)
+    func fetchTopicList(withCategoryId categoryId: Int, completion: TopicListCallback?)
+}
+
+class APIClient: APIClientInterface {
     private let networkManager: NetworkManagerInterface
 
     init(networkManager: NetworkManagerInterface) {
@@ -38,6 +45,39 @@ class APIClient {
             case .failure(let error):
                 completion?(.failure(error))
                 return
+            }
+        }
+    }
+
+    func fetchTopicList(withCategoryId categoryId: Int, completion: TopicListCallback?) {
+        let url = "\(self.networkManager.baseUrl)/c/\(categoryId).json"
+        self.fetchJson(atUrl: url) { result in
+            switch result {
+            case .success(let json):
+                guard
+                    let topicListJson = json["topic_list"] as? JSON,
+                    let topicList = TopicList.fromJson(json: topicListJson) else {
+                        completion?(.failure(APIError.badData))
+                        return
+                }
+                completion?(.success(topicList))
+
+            case .failure(let error):
+                completion?(.failure(error))
+            }
+        }
+    }
+}
+
+private extension APIClient {
+    func fetchJson(atUrl urlString: String, completion: JSONCallback?) {
+        self.networkManager.getJson(atUrl: urlString) { result in
+            switch result {
+            case .success(let json):
+                completion?(.success(json))
+
+            case .failure(let error):
+                completion?(.failure(error))
             }
         }
     }

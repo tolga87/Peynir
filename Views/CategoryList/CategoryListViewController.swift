@@ -9,9 +9,10 @@
 import UIKit
 
 class CategoryListViewController: UIViewController {
-    let dataProvider: CategoryListDataProvider
+    weak var actionHandler: CategoryListActionHandler?
 
-    let tableView: UITableView
+    private let dataProvider: CategoryListDataProvider
+    private let tableView: UITableView
 
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -31,12 +32,13 @@ class CategoryListViewController: UIViewController {
         self.view.addSubview(self.tableView)
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: Consts.tableViewReuseId)
         self.tableView.dataSource = self
+        self.tableView.delegate = self
         self.tableView.refreshControl = self.refreshControl
 
-        self.tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10).isActive = true
-        self.tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10).isActive = true
-        self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0).isActive = true
-        self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
+        self.tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        self.tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
     }
 
     required init?(coder: NSCoder) {
@@ -45,6 +47,11 @@ class CategoryListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.title = "All Categories"
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
 
         if case .loading = self.dataProvider.state {
             self.refreshControl.beginRefreshing()
@@ -69,13 +76,25 @@ extension CategoryListViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let item = self.dataProvider.item(atIndexPath: indexPath) else {
+        guard let category = self.dataProvider.item(atIndexPath: indexPath) else {
             return UITableViewCell()
         }
 
         let cell = tableView.dequeueReusableCell(withIdentifier: Consts.tableViewReuseId, for: indexPath)
-        cell.textLabel?.text = "Category: `\(item.name)`"
+        cell.textLabel?.text = "Category: `\(category.name)`"
         return cell
+    }
+}
+
+extension CategoryListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+
+        guard let category = self.dataProvider.item(atIndexPath: indexPath) else {
+            return
+        }
+
+        self.actionHandler?.didSelectCategory(category)
     }
 }
 

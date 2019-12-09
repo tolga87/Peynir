@@ -11,7 +11,7 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    var coordinator: Coordinator?
+    var coordinator: MainCoordinator?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -32,7 +32,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let userInfoManager = UserInfoManager()
         let loginManager = LoginManager(networkManager: networkManager, userInfoManager: userInfoManager)
         let apiClient = APIClient(networkManager: networkManager)
-        self.coordinator = Coordinator(apiClient: apiClient, userInfoManager: userInfoManager, loginManager: loginManager, rootViewController: rootViewController)
+        let cacheManager = CacheManager()
+        self.coordinator = MainCoordinator(apiClient: apiClient, cacheManager: cacheManager, userInfoManager: userInfoManager, loginManager: loginManager, rootViewController: rootViewController)
         self.coordinator?.start()
     }
 

@@ -47,3 +47,26 @@ extension JSONConstructable where Self: Decodable {
         }
     }
 }
+
+public protocol JSONConvertable {
+    func toJson() -> JSON?
+}
+
+extension JSONConvertable where Self: Encodable {
+    func toJson() -> JSON? {
+        let encoder = JSONEncoder()
+        do {
+            let jsonData = try encoder.encode(self)
+            guard
+                let jsonString = String(data: jsonData, encoding: .utf8),
+                let json = jsonString.toJson() else {
+                    return nil
+            }
+
+            return json
+        }
+        catch {
+            return nil
+        }
+    }
+}

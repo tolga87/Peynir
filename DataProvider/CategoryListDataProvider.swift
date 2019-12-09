@@ -9,11 +9,16 @@
 import Foundation
 
 class CategoryListDataProvider: DataProvider {
-    private let apiClient: APIClient
+    public let apiClient: APIClientInterface
+    public let cacheManager: CacheManagerInterface
     private var categoryList: CategoryList?
 
-    init(apiClient: APIClient) {
+    init(apiClient: APIClientInterface, cacheManager: CacheManagerInterface) {
         self.apiClient = apiClient
+        self.cacheManager = cacheManager
+
+        self.loadFromCache()
+        self.fetch()
     }
 
     // MARK: - DataProvider
@@ -31,6 +36,7 @@ class CategoryListDataProvider: DataProvider {
             case .success(let categoryList):
                 self.state = .loaded
                 self.categoryList = categoryList
+                self.saveToCache()
 
             case .failure(let error):
                 self.state = .error(error)
@@ -52,5 +58,32 @@ class CategoryListDataProvider: DataProvider {
             return nil
         }
         return categoryList.categories[indexPath.row]
+    }
+}
+
+private extension CategoryListDataProvider {
+    func loadFromCache() {
+        if
+            let cachedCategoryListJson = self.cacheManager.loadJson(withId: self.cacheManager.keys.categoryListKey).successValue,
+            let cachedCategoryList = CategoryList.fromJson(json: cachedCategoryListJson) {
+                self.categoryList = cachedCategoryList
+                print("ℹ️ Loaded category list from cache.")
+        } else {
+            print("ℹ️ Coult not load category list from cache.")
+        }
+    }
+
+    func saveToCache() {
+        var saveError: Error?
+
+        if let categoryList = self.categoryList, let json = categoryList.toJson() {
+            saveError = self.cacheManager.save(json: json, withId: self.cacheManager.keys.categoryListKey)
+        }
+
+        if let saveError = saveError {
+            print("ℹ️ Coult not save category list to cache: \(saveError)")
+        } else {
+            print("ℹ️ Saved category list to cache")
+        }
     }
 }

@@ -8,8 +8,8 @@
 
 import Foundation
 
-public extension String {
-    func toJson() -> JSON? {
+extension String: JSONConvertable {
+    public func toJson() -> JSON? {
         guard let data = self.data(using: .utf8) else {
             return nil
         }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct CategoryList: JSONConstructable, Codable {
+struct CategoryList: JSONConstructable, JSONConvertable, Codable {
     let canCreateCategory: Bool  // TODO: This is fragile. Implement a safe method for extracting numbers.
     let categories: [Category]
 
@@ -31,6 +31,12 @@ struct CategoryList: JSONConstructable, Codable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
         self.canCreateCategory = try container.decode(Bool.self, forKey: .canCreateCategory)
-        self.categories = try container.decode([Category].self, forKey: .categories)
+
+        do {
+            self.categories = try container.decode([Category].self, forKey: .categories)
+        } catch {
+            self.categories = []
+            print("wtf happened?")
+        }
     }
 }
