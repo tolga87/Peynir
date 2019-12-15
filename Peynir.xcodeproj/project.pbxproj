@@ -19,6 +19,7 @@
 		FD53DDE8238B5F8A000F341D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD53DDE7238B5F8A000F341D /* LoginViewController.swift */; };
 		FD53DDEB238B6BE6000F341D /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD53DDEA238B6BE6000F341D /* MainCoordinator.swift */; };
 		FD53DDED238B79A8000F341D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD53DDEC238B79A8000F341D /* HomeViewController.swift */; };
+		FD54661D23A6CB85007556F2 /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD54661C23A6CB85007556F2 /* Logging.swift */; };
 		FD5F74BD238B4CA100DCEED3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5F74BC238B4CA100DCEED3 /* AppDelegate.swift */; };
 		FD5F74BF238B4CA100DCEED3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5F74BE238B4CA100DCEED3 /* SceneDelegate.swift */; };
 		FD5F74C1238B4CA100DCEED3 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5F74C0238B4CA100DCEED3 /* RootViewController.swift */; };
@@ -73,6 +74,7 @@
 		FD53DDE7238B5F8A000F341D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		FD53DDEA238B6BE6000F341D /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		FD53DDEC238B79A8000F341D /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		FD54661C23A6CB85007556F2 /* Logging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = "<group>"; };
 		FD5F74B9238B4CA100DCEED3 /* Peynir.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Peynir.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD5F74BC238B4CA100DCEED3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FD5F74BE238B4CA100DCEED3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -179,6 +181,14 @@
 			path = Coordinator;
 			sourceTree = "<group>";
 		};
+		FD54661B23A6CB68007556F2 /* Logging */ = {
+			isa = PBXGroup;
+			children = (
+				FD54661C23A6CB85007556F2 /* Logging.swift */,
+			);
+			path = Logging;
+			sourceTree = "<group>";
+		};
 		FD5F74B0238B4CA100DCEED3 = {
 			isa = PBXGroup;
 			children = (
@@ -243,6 +253,7 @@
 		FDCA86782394392300E41718 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				FD54661B23A6CB68007556F2 /* Logging */,
 				FDCA86792394395400E41718 /* JSON.swift */,
 				FD9A665B2394B6AB00A10060 /* String+Extensions.swift */,
 				FD9A665D2394B6EA00A10060 /* Result+Extensions.swift */,
@@ -444,6 +455,7 @@
 				FD53DDE3238B5C89000F341D /* KeychainItemAccessibility.swift in Sources */,
 				FD19C450239DC43500AFBE0E /* CategoryListCoordinator.swift in Sources */,
 				FD19C452239DC54100AFBE0E /* SettingsCoordinator.swift in Sources */,
+				FD54661D23A6CB85007556F2 /* Logging.swift in Sources */,
 				FDCA86862394764400E41718 /* NetworkManager.swift in Sources */,
 				FD53DDE5238B5CAE000F341D /* UserInfoManager.swift in Sources */,
 				FD5F74BF238B4CA100DCEED3 /* SceneDelegate.swift in Sources */,

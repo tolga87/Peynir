@@ -36,7 +36,7 @@ struct CategoryList: JSONConstructable, JSONConvertable, Codable {
             self.categories = try container.decode([Category].self, forKey: .categories)
         } catch {
             self.categories = []
-            print("wtf happened?")
+            logError("Could not decode CategoryList: \(error)")
         }
     }
 }

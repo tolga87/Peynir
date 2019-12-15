@@ -67,23 +67,19 @@ private extension CategoryListDataProvider {
             let cachedCategoryListJson = self.cacheManager.loadJson(withId: self.cacheManager.keys.categoryListKey).successValue,
             let cachedCategoryList = CategoryList.fromJson(json: cachedCategoryListJson) {
                 self.categoryList = cachedCategoryList
-                print("ℹ️ Loaded category list from cache.")
+                logDebug("Loaded \(cachedCategoryList.categories.count) categories from cache.")
         } else {
-            print("ℹ️ Coult not load category list from cache.")
+            logDebug("Could not load category list from cache.")
         }
     }
 
     func saveToCache() {
-        var saveError: Error?
+        guard let categoryList = self.categoryList, let json = categoryList.toJson() else { return }
 
-        if let categoryList = self.categoryList, let json = categoryList.toJson() {
-            saveError = self.cacheManager.save(json: json, withId: self.cacheManager.keys.categoryListKey)
-        }
-
-        if let saveError = saveError {
-            print("ℹ️ Coult not save category list to cache: \(saveError)")
+        if let saveError = self.cacheManager.save(json: json, withId: self.cacheManager.keys.categoryListKey) {
+            logError("Could not save category list to cache: \(saveError)")
         } else {
-            print("ℹ️ Saved category list to cache")
+            logDebug("Saved \(categoryList.categories.count) categories to cache")
         }
     }
 }

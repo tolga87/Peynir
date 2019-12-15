@@ -70,23 +70,19 @@ private extension TopicListDataProvider {
             let cachedtopicListJson = self.cacheManager.loadJson(withId: self.cacheManager.keys.topicListKey).successValue,
             let cachedtopicList = TopicList.fromJson(json: cachedtopicListJson) {
                 self.topicList = cachedtopicList
-                print("ℹ️ Loaded topic list from cache.")
+                logDebug("Loaded \(cachedtopicList.topics.count) topics from cache for category \(self.categoryId)")
         } else {
-            print("ℹ️ Coult not load topic list from cache.")
+            logDebug("Could not load topic list from cache for category \(self.categoryId)")
         }
     }
 
     func saveToCache() {
-        var saveError: Error?
+        guard let topicList = self.topicList, let json = topicList.toJson() else { return }
 
-        if let topicList = self.topicList, let json = topicList.toJson() {
-            saveError = self.cacheManager.save(json: json, withId: self.cacheManager.keys.topicListKey)
-        }
-
-        if let saveError = saveError {
-            print("ℹ️ Coult not save topic list to cache: \(saveError)")
+        if let saveError = self.cacheManager.save(json: json, withId: self.cacheManager.keys.topicListKey) {
+            logDebug("Could not save topic list to cache for category \(self.categoryId): \(saveError)")
         } else {
-            print("ℹ️ Saved topic list to cache")
+            logDebug("Saved \(topicList.topics.count) topics to cache for category \(self.categoryId)")
         }
     }
 }
