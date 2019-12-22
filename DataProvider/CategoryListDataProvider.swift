@@ -69,6 +69,7 @@ private extension CategoryListDataProvider {
                 self.categoryList = cachedCategoryList
                 logDebug("Loaded \(cachedCategoryList.categories.count) categories from cache.")
         } else {
+            // TODO: Handle JSON schema changes.
             logDebug("Could not load category list from cache.")
         }
     }

@@ -47,7 +47,7 @@ class CategoryListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "All Categories"
+        self.navigationItem.title = "Home"
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -81,7 +81,7 @@ extension CategoryListViewController: UITableViewDataSource {
         }
 
         let cell = tableView.dequeueReusableCell(withIdentifier: Consts.tableViewReuseId, for: indexPath)
-        cell.textLabel?.text = "Category: `\(category.name)`"
+        cell.textLabel?.text = category.name
         return cell
     }
 }

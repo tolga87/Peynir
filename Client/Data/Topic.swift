@@ -13,5 +13,5 @@ struct Topic: JSONConstructable, Codable {
     let title: String
     let replyCount: Int
     let views: Int
-    let lastPostedAt: String
+    let lastPostedAt: String?
 }

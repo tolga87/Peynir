@@ -29,6 +29,7 @@ class CategoryListCoordinator: Coordinator {
 extension CategoryListCoordinator: CategoryListActionHandler {
     func didSelectCategory(_ category: Category) {
         let topicListDataProvider = TopicListDataProvider(categoryId: category.id,
+                                                          categoryName: category.name,
                                                           apiClient: self.categoryListDataProvider.apiClient,
                                                           cacheManager: self.categoryListDataProvider.cacheManager)
         let topicListCoordinator = TopicListCoordinator(topicListDataProvider: topicListDataProvider, navigationController: self.navigationController)

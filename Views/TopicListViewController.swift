@@ -33,7 +33,7 @@ class TopicListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Topics"
+        self.title = self.dataProvider.categoryName
 
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: Consts.tableViewReuseId)
         self.tableView.dataSource = self
@@ -69,7 +69,7 @@ extension TopicListViewController: UITableViewDataSource {
         }
 
         let cell = tableView.dequeueReusableCell(withIdentifier: Consts.tableViewReuseId, for: indexPath)
-        cell.textLabel?.text = "Topic: `\(topic.title)`"
+        cell.textLabel?.text = topic.title
         return cell
     }
 }

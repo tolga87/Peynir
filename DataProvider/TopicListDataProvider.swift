@@ -10,13 +10,18 @@ import Foundation
 
 class TopicListDataProvider: DataProvider {
     let categoryId: Int
+    let categoryName: String
 
     private let apiClient: APIClientInterface
     private let cacheManager: CacheManagerInterface
     private var topicList: TopicList?
+    private var topicListCacheKey: String {
+        return String(format: self.cacheManager.keys.topicListKeyFormat, self.categoryId)
+    }
 
-    init(categoryId: Int, apiClient: APIClientInterface, cacheManager: CacheManagerInterface) {
+    init(categoryId: Int, categoryName: String, apiClient: APIClientInterface, cacheManager: CacheManagerInterface) {
         self.categoryId = categoryId
+        self.categoryName = categoryName
         self.apiClient = apiClient
         self.cacheManager = cacheManager
 
@@ -67,19 +72,20 @@ class TopicListDataProvider: DataProvider {
 private extension TopicListDataProvider {
     func loadFromCache() {
         if
-            let cachedtopicListJson = self.cacheManager.loadJson(withId: self.cacheManager.keys.topicListKey).successValue,
+            let cachedtopicListJson = self.cacheManager.loadJson(withId: self.topicListCacheKey).successValue,
             let cachedtopicList = TopicList.fromJson(json: cachedtopicListJson) {
                 self.topicList = cachedtopicList
                 logDebug("Loaded \(cachedtopicList.topics.count) topics from cache for category \(self.categoryId)")
         } else {
             logDebug("Could not load topic list from cache for category \(self.categoryId)")
+            // TODO: Handle JSON schema changes.
         }
     }
 
     func saveToCache() {
         guard let topicList = self.topicList, let json = topicList.toJson() else { return }
 
-        if let saveError = self.cacheManager.save(json: json, withId: self.cacheManager.keys.topicListKey) {
+        if let saveError = self.cacheManager.save(json: json, withId: self.topicListCacheKey) {
             logDebug("Could not save topic list to cache for category \(self.categoryId): \(saveError)")
         } else {
             logDebug("Saved \(topicList.topics.count) topics to cache for category \(self.categoryId)")

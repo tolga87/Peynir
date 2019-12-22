@@ -14,6 +14,7 @@ public protocol CacheManagerInterface {
     func save(json: JSON, withId id: String) -> CacheError?
     func save(object: JSONConvertable, withId id: String) -> CacheError?
     func loadJson(withId id: String) -> Result<JSON, Error>
+    func clearAllJsons() -> Error?
 
     var keys: CacheKeys { get }
 }
@@ -24,7 +25,7 @@ public enum CacheError: Error {
 
 public struct CacheKeys {
     public let categoryListKey = "categories.json"
-    public let topicListKey = "c/%@.json"
+    public let topicListKeyFormat = "c/%d.json"
 }
 
 public class CacheManager: CacheManagerInterface {
@@ -38,21 +39,27 @@ public class CacheManager: CacheManagerInterface {
     }
 
     public func save(json: JSON, withId id: String) -> CacheError? {
-        guard let entity = NSEntityDescription.entity(forEntityName: "JSONObject", in: self.managedContext) else {
+        guard let entity = NSEntityDescription.entity(forEntityName: Consts.jsonObjectEntityName, in: self.managedContext) else {
             return CacheError.unknown("Invalid CoreData entity")
         }
 
-        let managedArticleObject = NSManagedObject(entity: entity, insertInto: self.managedContext)
-        managedArticleObject.setValue(id, forKey: "id")
-        managedArticleObject.setValue(json.toString(), forKey: "value")
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: Consts.jsonObjectEntityName)
+        fetchRequest.predicate = NSPredicate(format: "id == %@", id)
 
         do {
+            let fetchedRecords = try self.managedContext.fetch(fetchRequest)
+
+            // If record exists, update it. Otherwise, create a new record.
+            let managedObject = fetchedRecords.first ?? NSManagedObject(entity: entity, insertInto: self.managedContext)
+
+            managedObject.setValue(id, forKey: "id")
+            managedObject.setValue(json.toString(), forKey: "value")
+
             try self.managedContext.save()
+            return nil
         } catch {
             return .unknown("Could not save CoreData object")
         }
-
-        return nil
     }
 
     public func save(object: JSONConvertable, withId id: String) -> CacheError? {
@@ -64,7 +71,7 @@ public class CacheManager: CacheManagerInterface {
     }
 
     public func loadJson(withId id: String) -> Result<JSON, Error> {
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "JSONObject")
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: Consts.jsonObjectEntityName)
         fetchRequest.predicate = NSPredicate(format: "id == %@", id)
 
         var managedObjects: [NSManagedObject] = []
@@ -84,5 +91,23 @@ public class CacheManager: CacheManagerInterface {
         }
 
         return .success(json)
+    }
+
+    public func clearAllJsons() -> Error? {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Consts.jsonObjectEntityName)
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+
+        do {
+            try self.managedContext.execute(batchDeleteRequest)
+            return nil
+        } catch {
+            return error
+        }
+    }
+}
+
+private extension CacheManager {
+    struct Consts {
+        static let jsonObjectEntityName = "JSONObject"
     }
 }

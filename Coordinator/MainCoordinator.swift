@@ -52,6 +52,31 @@ class MainCoordinator {
             NotificationCenter.default.addObserver(self, selector: #selector(didLogin), name: self.loginManager.didLoginNotification, object: nil)
             self.showLoginScreen()
         }
+
+        DebugOptionsManager.sharedInstance.addShakeGestureListener(listener: self)
+    }
+}
+
+extension MainCoordinator: ShakeGestureListener {
+    func didReceiveShakeGesture() {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "Debug Options",
+                                          message: nil,
+                                          preferredStyle: .actionSheet)
+            let clearCacheAction = UIAlertAction(title: "Clear cache", style: .default) { _ in
+                if let error = self.cacheManager.clearAllJsons() {
+                    logError("Could not clear cache: \(error)")
+                } else {
+                    logInfo("Cache cleared")
+                }
+            }
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            alert.addAction(clearCacheAction)
+            alert.addAction(cancelAction)
+
+            let presentingViewController = self.rootViewController.presentedViewController ?? self.rootViewController
+            presentingViewController.present(alert, animated: true, completion: nil)
+        }
     }
 }
 

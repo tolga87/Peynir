@@ -16,5 +16,11 @@ class RootViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
+
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+            NotificationCenter.default.post(name: DebugOptionsManager.shakeGestureNotification, object: self)
+        }
+    }
 }
 
