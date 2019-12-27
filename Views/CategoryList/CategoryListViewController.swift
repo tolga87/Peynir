@@ -90,10 +90,7 @@ extension CategoryListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
-        guard let category = self.dataProvider.item(atIndexPath: indexPath) else {
-            return
-        }
-
+        guard let category = self.dataProvider.item(atIndexPath: indexPath) else { return }
         self.actionHandler?.didSelectCategory(category)
     }
 }

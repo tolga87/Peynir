@@ -12,7 +12,7 @@ class TopicListCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
 
-    private var topicListDataProvider: TopicListDataProvider
+    private let topicListDataProvider: TopicListDataProvider
 
     init(topicListDataProvider: TopicListDataProvider, navigationController: UINavigationController) {
         self.topicListDataProvider = topicListDataProvider
@@ -21,6 +21,20 @@ class TopicListCoordinator: Coordinator {
 
     func start() {
         let categoryListViewController = TopicListViewController(dataProvider: topicListDataProvider)
+        categoryListViewController.actionHandler = self
         self.navigationController.pushViewController(categoryListViewController, animated: true)
+    }
+}
+
+extension TopicListCoordinator: TopicListActionHandler {
+    func didSelectTopic(_ topic: Topic) {
+        let postListDataProvider = PostListDataProvider(topicId: topic.id,
+                                                        topicTitle: topic.title,
+                                                        apiClient: self.topicListDataProvider.apiClient,
+                                                        cacheManager: self.topicListDataProvider.cacheManager)
+        let postListCoordinator = PostListCoordinator(postListDataProvider: postListDataProvider, navigationController: self.navigationController)
+        self.childCoordinators.append(postListCoordinator)
+
+        postListCoordinator.start()
     }
 }

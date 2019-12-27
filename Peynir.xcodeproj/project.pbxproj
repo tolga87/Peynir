@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FD0A9A7523B02ADF00715BAD /* PostList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0A9A7423B02ADF00715BAD /* PostList.swift */; };
+		FD0A9A7723B02AF800715BAD /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0A9A7623B02AF800715BAD /* Post.swift */; };
+		FD0A9A7923B02C5400715BAD /* PostListDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0A9A7823B02C5400715BAD /* PostListDataProvider.swift */; };
+		FD0A9A7B23B02F2500715BAD /* PostListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0A9A7A23B02F2500715BAD /* PostListViewController.swift */; };
+		FD0A9A7D23B030E300715BAD /* TopicListActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0A9A7C23B030E300715BAD /* TopicListActionHandler.swift */; };
+		FD0A9A7F23B0329700715BAD /* PostListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0A9A7E23B0329700715BAD /* PostListCoordinator.swift */; };
 		FD19C450239DC43500AFBE0E /* CategoryListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD19C44F239DC43500AFBE0E /* CategoryListCoordinator.swift */; };
 		FD19C452239DC54100AFBE0E /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD19C451239DC54100AFBE0E /* SettingsCoordinator.swift */; };
 		FD19C454239DC93E00AFBE0E /* TopicListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD19C453239DC93E00AFBE0E /* TopicListCoordinator.swift */; };
@@ -63,6 +69,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FD0A9A7423B02ADF00715BAD /* PostList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostList.swift; sourceTree = "<group>"; };
+		FD0A9A7623B02AF800715BAD /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		FD0A9A7823B02C5400715BAD /* PostListDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostListDataProvider.swift; sourceTree = "<group>"; };
+		FD0A9A7A23B02F2500715BAD /* PostListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostListViewController.swift; sourceTree = "<group>"; };
+		FD0A9A7C23B030E300715BAD /* TopicListActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicListActionHandler.swift; sourceTree = "<group>"; };
+		FD0A9A7E23B0329700715BAD /* PostListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostListCoordinator.swift; sourceTree = "<group>"; };
 		FD19C44F239DC43500AFBE0E /* CategoryListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListCoordinator.swift; sourceTree = "<group>"; };
 		FD19C451239DC54100AFBE0E /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		FD19C453239DC93E00AFBE0E /* TopicListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicListCoordinator.swift; sourceTree = "<group>"; };
@@ -137,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				FD19C459239DCCF900AFBE0E /* CategoryListActionHandler.swift */,
+				FD0A9A7C23B030E300715BAD /* TopicListActionHandler.swift */,
 			);
 			path = "Data Actions";
 			sourceTree = "<group>";
@@ -166,6 +179,7 @@
 			children = (
 				FDCA86872394963A00E41718 /* CategoryList */,
 				FD19C455239DCA2C00AFBE0E /* TopicListViewController.swift */,
+				FD0A9A7A23B02F2500715BAD /* PostListViewController.swift */,
 				FD53DDE7238B5F8A000F341D /* LoginViewController.swift */,
 				FD53DDEC238B79A8000F341D /* HomeViewController.swift */,
 			);
@@ -177,8 +191,9 @@
 			children = (
 				FD53DDEA238B6BE6000F341D /* MainCoordinator.swift */,
 				FD19C44F239DC43500AFBE0E /* CategoryListCoordinator.swift */,
-				FD19C451239DC54100AFBE0E /* SettingsCoordinator.swift */,
 				FD19C453239DC93E00AFBE0E /* TopicListCoordinator.swift */,
+				FD0A9A7E23B0329700715BAD /* PostListCoordinator.swift */,
+				FD19C451239DC54100AFBE0E /* SettingsCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -286,6 +301,7 @@
 				FDCA868B239496B000E41718 /* DataProvider.swift */,
 				FDCA868D2394980400E41718 /* CategoryListDataProvider.swift */,
 				FD8161F1239C681C005F65B2 /* TopicListDataProvider.swift */,
+				FD0A9A7823B02C5400715BAD /* PostListDataProvider.swift */,
 			);
 			path = DataProvider;
 			sourceTree = "<group>";
@@ -306,6 +322,8 @@
 				FDCA86952394A07D00E41718 /* CategoryList.swift */,
 				FD8161F3239C6841005F65B2 /* Topic.swift */,
 				FD8161F5239C6AC4005F65B2 /* TopicList.swift */,
+				FD0A9A7423B02ADF00715BAD /* PostList.swift */,
+				FD0A9A7623B02AF800715BAD /* Post.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -453,15 +471,21 @@
 				FDCA867A2394395400E41718 /* JSON.swift in Sources */,
 				FDCA86962394A07D00E41718 /* CategoryList.swift in Sources */,
 				FD19C456239DCA2C00AFBE0E /* TopicListViewController.swift in Sources */,
+				FD0A9A7523B02ADF00715BAD /* PostList.swift in Sources */,
 				FD5F74C1238B4CA100DCEED3 /* RootViewController.swift in Sources */,
+				FD0A9A7D23B030E300715BAD /* TopicListActionHandler.swift in Sources */,
 				FD5F001923A6E1BF00E319F3 /* DebugOptionsManager.swift in Sources */,
+				FD0A9A7B23B02F2500715BAD /* PostListViewController.swift in Sources */,
 				FDCA86892394964A00E41718 /* CategoryListViewController.swift in Sources */,
 				FD8161F4239C6841005F65B2 /* Topic.swift in Sources */,
 				FDCA8684239473D800E41718 /* CacheManager.swift in Sources */,
 				FD5F74BD238B4CA100DCEED3 /* AppDelegate.swift in Sources */,
 				FD53DDE1238B5C63000F341D /* KeychainWrapper.swift in Sources */,
+				FD0A9A7723B02AF800715BAD /* Post.swift in Sources */,
 				FD5F74C7238B4CA100DCEED3 /* Peynir.xcdatamodeld in Sources */,
 				FD8161F6239C6AC4005F65B2 /* TopicList.swift in Sources */,
+				FD0A9A7F23B0329700715BAD /* PostListCoordinator.swift in Sources */,
+				FD0A9A7923B02C5400715BAD /* PostListDataProvider.swift in Sources */,
 				FD53DDED238B79A8000F341D /* HomeViewController.swift in Sources */,
 				FD19C45A239DCCF900AFBE0E /* CategoryListActionHandler.swift in Sources */,
 				FD53DDE3238B5C89000F341D /* KeychainItemAccessibility.swift in Sources */,

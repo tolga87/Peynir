@@ -1,17 +1,15 @@
 //
-//  TopicListViewController.swift
+//  PostListViewController.swift
 //  Peynir
 //
-//  Created by tolga on 12/8/19.
+//  Created by tolga on 12/22/19.
 //  Copyright © 2019 Tolga AKIN. All rights reserved.
 //
 
 import UIKit
 
-class TopicListViewController: UIViewController {
-    weak var actionHandler: TopicListActionHandler?
-
-    private let dataProvider: TopicListDataProvider
+class PostListViewController: UIViewController {
+    private let dataProvider: PostListDataProvider
     private let tableView: UITableView
 
     lazy var refreshControl: UIRefreshControl = {
@@ -20,7 +18,7 @@ class TopicListViewController: UIViewController {
         return refreshControl
     }()
 
-    init(dataProvider: TopicListDataProvider) {
+    init(dataProvider: PostListDataProvider) {
         self.dataProvider = dataProvider
         self.tableView = UITableView()
 
@@ -35,11 +33,10 @@ class TopicListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = self.dataProvider.categoryName
+        self.title = self.dataProvider.topicTitle
 
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: Consts.tableViewReuseId)
         self.tableView.dataSource = self
-        self.tableView.delegate = self
 
         self.tableView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(self.tableView)
@@ -61,33 +58,24 @@ class TopicListViewController: UIViewController {
     }
 }
 
-extension TopicListViewController: UITableViewDataSource {
+extension PostListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.dataProvider.numberOfItems()
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let topic = self.dataProvider.item(atIndexPath: indexPath) else {
+        guard let post = self.dataProvider.item(atIndexPath: indexPath) else {
             return UITableViewCell()
         }
 
         let cell = tableView.dequeueReusableCell(withIdentifier: Consts.tableViewReuseId, for: indexPath)
-        cell.textLabel?.text = topic.title
+        cell.textLabel?.text = post.cooked
         return cell
     }
 }
 
-extension TopicListViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-
-        guard let topic = self.dataProvider.item(atIndexPath: indexPath) else { return }
-        self.actionHandler?.didSelectTopic(topic)
-    }
-}
-
-private extension TopicListViewController {
+private extension PostListViewController {
     struct Consts {
-        static let tableViewReuseId = "TopicListTableView"
+        static let tableViewReuseId = "PostListTableView"
     }
 }

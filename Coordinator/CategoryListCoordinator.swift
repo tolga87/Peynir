@@ -12,7 +12,7 @@ class CategoryListCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
 
-    private var categoryListDataProvider: CategoryListDataProvider
+    private let categoryListDataProvider: CategoryListDataProvider
 
     init(categoryListDataProvider: CategoryListDataProvider, navigationController: UINavigationController) {
         self.categoryListDataProvider = categoryListDataProvider

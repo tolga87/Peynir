@@ -26,6 +26,7 @@ public enum CacheError: Error {
 public struct CacheKeys {
     public let categoryListKey = "categories.json"
     public let topicListKeyFormat = "c/%d.json"
+    public let postListKeyFormat = "t/%d.json"
 }
 
 public class CacheManager: CacheManagerInterface {

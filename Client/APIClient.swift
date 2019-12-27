@@ -15,10 +15,12 @@ enum APIError: Error {
 private typealias JSONCallback = (Result<JSON, Error>) -> Void
 typealias CategoryListCallback = (Result<CategoryList, Error>) -> Void
 typealias TopicListCallback = (Result<TopicList, Error>) -> Void
+typealias PostListCallback = (Result<PostList, Error>) -> Void
 
 protocol APIClientInterface {
     func fetchCategoryList(completion: CategoryListCallback?)
     func fetchTopicList(withCategoryId categoryId: Int, completion: TopicListCallback?)
+    func fetchPostList(withTopicId topicId: Int, completion: PostListCallback?)
 }
 
 class APIClient: APIClientInterface {
@@ -61,6 +63,25 @@ class APIClient: APIClientInterface {
                         return
                 }
                 completion?(.success(topicList))
+
+            case .failure(let error):
+                completion?(.failure(error))
+            }
+        }
+    }
+
+    func fetchPostList(withTopicId topicId: Int, completion: PostListCallback?) {
+        let url = "\(self.networkManager.baseUrl)/t/\(topicId).json"
+        self.fetchJson(atUrl: url) { result in
+            switch result {
+            case .success(let json):
+                guard
+                    let postListJson = json["post_stream"] as? JSON,
+                    let postList = PostList.fromJson(json: postListJson) else {
+                        completion?(.failure(APIError.badData))
+                        return
+                }
+                completion?(.success(postList))
 
             case .failure(let error):
                 completion?(.failure(error))
