@@ -12,6 +12,8 @@ class PostListViewController: UIViewController {
     private let dataProvider: PostListDataProvider
     private let tableView: UITableView
 
+    private var rowHeights: [IndexPath: CGFloat] = [:]
+
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshControlDidTrigger), for: .valueChanged)
@@ -35,8 +37,10 @@ class PostListViewController: UIViewController {
         super.viewDidLoad()
         self.title = self.dataProvider.topicTitle
 
-        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: Consts.tableViewReuseId)
+        self.tableView.register(PostCell.self, forCellReuseIdentifier: PostCell.reuseIdentifier)
         self.tableView.dataSource = self
+        self.tableView.rowHeight = UITableView.automaticDimension
+        self.tableView.estimatedRowHeight = 2
 
         self.tableView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(self.tableView)
@@ -68,14 +72,20 @@ extension PostListViewController: UITableViewDataSource {
             return UITableViewCell()
         }
 
-        let cell = tableView.dequeueReusableCell(withIdentifier: Consts.tableViewReuseId, for: indexPath)
-        cell.textLabel?.text = post.cooked
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: PostCell.reuseIdentifier, for: indexPath) as? PostCell else {
+            return UITableViewCell()
+        }
+
+        cell.delegate = self
+        cell.htmlContent = post.cooked
         return cell
     }
 }
 
-private extension PostListViewController {
-    struct Consts {
-        static let tableViewReuseId = "PostListTableView"
+extension PostListViewController: PostCellDelegate {
+    func postCellDidResize(_ cell: PostCell) {
+        // TODO(tolga): It looks like this can sometimes cause a crash. Investigate.
+        self.tableView.beginUpdates()
+        self.tableView.endUpdates()
     }
 }

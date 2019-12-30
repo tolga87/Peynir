@@ -70,7 +70,6 @@ class APIClient: APIClientInterface {
         }
     }
 
-    //~TA TODO: call callbacks on the main thread
     func fetchPostList(withTopicId topicId: Int, completion: PostListCallback?) {
         let url = "\(self.networkManager.baseUrl)/t/\(topicId).json"
         self.fetchJson(atUrl: url) { result in
