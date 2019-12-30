@@ -40,7 +40,8 @@ class PostListViewController: UIViewController {
         self.tableView.register(PostCell.self, forCellReuseIdentifier: PostCell.reuseIdentifier)
         self.tableView.dataSource = self
         self.tableView.rowHeight = UITableView.automaticDimension
-        self.tableView.estimatedRowHeight = 2
+        self.tableView.estimatedRowHeight = 44
+        self.tableView.tableFooterView = UIView()
 
         self.tableView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(self.tableView)
@@ -76,6 +77,7 @@ extension PostListViewController: UITableViewDataSource {
             return UITableViewCell()
         }
 
+        cell.resetContent()
         cell.delegate = self
         cell.htmlContent = post.cooked
         return cell

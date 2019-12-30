@@ -60,6 +60,13 @@ class PostCell: UITableViewCell {
 
     private var postContentView: PostContentView!
     private var postHeightConstraint: NSLayoutConstraint!
+    private lazy var spinner: UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView(style: .medium)
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        spinner.hidesWhenStopped = true
+        return spinner
+    }()
+
     private lazy var webViewConfig: WKWebViewConfiguration = {
 
         let viewPortScriptSource = """
@@ -82,6 +89,20 @@ class PostCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
+        self.setupViews()
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    func resetContent() {
+        self.setupViews()
+    }
+
+    private func setupViews() {
+        self.postContentView?.navigationDelegate = nil
+        self.postContentView?.removeFromSuperview()
         self.postContentView = PostContentView(frame: .zero, configuration: self.webViewConfig)
         self.postContentView.scrollView.isScrollEnabled = false
         self.postContentView.translatesAutoresizingMaskIntoConstraints = false
@@ -92,20 +113,24 @@ class PostCell: UITableViewCell {
         self.postContentView.topAnchor.constraint(equalTo: self.contentView.topAnchor).isActive = true
         self.postContentView.bottomAnchor.constraint(lessThanOrEqualTo: self.contentView.bottomAnchor).isActive = true
 
-        self.postHeightConstraint = self.postContentView.heightAnchor.constraint(equalToConstant: 20)
+        self.postHeightConstraint = self.postContentView.heightAnchor.constraint(equalToConstant: 44)
         self.postHeightConstraint.priority = .defaultLow
         self.postHeightConstraint.isActive = true
 
-        self.postContentView.navigationDelegate = self
-    }
+        self.spinner.removeFromSuperview()
+        self.postContentView.addSubview(self.spinner)
+        self.spinner.centerXAnchor.constraint(equalTo: self.postContentView.centerXAnchor).isActive = true
+        self.spinner.centerYAnchor.constraint(equalTo: self.postContentView.centerYAnchor).isActive = true
+        self.spinner.startAnimating()
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        self.postContentView.navigationDelegate = self
     }
 }
 
 extension PostCell: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        self.spinner.stopAnimating()
+
         self.postContentView.evaluateJavaScript("document.readyState") { (complete, error) in
             if complete != nil {
                 self.postContentView.evaluateJavaScript("document.body.scrollHeight") { (height, error) in
