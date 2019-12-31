@@ -23,6 +23,9 @@ protocol APIClientInterface {
     func fetchPostList(withTopicId topicId: Int, completion: PostListCallback?)
 }
 
+/**
+ * ⚠️ All callbacks will be called on the main thread.
+ */
 class APIClient: APIClientInterface {
     private let networkManager: NetworkManagerInterface
 
@@ -38,14 +41,14 @@ class APIClient: APIClientInterface {
                 guard
                     let categoryListJson = json["category_list"] as? JSON,
                     let categoryList = CategoryList.fromJson(json: categoryListJson) else {
-                        DispatchQueue.main.async { completion?(.failure(APIError.badData)) }
+                        completion?(.failure(APIError.badData))
                         return
                 }
 
-                DispatchQueue.main.async { completion?(.success(categoryList)) }
+                completion?(.success(categoryList))
 
             case .failure(let error):
-                DispatchQueue.main.async { completion?(.failure(error)) }
+                completion?(.failure(error))
                 return
             }
         }
@@ -59,13 +62,13 @@ class APIClient: APIClientInterface {
                 guard
                     let topicListJson = json["topic_list"] as? JSON,
                     let topicList = TopicList.fromJson(json: topicListJson) else {
-                        DispatchQueue.main.async { completion?(.failure(APIError.badData)) }
+                        completion?(.failure(APIError.badData))
                         return
                 }
-                DispatchQueue.main.async { completion?(.success(topicList)) }
+                completion?(.success(topicList))
 
             case .failure(let error):
-                DispatchQueue.main.async { completion?(.failure(error)) }
+                completion?(.failure(error))
             }
         }
     }
@@ -78,13 +81,13 @@ class APIClient: APIClientInterface {
                 guard
                     let postListJson = json["post_stream"] as? JSON,
                     let postList = PostList.fromJson(json: postListJson) else {
-                        DispatchQueue.main.async { completion?(.failure(APIError.badData)) }
+                        completion?(.failure(APIError.badData))
                         return
                 }
-                DispatchQueue.main.async { completion?(.success(postList)) }
+                completion?(.success(postList))
 
             case .failure(let error):
-                DispatchQueue.main.async { completion?(.failure(error)) }
+                completion?(.failure(error))
             }
         }
     }
@@ -95,10 +98,10 @@ private extension APIClient {
         self.networkManager.getJson(atUrl: urlString) { result in
             switch result {
             case .success(let json):
-                DispatchQueue.main.async { completion?(.success(json)) }
+                completion?(.success(json))
 
             case .failure(let error):
-                DispatchQueue.main.async { completion?(.failure(error)) }
+                completion?(.failure(error))
             }
         }
     }

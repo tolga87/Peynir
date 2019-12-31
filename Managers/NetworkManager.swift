@@ -33,20 +33,23 @@ public protocol NetworkManagerInterface {
 public class NetworkManager: NetworkManagerInterface {
     public let baseUrl = "https://cow.ceng.metu.edu.tr"
 
+    public static let sharedInstance = NetworkManager()
+
+    // `completion` will be called on the main thread.
     public func getData(atUrl urlString: String, completion: DataResourceResultCallback?) {
         guard let url = URL(string: urlString) else {
-            completion?(.failure(NetworkError.invalidUrl))
+            DispatchQueue.main.async { completion?(.failure(NetworkError.invalidUrl)) }
             return
         }
 
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             guard let data = data else {
                 let error = error ?? NetworkError.unknown
-                completion?(.failure(error))
+                DispatchQueue.main.async { completion?(.failure(error)) }
                 return
             }
 
-            completion?(.success(data))
+            DispatchQueue.main.async { completion?(.success(data)) }
         }
 
         task.resume()

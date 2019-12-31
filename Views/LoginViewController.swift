@@ -83,8 +83,7 @@ class LoginViewController: UIViewController {
         loginButton.widthAnchor.constraint(equalToConstant: Consts.loginButtonWidth).isActive = true
         loginButton.heightAnchor.constraint(equalToConstant: Consts.inputElementHeight).isActive = true
 
-        spinner.centerXAnchor.constraint(equalTo: loginButton.centerXAnchor).isActive = true
-        spinner.centerYAnchor.constraint(equalTo: loginButton.centerYAnchor).isActive = true
+        spinner.constrainToCenter(ofView: loginButton)
         spinner.heightAnchor.constraint(equalTo: loginButton.heightAnchor).isActive = true
         spinner.widthAnchor.constraint(equalTo: spinner.heightAnchor).isActive = true
 

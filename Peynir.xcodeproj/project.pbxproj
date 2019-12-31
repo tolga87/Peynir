@@ -36,6 +36,10 @@
 		FD5F74CC238B4CA200DCEED3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD5F74CA238B4CA200DCEED3 /* LaunchScreen.storyboard */; };
 		FD5F74D7238B4CA200DCEED3 /* PeynirTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5F74D6238B4CA200DCEED3 /* PeynirTests.swift */; };
 		FD5F74E2238B4CA200DCEED3 /* PeynirUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5F74E1238B4CA200DCEED3 /* PeynirUITests.swift */; };
+		FD65030223BAB80F00F110C5 /* DataCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD65030123BAB80F00F110C5 /* DataCacheManager.swift */; };
+		FD65030423BAC01900F110C5 /* NetworkImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD65030323BAC01900F110C5 /* NetworkImageView.swift */; };
+		FD65030623BAC1F200F110C5 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD65030523BAC1F200F110C5 /* UIView+Extensions.swift */; };
+		FD65030923BAC9E400F110C5 /* UserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD65030823BAC9E400F110C5 /* UserInfoView.swift */; };
 		FD71123A23B9981000B24384 /* PostContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD71123923B9981000B24384 /* PostContentView.swift */; };
 		FD8161F2239C681C005F65B2 /* TopicListDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8161F1239C681C005F65B2 /* TopicListDataProvider.swift */; };
 		FD8161F4239C6841005F65B2 /* Topic.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8161F3239C6841005F65B2 /* Topic.swift */; };
@@ -106,6 +110,10 @@
 		FD5F74DD238B4CA200DCEED3 /* PeynirUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PeynirUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD5F74E1238B4CA200DCEED3 /* PeynirUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeynirUITests.swift; sourceTree = "<group>"; };
 		FD5F74E3238B4CA200DCEED3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FD65030123BAB80F00F110C5 /* DataCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCacheManager.swift; sourceTree = "<group>"; };
+		FD65030323BAC01900F110C5 /* NetworkImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkImageView.swift; sourceTree = "<group>"; };
+		FD65030523BAC1F200F110C5 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		FD65030823BAC9E400F110C5 /* UserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoView.swift; sourceTree = "<group>"; };
 		FD71123923B9981000B24384 /* PostContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostContentView.swift; sourceTree = "<group>"; };
 		FD8161F1239C681C005F65B2 /* TopicListDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicListDataProvider.swift; sourceTree = "<group>"; };
 		FD8161F3239C6841005F65B2 /* Topic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Topic.swift; sourceTree = "<group>"; };
@@ -164,6 +172,7 @@
 				FD53DDDD238B585B000F341D /* LoginManager.swift */,
 				FD53DDE4238B5CAE000F341D /* UserInfoManager.swift */,
 				FDCA8683239473D800E41718 /* CacheManager.swift */,
+				FD65030123BAB80F00F110C5 /* DataCacheManager.swift */,
 				FDCA86852394764400E41718 /* NetworkManager.swift */,
 			);
 			path = Managers;
@@ -186,6 +195,7 @@
 				FDCA86882394964A00E41718 /* CategoryListViewController.swift */,
 				FD53DDE7238B5F8A000F341D /* LoginViewController.swift */,
 				FD53DDEC238B79A8000F341D /* HomeViewController.swift */,
+				FD65030323BAC01900F110C5 /* NetworkImageView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -279,12 +289,21 @@
 			path = PeynirUITests;
 			sourceTree = "<group>";
 		};
+		FD65030723BAC9D000F110C5 /* Post Cell */ = {
+			isa = PBXGroup;
+			children = (
+				FD71123923B9981000B24384 /* PostContentView.swift */,
+				FD2937E723B999AD007F1AF9 /* PostCell.swift */,
+				FD65030823BAC9E400F110C5 /* UserInfoView.swift */,
+			);
+			path = "Post Cell";
+			sourceTree = "<group>";
+		};
 		FD71123823B997CF00B24384 /* Post List */ = {
 			isa = PBXGroup;
 			children = (
+				FD65030723BAC9D000F110C5 /* Post Cell */,
 				FD0A9A7A23B02F2500715BAD /* PostListViewController.swift */,
-				FD71123923B9981000B24384 /* PostContentView.swift */,
-				FD2937E723B999AD007F1AF9 /* PostCell.swift */,
 			);
 			path = "Post List";
 			sourceTree = "<group>";
@@ -297,6 +316,7 @@
 				FDCA86792394395400E41718 /* JSON.swift */,
 				FD9A665B2394B6AB00A10060 /* String+Extensions.swift */,
 				FD9A665D2394B6EA00A10060 /* Result+Extensions.swift */,
+				FD65030523BAC1F200F110C5 /* UIView+Extensions.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -471,6 +491,7 @@
 				FD19C454239DC93E00AFBE0E /* TopicListCoordinator.swift in Sources */,
 				FDCA868C239496B000E41718 /* DataProvider.swift in Sources */,
 				FDCA868E2394980400E41718 /* CategoryListDataProvider.swift in Sources */,
+				FD65030423BAC01900F110C5 /* NetworkImageView.swift in Sources */,
 				FD9A665E2394B6EA00A10060 /* Result+Extensions.swift in Sources */,
 				FD53DDEB238B6BE6000F341D /* MainCoordinator.swift in Sources */,
 				FD8161F2239C681C005F65B2 /* TopicListDataProvider.swift in Sources */,
@@ -485,6 +506,7 @@
 				FDCA86892394964A00E41718 /* CategoryListViewController.swift in Sources */,
 				FD8161F4239C6841005F65B2 /* Topic.swift in Sources */,
 				FDCA8684239473D800E41718 /* CacheManager.swift in Sources */,
+				FD65030623BAC1F200F110C5 /* UIView+Extensions.swift in Sources */,
 				FD5F74BD238B4CA100DCEED3 /* AppDelegate.swift in Sources */,
 				FD53DDE1238B5C63000F341D /* KeychainWrapper.swift in Sources */,
 				FD0A9A7723B02AF800715BAD /* Post.swift in Sources */,
@@ -493,6 +515,7 @@
 				FD0A9A7F23B0329700715BAD /* PostListCoordinator.swift in Sources */,
 				FD0A9A7923B02C5400715BAD /* PostListDataProvider.swift in Sources */,
 				FD53DDED238B79A8000F341D /* HomeViewController.swift in Sources */,
+				FD65030923BAC9E400F110C5 /* UserInfoView.swift in Sources */,
 				FD19C45A239DCCF900AFBE0E /* CategoryListActionHandler.swift in Sources */,
 				FD53DDE3238B5C89000F341D /* KeychainItemAccessibility.swift in Sources */,
 				FD19C450239DC43500AFBE0E /* CategoryListCoordinator.swift in Sources */,
@@ -502,6 +525,7 @@
 				FD53DDE5238B5CAE000F341D /* UserInfoManager.swift in Sources */,
 				FD5F74BF238B4CA100DCEED3 /* SceneDelegate.swift in Sources */,
 				FD71123A23B9981000B24384 /* PostContentView.swift in Sources */,
+				FD65030223BAB80F00F110C5 /* DataCacheManager.swift in Sources */,
 				FDCA86902394987600E41718 /* APIClient.swift in Sources */,
 				FD2937E823B999AD007F1AF9 /* PostCell.swift in Sources */,
 			);

@@ -18,7 +18,7 @@ class SettingsCoordinator: Coordinator {
         self.childCoordinators = []
     }
 
-    func start() {
+    func start(completion: CoordinatorCompletionCallback?) {
         let settingsViewController = UIViewController()
         self.navigationController.pushViewController(settingsViewController, animated: false)
     }

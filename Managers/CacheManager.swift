@@ -29,6 +29,7 @@ public struct CacheKeys {
     public let postListKeyFormat = "t/%d.json"
 }
 
+// TODO: Add assertions to make sure we're not passing format characters without arguments.
 public class CacheManager: CacheManagerInterface {
     private let managedContext: NSManagedObjectContext
 

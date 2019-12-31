@@ -19,7 +19,7 @@ class TopicListCoordinator: Coordinator {
         self.navigationController = navigationController
     }
 
-    func start() {
+    func start(completion: CoordinatorCompletionCallback?) {
         let categoryListViewController = TopicListViewController(dataProvider: topicListDataProvider)
         categoryListViewController.actionHandler = self
         self.navigationController.pushViewController(categoryListViewController, animated: true)
@@ -35,6 +35,16 @@ extension TopicListCoordinator: TopicListActionHandler {
         let postListCoordinator = PostListCoordinator(postListDataProvider: postListDataProvider, navigationController: self.navigationController)
         self.childCoordinators.append(postListCoordinator)
 
-        postListCoordinator.start()
+        postListCoordinator.start { result in
+            if let result = result {
+                logDebug(result)
+            }
+
+            guard self.childCoordinators.count > 0 else {
+                logError("TopicListCoordinator has no child coordinators")
+                return
+            }
+            self.childCoordinators.removeLast()
+        }
     }
 }

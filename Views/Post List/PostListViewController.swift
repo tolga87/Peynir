@@ -9,6 +9,8 @@
 import UIKit
 
 class PostListViewController: UIViewController {
+    weak var deinitDelegate: DeinitDelegate?
+
     private let dataProvider: PostListDataProvider
     private let tableView: UITableView
 
@@ -27,6 +29,11 @@ class PostListViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
 
         NotificationCenter.default.addObserver(self, selector: #selector(dataProviderDidUpdate), name: dataProvider.didUpdateNotification, object: nil)
+    }
+
+    deinit {
+        print("PostListViewController is being dealloc'ed")
+        self.deinitDelegate?.didDeinit(sender: self)
     }
 
     required init?(coder: NSCoder) {
@@ -77,9 +84,11 @@ extension PostListViewController: UITableViewDataSource {
             return UITableViewCell()
         }
 
+        let postCellViewModel = PostCellViewModel(name: post.name, username: post.username, avatarTemplate: post.avatarTemplate, postContent: post.cooked)
+
         cell.resetContent()
         cell.delegate = self
-        cell.htmlContent = post.cooked
+        cell.viewModel = postCellViewModel
         return cell
     }
 }
@@ -90,4 +99,11 @@ extension PostListViewController: PostCellDelegate {
         self.tableView.beginUpdates()
         self.tableView.endUpdates()
     }
+}
+
+struct PostCellViewModel: PostCellViewModelInterface {
+    let name: String
+    let username: String
+    let avatarTemplate: String
+    let postContent: String
 }

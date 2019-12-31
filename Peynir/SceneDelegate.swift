@@ -28,13 +28,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window?.makeKeyAndVisible()
         self.window?.windowScene = windowScene
 
-        let networkManager = NetworkManager()
+        let networkManager = NetworkManager.sharedInstance
         let userInfoManager = UserInfoManager()
         let loginManager = LoginManager(networkManager: networkManager, userInfoManager: userInfoManager)
         let apiClient = APIClient(networkManager: networkManager)
         let cacheManager = CacheManager()
         self.coordinator = MainCoordinator(apiClient: apiClient, cacheManager: cacheManager, userInfoManager: userInfoManager, loginManager: loginManager, rootViewController: rootViewController)
-        self.coordinator?.start()
+        self.coordinator?.start(completion: nil)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

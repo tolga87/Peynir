@@ -8,11 +8,17 @@
 
 import UIKit
 
+public protocol DeinitDelegate: class {
+    func didDeinit(sender: Any)
+}
+
+public typealias CoordinatorCompletionCallback = (Any?) -> Void
+
 public protocol Coordinator {
     var childCoordinators: [Coordinator] { get set }
     var navigationController: UINavigationController { get set }
 
-    func start()
+    func start(completion: CoordinatorCompletionCallback?)
 }
 
 class MainCoordinator {
@@ -33,7 +39,8 @@ class MainCoordinator {
         self.rootViewController = rootViewController
     }
 
-    public func start() {
+    // `completion` should never get called.
+    public func start(completion: CoordinatorCompletionCallback?) {
         UITabBar.appearance().tintColor = UIColor.label
 
         let categoryListDataProvider = CategoryListDataProvider(apiClient: self.apiClient, cacheManager: cacheManager)
@@ -95,7 +102,7 @@ private extension MainCoordinator {
         let presentingViewController = self.rootViewController.presentedViewController ?? self.rootViewController
         presentingViewController.present(homeViewController, animated: false, completion: nil)
 
-        self.categoryListCoordinator?.start()
+        self.categoryListCoordinator?.start(completion: nil)
     }
 
     // MARK: Callbacks

@@ -15,6 +15,9 @@ class PostListDataProvider: DataProvider {
     public let apiClient: APIClientInterface
     public let cacheManager: CacheManagerInterface
     private var postList: PostList?
+    private var postListCacheKey: String {
+        return String(format: self.cacheManager.keys.postListKeyFormat, self.topicId)
+    }
 
     init(topicId: Int, topicTitle: String, apiClient: APIClientInterface, cacheManager: CacheManagerInterface) {
         self.topicId = topicId
@@ -69,10 +72,10 @@ class PostListDataProvider: DataProvider {
 private extension PostListDataProvider {
     func loadFromCache() {
         if
-            let cachedPostListJson = self.cacheManager.loadJson(withId: self.cacheManager.keys.postListKeyFormat).successValue,
+            let cachedPostListJson = self.cacheManager.loadJson(withId: self.postListCacheKey).successValue,
             let cachedPostList = PostList.fromJson(json: cachedPostListJson) {
                 self.postList = cachedPostList
-                logDebug("Loaded \(cachedPostList.posts.count) categories from cache.")
+                logDebug("Loaded \(cachedPostList.posts.count) posts from cache.")
         } else {
             // TODO: Handle JSON schema changes.
             logDebug("Could not load post list from cache.")
@@ -85,7 +88,7 @@ private extension PostListDataProvider {
         if let saveError = self.cacheManager.save(json: json, withId: self.cacheManager.keys.postListKeyFormat) {
             logError("Could not save post list to cache: \(saveError)")
         } else {
-            logDebug("Saved \(postList.posts.count) categories to cache")
+            logDebug("Saved \(postList.posts.count) posts to cache")
         }
     }
 }

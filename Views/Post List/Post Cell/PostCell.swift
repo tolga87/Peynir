@@ -13,13 +13,29 @@ protocol PostCellDelegate: class {
     func postCellDidResize(_ cell: PostCell)
 }
 
+protocol PostCellViewModelInterface {
+    var name: String { get }
+    var username: String { get }
+    var avatarTemplate: String { get }
+    var postContent: String { get }
+}
+
 class PostCell: UITableViewCell {
     static let reuseIdentifier = "PostCellReuseIdentifier"
     weak var delegate: PostCellDelegate?
 
-    var htmlContent: String = "" {
+    var viewModel: PostCellViewModelInterface? {
         didSet {
-            self.postContentView.htmlString = """
+            self.setupViews()
+        }
+    }
+
+    private var htmlContent: String {
+        guard let postContent = self.viewModel?.postContent else {
+            return ""
+        }
+
+        return """
             <html>
                 <head>
                     <style>
@@ -51,15 +67,19 @@ class PostCell: UITableViewCell {
                     </style>
                 </head>
             <body>
-            \(self.htmlContent)
+            \(postContent)
             </body>
             </html>
-            """
-        }
+        """
     }
+
+    private var userInfoView: UserInfoView?
+    private var userInfoContainerView: UIView!
+    private var userInfoHeightConstraint: NSLayoutConstraint!
 
     private var postContentView: PostContentView!
     private var postHeightConstraint: NSLayoutConstraint!
+
     private lazy var spinner: UIActivityIndicatorView = {
         let spinner = UIActivityIndicatorView(style: .medium)
         spinner.translatesAutoresizingMaskIntoConstraints = false
@@ -85,7 +105,6 @@ class PostCell: UITableViewCell {
         return config
     }()
 
-
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
@@ -101,16 +120,40 @@ class PostCell: UITableViewCell {
     }
 
     private func setupViews() {
+        self.userInfoContainerView?.removeFromSuperview()
+        self.userInfoContainerView = UIView()
+        self.userInfoContainerView.translatesAutoresizingMaskIntoConstraints = false
+        self.contentView.addSubview(self.userInfoContainerView)
+
+        self.userInfoContainerView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor).isActive = true
+        self.userInfoContainerView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor).isActive = true
+        self.userInfoContainerView.topAnchor.constraint(equalTo: self.contentView.topAnchor).isActive = true
+
+        if let viewModel = self.viewModel {
+            let userInfoViewModel = UserInfoViewModel(name: viewModel.name, username: viewModel.username, avatarTemplate: viewModel.avatarTemplate)
+            let userInfoView = UserInfoView(height: Consts.userInfoHeight, viewModel: userInfoViewModel)
+            userInfoView.translatesAutoresizingMaskIntoConstraints = false
+
+            self.userInfoContainerView.addSubview(userInfoView)
+            userInfoView.constrainToEdges(ofView: self.userInfoContainerView)
+            self.userInfoHeightConstraint = self.userInfoContainerView.heightAnchor.constraint(equalToConstant: Consts.userInfoHeight)
+        } else {
+            self.userInfoHeightConstraint = self.userInfoContainerView.heightAnchor.constraint(equalToConstant: 0)
+        }
+
+        self.userInfoHeightConstraint.isActive = true
+
         self.postContentView?.navigationDelegate = nil
         self.postContentView?.removeFromSuperview()
         self.postContentView = PostContentView(frame: .zero, configuration: self.webViewConfig)
         self.postContentView.scrollView.isScrollEnabled = false
         self.postContentView.translatesAutoresizingMaskIntoConstraints = false
+        self.postContentView.htmlString = self.htmlContent
         self.contentView.addSubview(self.postContentView)
 
         self.postContentView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor).isActive = true
         self.postContentView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor).isActive = true
-        self.postContentView.topAnchor.constraint(equalTo: self.contentView.topAnchor).isActive = true
+        self.postContentView.topAnchor.constraint(equalTo: self.userInfoContainerView.bottomAnchor).isActive = true
         self.postContentView.bottomAnchor.constraint(lessThanOrEqualTo: self.contentView.bottomAnchor).isActive = true
 
         self.postHeightConstraint = self.postContentView.heightAnchor.constraint(equalToConstant: 44)
@@ -119,8 +162,7 @@ class PostCell: UITableViewCell {
 
         self.spinner.removeFromSuperview()
         self.postContentView.addSubview(self.spinner)
-        self.spinner.centerXAnchor.constraint(equalTo: self.postContentView.centerXAnchor).isActive = true
-        self.spinner.centerYAnchor.constraint(equalTo: self.postContentView.centerYAnchor).isActive = true
+        self.spinner.constrainToCenter(ofView: self.postContentView)
         self.spinner.startAnimating()
 
         self.postContentView.navigationDelegate = self
@@ -143,5 +185,17 @@ extension PostCell: WKNavigationDelegate {
                 }
             }
         }
+    }
+}
+
+struct UserInfoViewModel: UserInfoViewModelInterface {
+    let name: String
+    let username: String
+    let avatarTemplate: String
+}
+
+private extension PostCell {
+    struct Consts {
+        static let userInfoHeight: CGFloat = 60
     }
 }

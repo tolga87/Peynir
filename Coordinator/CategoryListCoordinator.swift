@@ -19,7 +19,7 @@ class CategoryListCoordinator: Coordinator {
         self.navigationController = navigationController
     }
 
-    func start() {
+    func start(completion: CoordinatorCompletionCallback?) {
         let categoryListViewController = CategoryListViewController(dataProvider: categoryListDataProvider)
         categoryListViewController.actionHandler = self
         self.navigationController.pushViewController(categoryListViewController, animated: false)
@@ -35,6 +35,6 @@ extension CategoryListCoordinator: CategoryListActionHandler {
         let topicListCoordinator = TopicListCoordinator(topicListDataProvider: topicListDataProvider, navigationController: self.navigationController)
         self.childCoordinators.append(topicListCoordinator)
 
-        topicListCoordinator.start()
+        topicListCoordinator.start(completion: nil)
     }
 }
