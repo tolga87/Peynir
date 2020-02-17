@@ -85,7 +85,7 @@ private extension PostListDataProvider {
     func saveToCache() {
         guard let postList = self.postList, let json = postList.toJson() else { return }
 
-        if let saveError = self.cacheManager.save(json: json, withId: self.cacheManager.keys.postListKeyFormat) {
+        if let saveError = self.cacheManager.save(json: json, withId: self.postListCacheKey) {
             logError("Could not save post list to cache: \(saveError)")
         } else {
             logDebug("Saved \(postList.posts.count) posts to cache")

@@ -39,7 +39,8 @@
 		FD65030223BAB80F00F110C5 /* DataCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD65030123BAB80F00F110C5 /* DataCacheManager.swift */; };
 		FD65030423BAC01900F110C5 /* NetworkImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD65030323BAC01900F110C5 /* NetworkImageView.swift */; };
 		FD65030623BAC1F200F110C5 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD65030523BAC1F200F110C5 /* UIView+Extensions.swift */; };
-		FD65030923BAC9E400F110C5 /* UserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD65030823BAC9E400F110C5 /* UserInfoView.swift */; };
+		FD65030923BAC9E400F110C5 /* PostMetadataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD65030823BAC9E400F110C5 /* PostMetadataView.swift */; };
+		FD6F7E6223CB96040042C513 /* PostMetadataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6F7E6123CB96040042C513 /* PostMetadataViewModel.swift */; };
 		FD71123A23B9981000B24384 /* PostContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD71123923B9981000B24384 /* PostContentView.swift */; };
 		FD8161F2239C681C005F65B2 /* TopicListDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8161F1239C681C005F65B2 /* TopicListDataProvider.swift */; };
 		FD8161F4239C6841005F65B2 /* Topic.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8161F3239C6841005F65B2 /* Topic.swift */; };
@@ -55,6 +56,7 @@
 		FDCA86902394987600E41718 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCA868F2394987600E41718 /* APIClient.swift */; };
 		FDCA86942394A05500E41718 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCA86932394A05500E41718 /* Category.swift */; };
 		FDCA86962394A07D00E41718 /* CategoryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCA86952394A07D00E41718 /* CategoryList.swift */; };
+		FDDF124223CBAB5A0061AD3D /* TimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDDF124123CBAB590061AD3D /* TimeFormatter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,7 +115,8 @@
 		FD65030123BAB80F00F110C5 /* DataCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCacheManager.swift; sourceTree = "<group>"; };
 		FD65030323BAC01900F110C5 /* NetworkImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkImageView.swift; sourceTree = "<group>"; };
 		FD65030523BAC1F200F110C5 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
-		FD65030823BAC9E400F110C5 /* UserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoView.swift; sourceTree = "<group>"; };
+		FD65030823BAC9E400F110C5 /* PostMetadataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMetadataView.swift; sourceTree = "<group>"; };
+		FD6F7E6123CB96040042C513 /* PostMetadataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMetadataViewModel.swift; sourceTree = "<group>"; };
 		FD71123923B9981000B24384 /* PostContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostContentView.swift; sourceTree = "<group>"; };
 		FD8161F1239C681C005F65B2 /* TopicListDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicListDataProvider.swift; sourceTree = "<group>"; };
 		FD8161F3239C6841005F65B2 /* Topic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Topic.swift; sourceTree = "<group>"; };
@@ -130,6 +133,7 @@
 		FDCA868F2394987600E41718 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		FDCA86932394A05500E41718 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		FDCA86952394A07D00E41718 /* CategoryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryList.swift; sourceTree = "<group>"; };
+		FDDF124123CBAB590061AD3D /* TimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -292,9 +296,8 @@
 		FD65030723BAC9D000F110C5 /* Post Cell */ = {
 			isa = PBXGroup;
 			children = (
-				FD71123923B9981000B24384 /* PostContentView.swift */,
-				FD2937E723B999AD007F1AF9 /* PostCell.swift */,
-				FD65030823BAC9E400F110C5 /* UserInfoView.swift */,
+				FDE14C7123CBA1740074DD57 /* Metadata */,
+				FDE14C7223CBA17C0074DD57 /* Content */,
 			);
 			path = "Post Cell";
 			sourceTree = "<group>";
@@ -302,8 +305,8 @@
 		FD71123823B997CF00B24384 /* Post List */ = {
 			isa = PBXGroup;
 			children = (
-				FD65030723BAC9D000F110C5 /* Post Cell */,
 				FD0A9A7A23B02F2500715BAD /* PostListViewController.swift */,
+				FD65030723BAC9D000F110C5 /* Post Cell */,
 			);
 			path = "Post List";
 			sourceTree = "<group>";
@@ -311,6 +314,7 @@
 		FDCA86782394392300E41718 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				FDDF124023CBAB4E0061AD3D /* Time */,
 				FD5F001723A6E1AF00E319F3 /* Debug */,
 				FD54661B23A6CB68007556F2 /* Logging */,
 				FDCA86792394395400E41718 /* JSON.swift */,
@@ -352,6 +356,32 @@
 				FD0A9A7623B02AF800715BAD /* Post.swift */,
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		FDDF124023CBAB4E0061AD3D /* Time */ = {
+			isa = PBXGroup;
+			children = (
+				FDDF124123CBAB590061AD3D /* TimeFormatter.swift */,
+			);
+			path = Time;
+			sourceTree = "<group>";
+		};
+		FDE14C7123CBA1740074DD57 /* Metadata */ = {
+			isa = PBXGroup;
+			children = (
+				FD65030823BAC9E400F110C5 /* PostMetadataView.swift */,
+				FD6F7E6123CB96040042C513 /* PostMetadataViewModel.swift */,
+			);
+			path = Metadata;
+			sourceTree = "<group>";
+		};
+		FDE14C7223CBA17C0074DD57 /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				FD71123923B9981000B24384 /* PostContentView.swift */,
+				FD2937E723B999AD007F1AF9 /* PostCell.swift */,
+			);
+			path = Content;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -486,6 +516,7 @@
 			files = (
 				FD53DDE8238B5F8A000F341D /* LoginViewController.swift in Sources */,
 				FD9A665C2394B6AB00A10060 /* String+Extensions.swift in Sources */,
+				FD6F7E6223CB96040042C513 /* PostMetadataViewModel.swift in Sources */,
 				FD53DDDE238B585B000F341D /* LoginManager.swift in Sources */,
 				FDCA86942394A05500E41718 /* Category.swift in Sources */,
 				FD19C454239DC93E00AFBE0E /* TopicListCoordinator.swift in Sources */,
@@ -508,6 +539,7 @@
 				FDCA8684239473D800E41718 /* CacheManager.swift in Sources */,
 				FD65030623BAC1F200F110C5 /* UIView+Extensions.swift in Sources */,
 				FD5F74BD238B4CA100DCEED3 /* AppDelegate.swift in Sources */,
+				FDDF124223CBAB5A0061AD3D /* TimeFormatter.swift in Sources */,
 				FD53DDE1238B5C63000F341D /* KeychainWrapper.swift in Sources */,
 				FD0A9A7723B02AF800715BAD /* Post.swift in Sources */,
 				FD5F74C7238B4CA100DCEED3 /* Peynir.xcdatamodeld in Sources */,
@@ -515,7 +547,7 @@
 				FD0A9A7F23B0329700715BAD /* PostListCoordinator.swift in Sources */,
 				FD0A9A7923B02C5400715BAD /* PostListDataProvider.swift in Sources */,
 				FD53DDED238B79A8000F341D /* HomeViewController.swift in Sources */,
-				FD65030923BAC9E400F110C5 /* UserInfoView.swift in Sources */,
+				FD65030923BAC9E400F110C5 /* PostMetadataView.swift in Sources */,
 				FD19C45A239DCCF900AFBE0E /* CategoryListActionHandler.swift in Sources */,
 				FD53DDE3238B5C89000F341D /* KeychainItemAccessibility.swift in Sources */,
 				FD19C450239DC43500AFBE0E /* CategoryListCoordinator.swift in Sources */,

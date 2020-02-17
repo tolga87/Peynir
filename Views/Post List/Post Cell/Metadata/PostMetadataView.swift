@@ -1,5 +1,5 @@
 //
-//  UserInfoView.swift
+//  PostMetadataView.swift
 //  Peynir
 //
 //  Created by tolga on 12/30/19.
@@ -8,15 +8,9 @@
 
 import UIKit
 
-protocol UserInfoViewModelInterface {
-    var name: String { get }
-    var username: String { get }
-    var avatarTemplate: String { get }
-}
-
-class UserInfoView: UIView {
+class PostMetadataView: UIView {
     // TODO: Make this Optional, and implement "Loading" state.
-    private let viewModel: UserInfoViewModelInterface
+    private let viewModel: PostMetadataViewModelInterface
     private let networkManager: NetworkManagerInterface
 
     private let avatarView: NetworkImageView
@@ -29,11 +23,18 @@ class UserInfoView: UIView {
 
     private lazy var timestampLabel: UILabel = {
         let label = UILabel()
-        label.text = "<TIMESTAMP>"
+
+        let dateFormatter = ISO8601DateFormatter()
+        dateFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+
+        if let createdDate = dateFormatter.date(from: self.viewModel.createdAt) {
+            let elapsedTimeSinceCreated = Int(Date().timeIntervalSince1970 - createdDate.timeIntervalSince1970)
+            label.text = TimeFormatter.diffTimeString(withTimeElapsed: elapsedTimeSinceCreated)
+        }
         return label
     }()
 
-    init(height: CGFloat, viewModel: UserInfoViewModelInterface, networkManager: NetworkManagerInterface = NetworkManager.sharedInstance) {
+    init(height: CGFloat, viewModel: PostMetadataViewModelInterface, networkManager: NetworkManagerInterface = NetworkManager.sharedInstance) {
         self.viewModel = viewModel
         self.networkManager = networkManager
 
@@ -74,7 +75,7 @@ class UserInfoView: UIView {
     }
 }
 
-private extension UserInfoView {
+private extension PostMetadataView {
     struct Consts {
         static let horizontalPadding: CGFloat = 8
         static let verticalPadding: CGFloat = 8

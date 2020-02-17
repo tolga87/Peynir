@@ -13,5 +13,6 @@ struct Post: JSONConstructable, Codable {
     let name: String
     let username: String
     let avatarTemplate: String
+    let createdAt: String
     let cooked: String
 }

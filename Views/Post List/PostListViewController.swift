@@ -32,7 +32,6 @@ class PostListViewController: UIViewController {
     }
 
     deinit {
-        print("PostListViewController is being dealloc'ed")
         self.deinitDelegate?.didDeinit(sender: self)
     }
 
@@ -84,7 +83,11 @@ extension PostListViewController: UITableViewDataSource {
             return UITableViewCell()
         }
 
-        let postCellViewModel = PostCellViewModel(name: post.name, username: post.username, avatarTemplate: post.avatarTemplate, postContent: post.cooked)
+        let postCellViewModel = PostCellViewModel(name: post.name,
+                                                  username: post.username,
+                                                  avatarTemplate: post.avatarTemplate,
+                                                  createdAt: post.createdAt,
+                                                  postContent: post.cooked)
 
         cell.resetContent()
         cell.delegate = self
@@ -105,5 +108,6 @@ struct PostCellViewModel: PostCellViewModelInterface {
     let name: String
     let username: String
     let avatarTemplate: String
+    let createdAt: String
     let postContent: String
 }

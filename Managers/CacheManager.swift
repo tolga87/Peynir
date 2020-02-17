@@ -41,6 +41,8 @@ public class CacheManager: CacheManagerInterface {
     }
 
     public func save(json: JSON, withId id: String) -> CacheError? {
+        self.checkCacheRecordId(id)
+
         guard let entity = NSEntityDescription.entity(forEntityName: Consts.jsonObjectEntityName, in: self.managedContext) else {
             return CacheError.unknown("Invalid CoreData entity")
         }
@@ -65,6 +67,8 @@ public class CacheManager: CacheManagerInterface {
     }
 
     public func save(object: JSONConvertable, withId id: String) -> CacheError? {
+        self.checkCacheRecordId(id)
+
         guard let json = object.toJson() else {
             return .unknown("Could not save CoreData object")
         }
@@ -73,6 +77,8 @@ public class CacheManager: CacheManagerInterface {
     }
 
     public func loadJson(withId id: String) -> Result<JSON, Error> {
+        self.checkCacheRecordId(id)
+
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: Consts.jsonObjectEntityName)
         fetchRequest.predicate = NSPredicate(format: "id == %@", id)
 
@@ -111,5 +117,9 @@ public class CacheManager: CacheManagerInterface {
 private extension CacheManager {
     struct Consts {
         static let jsonObjectEntityName = "JSONObject"
+    }
+
+    func checkCacheRecordId(_ id: String) {
+        assert(!id.contains("@"), "Cache record ids should not contain format specifiers.")
     }
 }
