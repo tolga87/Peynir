@@ -14,8 +14,6 @@ class PostListViewController: UIViewController {
     private let dataProvider: PostListDataProvider
     private let tableView: UITableView
 
-    private var rowHeights: [IndexPath: CGFloat] = [:]
-
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshControlDidTrigger), for: .valueChanged)

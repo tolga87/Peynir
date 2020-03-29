@@ -11,4 +11,6 @@ import Foundation
 struct Category: JSONConstructable, Codable {
     let id: Int
     let name: String
+    let color: String
+    let topicsAllTime: Int
 }

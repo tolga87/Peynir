@@ -30,10 +30,12 @@ class CategoryListViewController: UIViewController {
 
         self.tableView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(self.tableView)
-        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: Consts.tableViewReuseId)
+        self.tableView.register(CategoryListCell.self, forCellReuseIdentifier: Consts.tableViewReuseId)
         self.tableView.dataSource = self
         self.tableView.delegate = self
+        self.tableView.rowHeight = 44//UITableView.automaticDimension
         self.tableView.refreshControl = self.refreshControl
+        self.tableView.tableFooterView = UIView()
 
         self.tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         self.tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
@@ -76,12 +78,15 @@ extension CategoryListViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let category = self.dataProvider.item(atIndexPath: indexPath) else {
-            return UITableViewCell()
+        guard
+            let category = self.dataProvider.item(atIndexPath: indexPath),
+            let cell = tableView.dequeueReusableCell(withIdentifier: Consts.tableViewReuseId, for: indexPath) as? CategoryListCell else {
+                return UITableViewCell()
         }
 
-        let cell = tableView.dequeueReusableCell(withIdentifier: Consts.tableViewReuseId, for: indexPath)
-        cell.textLabel?.text = category.name
+        cell.viewModel = CategoryListCellViewModel(name: category.name,
+                                                   color: category.color,
+                                                   numTopics: category.topicsAllTime)
         return cell
     }
 }
