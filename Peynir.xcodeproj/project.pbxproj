@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FD0705A3243D4611006AA1B7 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0705A2243D4611006AA1B7 /* Observable.swift */; };
 		FD0A9A7523B02ADF00715BAD /* PostList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0A9A7423B02ADF00715BAD /* PostList.swift */; };
 		FD0A9A7723B02AF800715BAD /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0A9A7623B02AF800715BAD /* Post.swift */; };
 		FD0A9A7923B02C5400715BAD /* PostListDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0A9A7823B02C5400715BAD /* PostListDataProvider.swift */; };
@@ -79,6 +80,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FD0705A2243D4611006AA1B7 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		FD0A9A7423B02ADF00715BAD /* PostList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostList.swift; sourceTree = "<group>"; };
 		FD0A9A7623B02AF800715BAD /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		FD0A9A7823B02C5400715BAD /* PostListDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostListDataProvider.swift; sourceTree = "<group>"; };
@@ -165,6 +167,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FD0705A1243D4600006AA1B7 /* Observable */ = {
+			isa = PBXGroup;
+			children = (
+				FD0705A2243D4611006AA1B7 /* Observable.swift */,
+			);
+			path = Observable;
+			sourceTree = "<group>";
+		};
 		FD18AB7A23FB4F4300537D04 /* CategoryList */ = {
 			isa = PBXGroup;
 			children = (
@@ -328,6 +338,7 @@
 		FDCA86782394392300E41718 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				FD0705A1243D4600006AA1B7 /* Observable */,
 				FDDF124023CBAB4E0061AD3D /* Time */,
 				FD5F001723A6E1AF00E319F3 /* Debug */,
 				FD54661B23A6CB68007556F2 /* Logging */,
@@ -408,6 +419,7 @@
 				FD5F74B5238B4CA100DCEED3 /* Sources */,
 				FD5F74B6238B4CA100DCEED3 /* Frameworks */,
 				FD5F74B7238B4CA100DCEED3 /* Resources */,
+				FD0705A0243D4218006AA1B7 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -523,6 +535,26 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		FD0705A0243D4218006AA1B7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "REVEAL_APP_PATH=$(mdfind kMDItemCFBundleIdentifier=\"com.ittybittyapps.Reveal2\" | head -n 1)\nBUILD_SCRIPT_PATH=\"${REVEAL_APP_PATH}/Contents/SharedSupport/Scripts/reveal_server_build_phase.sh\"\nif [ \"${REVEAL_APP_PATH}\" -a -e \"${BUILD_SCRIPT_PATH}\" ]; then\n    \"${BUILD_SCRIPT_PATH}\"\nelse\n    echo \"Reveal Server not loaded: Cannot find a compatible Reveal app.\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		FD5F74B5238B4CA100DCEED3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -531,6 +563,7 @@
 				FD53DDE8238B5F8A000F341D /* LoginViewController.swift in Sources */,
 				FD9A665C2394B6AB00A10060 /* String+Extensions.swift in Sources */,
 				FD6F7E6223CB96040042C513 /* PostMetadataViewModel.swift in Sources */,
+				FD0705A3243D4611006AA1B7 /* Observable.swift in Sources */,
 				FD53DDDE238B585B000F341D /* LoginManager.swift in Sources */,
 				FDCA86942394A05500E41718 /* Category.swift in Sources */,
 				FD19C454239DC93E00AFBE0E /* TopicListCoordinator.swift in Sources */,

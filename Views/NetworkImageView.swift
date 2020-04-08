@@ -42,8 +42,8 @@ class NetworkImageView: UIView {
 
         cacheManager.loadData(withKey: fileName) { result in
             switch result {
-            case .failure(let error):
-                logDebug("Could not find image in cache. Starting download from `\(url): \(error)`")
+            case .failure:
+                logDebug("Could not find image in cache. Starting download from `\(url)`")
                 self.downloadAndSetImage(fromUrl: url, fileName: fileName)
 
             case .success(let imageData):

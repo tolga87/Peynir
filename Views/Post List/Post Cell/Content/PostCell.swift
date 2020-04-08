@@ -32,27 +32,12 @@ class PostCell: UITableViewCell {
     }
 
     private var htmlContent: String {
-        guard let postContent = self.viewModel?.postContent else {
-            return ""
-        }
+        let postContent = self.viewModel?.postContent ?? ""
 
         return """
             <html>
                 <head>
                     <style>
-                        /* TODO: This is not a perfect solution. Find a way to properly size the content. */
-                        img {
-                            width:auto;
-                            height:auto;
-                            max-width:100%;
-                            max-height:100vh;
-                        }
-
-                        /*
-                         * When dark mode is enabled, this begins to load the white background, and then switches to the dark color,
-                         * which causes a flicker. Obviously, this isn't great. But it's good enough for now.
-                         * TODO: Fix this.
-                         */
                         @media (prefers-color-scheme: dark) {
                             body {
                                 background-color: rgb(38,38,41);
@@ -79,7 +64,6 @@ class PostCell: UITableViewCell {
     private var postMetadataHeightConstraint: NSLayoutConstraint!
 
     private var postContentView: PostContentView!
-    private var postHeightConstraint: NSLayoutConstraint!
 
     private lazy var spinner: UIActivityIndicatorView = {
         let spinner = UIActivityIndicatorView(style: .medium)
@@ -160,35 +144,24 @@ class PostCell: UITableViewCell {
         self.postContentView.topAnchor.constraint(equalTo: self.postMetadataContainerView.bottomAnchor).isActive = true
         self.postContentView.bottomAnchor.constraint(lessThanOrEqualTo: self.contentView.bottomAnchor).isActive = true
 
-        self.postHeightConstraint = self.postContentView.heightAnchor.constraint(equalToConstant: 44)
-        self.postHeightConstraint.priority = .defaultLow
-        self.postHeightConstraint.isActive = true
-
         self.spinner.removeFromSuperview()
         self.postContentView.addSubview(self.spinner)
         self.spinner.constrainToCenter(ofView: self.postContentView)
         self.spinner.startAnimating()
 
         self.postContentView.navigationDelegate = self
+
+        self.postContentView.contentHeight.addObserver { [weak self] in
+            guard let self = self else { return }
+
+            self.delegate?.postCellDidResize(self)
+        }
     }
 }
 
 extension PostCell: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         self.spinner.stopAnimating()
-
-        self.postContentView.evaluateJavaScript("document.readyState") { (complete, error) in
-            if complete != nil {
-                self.postContentView.evaluateJavaScript("document.body.scrollHeight") { (height, error) in
-                    DispatchQueue.main.async {
-                        if let height = height as? CGFloat {
-                            self.postHeightConstraint.constant = height
-                            self.delegate?.postCellDidResize(self)
-                        }
-                    }
-                }
-            }
-        }
     }
 }
 

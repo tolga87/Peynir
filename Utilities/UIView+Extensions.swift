@@ -30,4 +30,20 @@ extension UIView {
         self.centerXAnchor.constraint(equalTo: superview.centerXAnchor).isActive = true
         self.centerYAnchor.constraint(equalTo: superview.centerYAnchor).isActive = true
     }
+
+    func calculateHeightThatFits() -> CGFloat {
+        if self.subviews.isEmpty {
+            return self.bounds.height
+        }
+
+        var subviewHeights = self.subviews.map { $0.calculateHeightThatFits() }
+        subviewHeights.append(self.bounds.height)
+        return subviewHeights.max() ?? 0
+    }
+
+    func debug_highlightBorder() {
+        self.layer.borderColor = UIColor.red.cgColor
+        self.layer.borderWidth = 1
+        self.layer.cornerRadius = 8
+    }
 }
