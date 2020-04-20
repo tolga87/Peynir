@@ -6,7 +6,7 @@
 //  Copyright © 2019 Tolga AKIN. All rights reserved.
 //
 
-import Foundation
+import PromiseKit
 
 class CategoryListDataProvider: DataProvider {
     public let apiClient: APIClientInterface
@@ -31,17 +31,16 @@ class CategoryListDataProvider: DataProvider {
 
     func fetch() {
         self.state = .loading
-        self.apiClient.fetchCategoryList { result in
-            switch result {
-            case .success(let categoryList):
-                self.state = .loaded
-                self.categoryList = categoryList
-                self.saveToCache()
 
-            case .failure(let error):
-                self.state = .error(error)
-            }
-
+        firstly {
+            self.apiClient.fetchCategoryList()
+        }.done {
+            self.state = .loaded
+            self.categoryList = $0
+            self.saveToCache()
+        }.catch { error in
+            self.state = .error(error)
+        }.finally {
             NotificationCenter.default.post(name: self.didUpdateNotification, object: self)
         }
     }

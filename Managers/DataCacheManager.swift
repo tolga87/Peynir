@@ -7,13 +7,11 @@
 //
 
 import UIKit
-
-typealias DataCacheSaveCallback = (Error?) -> Void
-typealias DataCacheLoadCallback = (Result<Data, Error>) -> Void
+import PromiseKit
 
 protocol DataCacheManagerInterface {
-    func saveData(_ data: Data, withKey key: String, completion: DataCacheSaveCallback?)
-    func loadData(withKey key: String, completion: DataCacheLoadCallback?)
+    func saveData(_ data: Data, withKey key: String) -> Promise<Void>
+    func loadData(withKey key: String) -> Promise<Data>
 }
 
 enum DataCacheError: Error {
@@ -24,35 +22,39 @@ enum DataCacheError: Error {
 class DataCacheManager: DataCacheManagerInterface {
     static let sharedInstance = DataCacheManager()
 
-    func saveData(_ data: Data, withKey key: String, completion: DataCacheSaveCallback?) {
-        guard let fileUrl = self.fileUrlForData(withKey: key) else {
-            DispatchQueue.main.async { completion?(DataCacheError.unknown) }
-            return
-        }
-
-        DispatchQueue.global(qos: .userInitiated).async {
-            do {
-                try data.write(to: fileUrl, options: .atomic)
-            } catch {
-                DispatchQueue.main.async { completion?(error) }
+    func saveData(_ data: Data, withKey key: String) -> Promise<Void> {
+        return Promise<Void> { seal in
+            guard let fileUrl = self.fileUrlForData(withKey: key) else {
+                seal.reject(DataCacheError.unknown)
+                return
             }
-            DispatchQueue.main.async { completion?(nil) }
+
+            DispatchQueue.global(qos: .userInitiated).async {
+                do {
+                    try data.write(to: fileUrl, options: .atomic)
+                } catch {
+                    seal.reject(error)
+                }
+                seal.fulfill(())
+            }
         }
     }
 
-    func loadData(withKey key: String, completion: DataCacheLoadCallback?) {
-        guard let fileUrl = self.fileUrlForData(withKey: key) else {
-            DispatchQueue.main.async { completion?(.failure(DataCacheError.unknown)) }
-            return
-        }
+    func loadData(withKey key: String) -> Promise<Data> {
+        return Promise<Data> { seal in
+            guard let fileUrl = self.fileUrlForData(withKey: key) else {
+                seal.reject(DataCacheError.unknown)
+                return
+            }
 
-        DispatchQueue.global(qos: .userInitiated).async {
-            let data = FileManager.default.contents(atPath: fileUrl.path)
-            DispatchQueue.main.async {
-                if let data = data {
-                    completion?(.success(data))
-                } else {
-                    completion?(.failure(DataCacheError.dataNotFound))
+            DispatchQueue.global(qos: .userInitiated).async {
+                let data = FileManager.default.contents(atPath: fileUrl.path)
+                DispatchQueue.main.async {
+                    if let data = data {
+                        seal.fulfill(data)
+                    } else {
+                        seal.reject(DataCacheError.dataNotFound)
+                    }
                 }
             }
         }

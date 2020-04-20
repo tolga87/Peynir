@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C96C170AAB9844D33762ADAB /* Pods_Peynir.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3BF68C65C0390DA464D0203 /* Pods_Peynir.framework */; };
 		FD0705A3243D4611006AA1B7 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0705A2243D4611006AA1B7 /* Observable.swift */; };
 		FD0A9A7523B02ADF00715BAD /* PostList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0A9A7423B02ADF00715BAD /* PostList.swift */; };
 		FD0A9A7723B02AF800715BAD /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0A9A7623B02AF800715BAD /* Post.swift */; };
@@ -80,6 +81,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1C516DE7E4752814F7B71AE4 /* Pods-Peynir.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Peynir.release.xcconfig"; path = "Target Support Files/Pods-Peynir/Pods-Peynir.release.xcconfig"; sourceTree = "<group>"; };
+		A3BF68C65C0390DA464D0203 /* Pods_Peynir.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Peynir.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B29A5A7FD7140D04D1A9C456 /* Pods-Peynir.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Peynir.debug.xcconfig"; path = "Target Support Files/Pods-Peynir/Pods-Peynir.debug.xcconfig"; sourceTree = "<group>"; };
 		FD0705A2243D4611006AA1B7 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		FD0A9A7423B02ADF00715BAD /* PostList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostList.swift; sourceTree = "<group>"; };
 		FD0A9A7623B02AF800715BAD /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
@@ -147,6 +151,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C96C170AAB9844D33762ADAB /* Pods_Peynir.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,6 +172,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		74F381F00F1D55DE266B7890 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A3BF68C65C0390DA464D0203 /* Pods_Peynir.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C1CE56807BCCBBC45E9B1115 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B29A5A7FD7140D04D1A9C456 /* Pods-Peynir.debug.xcconfig */,
+				1C516DE7E4752814F7B71AE4 /* Pods-Peynir.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		FD0705A1243D4600006AA1B7 /* Observable */ = {
 			isa = PBXGroup;
 			children = (
@@ -271,6 +294,8 @@
 				FD5F74D5238B4CA200DCEED3 /* PeynirTests */,
 				FD5F74E0238B4CA200DCEED3 /* PeynirUITests */,
 				FD5F74BA238B4CA100DCEED3 /* Products */,
+				C1CE56807BCCBBC45E9B1115 /* Pods */,
+				74F381F00F1D55DE266B7890 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -416,10 +441,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FD5F74E6238B4CA200DCEED3 /* Build configuration list for PBXNativeTarget "Peynir" */;
 			buildPhases = (
+				6BF951B6958DD6B3999B958A /* [CP] Check Pods Manifest.lock */,
 				FD5F74B5238B4CA100DCEED3 /* Sources */,
 				FD5F74B6238B4CA100DCEED3 /* Frameworks */,
 				FD5F74B7238B4CA100DCEED3 /* Resources */,
 				FD0705A0243D4218006AA1B7 /* ShellScript */,
+				09A564406D5AF35ACDC189E0 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -536,6 +563,45 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		09A564406D5AF35ACDC189E0 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Peynir/Pods-Peynir-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Peynir/Pods-Peynir-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Peynir/Pods-Peynir-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6BF951B6958DD6B3999B958A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Peynir-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		FD0705A0243D4218006AA1B7 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -771,6 +837,7 @@
 		};
 		FD5F74E7238B4CA200DCEED3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B29A5A7FD7140D04D1A9C456 /* Pods-Peynir.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Peynir/Peynir.entitlements;
@@ -791,6 +858,7 @@
 		};
 		FD5F74E8238B4CA200DCEED3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1C516DE7E4752814F7B71AE4 /* Pods-Peynir.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Peynir/Peynir.entitlements;

@@ -1,0 +1,6 @@
+framework module Pods_Peynir {
+  umbrella header "Pods-Peynir-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -6,7 +6,7 @@
 //  Copyright © 2019 Tolga AKIN. All rights reserved.
 //
 
-import Foundation
+import PromiseKit
 
 class PostListDataProvider: DataProvider {
     let topicId: Int
@@ -31,17 +31,16 @@ class PostListDataProvider: DataProvider {
 
     func fetch() {
         self.state = .loading
-        self.apiClient.fetchPostList(withTopicId: self.topicId) { result in
-            switch result {
-            case .success(let postList):
-                self.state = .loaded
-                self.postList = postList
-                self.saveToCache()
 
-            case .failure(let error):
-                self.state = .error(error)
-            }
-
+        firstly {
+            self.apiClient.fetchPostList(withTopicId: self.topicId)
+        }.done {
+            self.state = .loaded
+            self.postList = $0
+            self.saveToCache()
+        }.catch { error in
+            self.state = .error(error)
+        }.finally {
             NotificationCenter.default.post(name: self.didUpdateNotification, object: self)
         }
     }

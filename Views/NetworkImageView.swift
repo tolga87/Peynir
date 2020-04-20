@@ -7,6 +7,11 @@
 //
 
 import UIKit
+import PromiseKit
+
+enum NetworkImageViewError: Error {
+    case badImageData
+}
 
 class NetworkImageView: UIView {
     private let cacheManager: DataCacheManagerInterface
@@ -40,20 +45,18 @@ class NetworkImageView: UIView {
 
         self.spinner.startAnimating()
 
-        cacheManager.loadData(withKey: fileName) { result in
-            switch result {
-            case .failure:
-                logDebug("Could not find image in cache. Starting download from `\(url)`")
-                self.downloadAndSetImage(fromUrl: url, fileName: fileName)
-
-            case .success(let imageData):
-                guard let image = UIImage(data: imageData) else {
-                    logError("Could not convert image date to UIImage")
-                    return
-                }
-
-                self.setImage(image)
+        firstly {
+            cacheManager.loadData(withKey: fileName)
+        }.done {
+            guard let image = UIImage(data: $0) else {
+                logError("Could not convert image date to UIImage")
+                return
             }
+
+            self.setImage(image)
+        }.catch { _ in
+            logDebug("Could not find image in cache. Starting download from `\(url)`")
+            self.downloadAndSetImage(fromUrl: url, fileName: fileName)
         }
     }
 
@@ -69,20 +72,17 @@ private extension NetworkImageView {
     }
 
     func downloadAndSetImage(fromUrl url: String, fileName: String) {
-        self.networkManager.getData(atUrl: url) { result in
-            switch result {
-            case .failure(let error):
-                logError("Could not download image from `\(url): \(error)`")
-
-            case .success(let imageData):
-                guard let image = UIImage(data: imageData) else {
-                    logError("Could not convert image date to UIImage")
-                    return
-                }
-
-                self.setImage(image)
-                self.cacheManager.saveData(imageData, withKey: fileName, completion: nil)
+        firstly {
+            self.networkManager.getData(atUrl: url)
+        }.done { imageData in
+            guard let image = UIImage(data: imageData) else {
+                throw NetworkImageViewError.badImageData
             }
+
+            self.setImage(image)
+            _ = self.cacheManager.saveData(imageData, withKey: fileName)
+        }.catch { error in
+            logError("Could not download image from `\(url): \(error)`")
         }
     }
 }

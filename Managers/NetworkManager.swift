@@ -6,7 +6,7 @@
 //  Copyright © 2019 Tolga AKIN. All rights reserved.
 //
 
-import Foundation
+import PromiseKit
 
 public enum NetworkError: Error {
     case invalidUrl
@@ -14,20 +14,12 @@ public enum NetworkError: Error {
     case unknown
 }
 
-public typealias DataResourceResult = Result<Data, Error>
-public typealias StringResourceResult = Result<String, Error>
-public typealias JSONResourceResult = Result<JSON, Error>
-
-public typealias DataResourceResultCallback = (DataResourceResult) -> Void
-public typealias StringResourceResultCallback = (StringResourceResult) -> Void
-public typealias JSONResourceResultCallback = (JSONResourceResult) -> Void
-
 public protocol NetworkManagerInterface {
     var baseUrl: String { get }
 
-    func getData(atUrl urlString: String, completion: DataResourceResultCallback?)
-    func getString(atUrl urlString: String, completion: StringResourceResultCallback?)
-    func getJson(atUrl urlString: String, completion: JSONResourceResultCallback?)
+    func getData(atUrl urlString: String) -> Promise<Data>
+    func getString(atUrl urlString: String) -> Promise<String>
+    func getJson(atUrl urlString: String) -> Promise<JSON>
 }
 
 public class NetworkManager: NetworkManagerInterface {
@@ -35,47 +27,47 @@ public class NetworkManager: NetworkManagerInterface {
 
     public static let sharedInstance = NetworkManager()
 
-    // `completion` will be called on the main thread.
-    public func getData(atUrl urlString: String, completion: DataResourceResultCallback?) {
-        guard let url = URL(string: urlString) else {
-            DispatchQueue.main.async { completion?(.failure(NetworkError.invalidUrl)) }
-            return
-        }
-
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-            guard let data = data else {
-                let error = error ?? NetworkError.unknown
-                DispatchQueue.main.async { completion?(.failure(error)) }
+    public func getData(atUrl urlString: String) -> Promise<Data> {
+        return Promise<Data> { seal in
+            guard let url = URL(string: urlString) else {
+                seal.reject(NetworkError.invalidUrl)
                 return
             }
 
-            DispatchQueue.main.async { completion?(.success(data)) }
-        }
-
-        task.resume()
-    }
-
-    public func getString(atUrl urlString: String, completion: StringResourceResultCallback?) {
-        self.getData(atUrl: urlString) { result in
-            guard
-                let data = result.successValue,
-                let string = String(data: data, encoding: .utf8) else {
-                    completion?(.failure(NetworkError.invalidData))
+            let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+                guard let data = data else {
+                    let error = error ?? NetworkError.unknown
+                    seal.reject(error)
                     return
+                }
+
+                seal.fulfill(data)
             }
-            completion?(.success(string))
+
+            task.resume()
         }
     }
 
-    public func getJson(atUrl urlString: String, completion: JSONResourceResultCallback?) {
-        self.getString(atUrl: urlString) { result in
-            guard
-                let string = result.successValue,
-                let json = string.toJson() else {
-                    completion?(.failure(NetworkError.invalidData))
-                    return
+    public func getString(atUrl urlString: String) -> Promise<String> {
+        return firstly {
+            self.getData(atUrl: urlString)
+        }.compactMap {
+            guard let string = String(data: $0, encoding: .utf8) else {
+                throw NetworkError.invalidData
             }
-            completion?(.success(json))
+            return string
+        }
+    }
+
+
+    public func getJson(atUrl urlString: String) -> Promise<JSON> {
+        return firstly {
+            self.getString(atUrl: urlString)
+        }.compactMap {
+            guard let json = $0.toJson() else {
+                throw NetworkError.invalidData
+            }
+            return json
         }
     }
 }
