@@ -45,20 +45,6 @@ class PostListDataProvider: DataProvider {
         }
     }
 
-    func numberOfItems() -> Int {
-        guard let postList = self.postList else {
-            return 0
-        }
-        return postList.posts.count
-    }
-
-    func item(atIndexPath indexPath: IndexPath) -> Post? {
-        guard let postList = self.postList else {
-            return nil
-        }
-        return postList.posts[indexPath.row]
-    }
-
     // MARK: - DataProvider
 
     typealias DataType = Post
@@ -66,6 +52,9 @@ class PostListDataProvider: DataProvider {
     let didUpdateNotification = Notification.Name("PostsDataProviderDidUpdate")
 
     var state: DataProviderState = .unknown
+    var items: [Post] {
+        return self.postList?.posts ?? []
+    }
 }
 
 private extension PostListDataProvider {

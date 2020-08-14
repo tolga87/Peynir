@@ -63,11 +63,11 @@ class TopicListViewController: UIViewController {
 
 extension TopicListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.dataProvider.numberOfItems()
+        return self.dataProvider.items.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let topic = self.dataProvider.item(atIndexPath: indexPath) else {
+        guard let topic = self.dataProvider.items[safe: indexPath.row] else {
             return UITableViewCell()
         }
 
@@ -81,7 +81,7 @@ extension TopicListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
-        guard let topic = self.dataProvider.item(atIndexPath: indexPath) else { return }
+        guard let topic = self.dataProvider.items[safe: indexPath.row] else { return }
         self.actionHandler?.didSelectTopic(topic)
     }
 }

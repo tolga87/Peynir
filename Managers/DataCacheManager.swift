@@ -10,8 +10,18 @@ import UIKit
 import PromiseKit
 
 protocol DataCacheManagerInterface {
-    func saveData(_ data: Data, withKey key: String) -> Promise<Void>
-    func loadData(withKey key: String) -> Promise<Data>
+    func saveData(_ data: Data, withKey key: String, group: String?) -> Promise<Void>
+    func loadData(withKey key: String, group: String?) -> Promise<Data>
+}
+
+extension DataCacheManagerInterface {
+    func saveData(_ data: Data, withKey key: String) -> Promise<Void> {
+        return self.saveData(data, withKey: key, group: nil)
+    }
+    
+    func loadData(withKey key: String) -> Promise<Data> {
+        return self.loadData(withKey: key, group: nil)
+    }
 }
 
 enum DataCacheError: Error {
@@ -22,9 +32,13 @@ enum DataCacheError: Error {
 class DataCacheManager: DataCacheManagerInterface {
     static let sharedInstance = DataCacheManager()
 
-    func saveData(_ data: Data, withKey key: String) -> Promise<Void> {
+    func saveData(_ data: Data, withKey key: String, group: String? = nil) -> Promise<Void> {
         return Promise<Void> { seal in
-            guard let fileUrl = self.fileUrlForData(withKey: key) else {
+            if let group = group {
+                self.createGroupIfNecessary(group)
+            }
+
+            guard let fileUrl = self.fileUrlForData(withKey: key, group: group) else {
                 seal.reject(DataCacheError.unknown)
                 return
             }
@@ -40,9 +54,13 @@ class DataCacheManager: DataCacheManagerInterface {
         }
     }
 
-    func loadData(withKey key: String) -> Promise<Data> {
+    func loadData(withKey key: String, group: String?) -> Promise<Data> {
         return Promise<Data> { seal in
-            guard let fileUrl = self.fileUrlForData(withKey: key) else {
+            if let group = group {
+                self.createGroupIfNecessary(group)
+            }
+
+            guard let fileUrl = self.fileUrlForData(withKey: key, group: group) else {
                 seal.reject(DataCacheError.unknown)
                 return
             }
@@ -62,10 +80,24 @@ class DataCacheManager: DataCacheManagerInterface {
 }
 
 private extension DataCacheManager {
-    func fileUrlForData(withKey key: String) -> URL? {
+    func createGroupIfNecessary(_ groupId: String) {
+        guard let groupUrl = self.fileUrlForData(withKey: groupId, group: nil) else { return }
+        if FileManager.default.fileExists(atPath: groupUrl.absoluteString) {
+            return
+        }
+
+        try? FileManager.default.createDirectory(at: groupUrl, withIntermediateDirectories: true, attributes: nil)
+    }
+
+    func fileUrlForData(withKey key: String, group: String?) -> URL? {
         guard let documentDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
             return nil
         }
-        return documentDirectoryUrl.appendingPathComponent(key)
+
+        if let group = group, group.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).count > 0 {
+            return documentDirectoryUrl.appendingPathComponent(group).appendingPathComponent(key)
+        } else {
+            return documentDirectoryUrl.appendingPathComponent(key)
+        }
     }
 }

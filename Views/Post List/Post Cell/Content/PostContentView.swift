@@ -23,6 +23,10 @@ class PostContentView: WKWebView {
     override init(frame: CGRect, configuration: WKWebViewConfiguration) {
         super.init(frame: frame, configuration: configuration)
 
+        //~TA
+        self.isOpaque = false
+        self.backgroundColor = .clear
+
         self.addObserver(self, forKeyPath: Consts.contentSizeKeyPath, options: .new, context: nil)
         self.contentHeight.addObserver { [weak self] in
             self?.setNeedsUpdateConstraints()

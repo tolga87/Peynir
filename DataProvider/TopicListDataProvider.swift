@@ -32,10 +32,12 @@ class TopicListDataProvider: DataProvider {
     // MARK: - DataProvider
 
     typealias DataType = Topic
-
     let didUpdateNotification = Notification.Name("TopicsDataProviderDidUpdate")
 
     var state: DataProviderState = .unknown
+    var items: [Topic] {
+        return self.topicList?.topics ?? []
+    }
 
     func fetch() {
         self.state = .loading
@@ -51,20 +53,6 @@ class TopicListDataProvider: DataProvider {
         }.finally {
             NotificationCenter.default.post(name: self.didUpdateNotification, object: self)
         }
-    }
-
-    func numberOfItems() -> Int {
-        guard let topicList = self.topicList else {
-            return 0
-        }
-        return topicList.topics.count
-    }
-
-    func item(atIndexPath indexPath: IndexPath) -> Topic? {
-        guard let topicList = self.topicList else {
-            return nil
-        }
-        return topicList.topics[indexPath.row]
     }
 }
 

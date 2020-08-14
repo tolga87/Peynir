@@ -28,6 +28,9 @@ class CategoryListDataProvider: DataProvider {
     let didUpdateNotification = Notification.Name("CategoryListDataProviderDidUpdate")
 
     var state: DataProviderState = .unknown
+    var items: [Category] {
+        return self.categoryList?.categories ?? []
+    }
 
     func fetch() {
         self.state = .loading
@@ -43,20 +46,6 @@ class CategoryListDataProvider: DataProvider {
         }.finally {
             NotificationCenter.default.post(name: self.didUpdateNotification, object: self)
         }
-    }
-
-    func numberOfItems() -> Int {
-        guard let categoryList = self.categoryList else {
-            return 0
-        }
-        return categoryList.categories.count
-    }
-
-    func item(atIndexPath indexPath: IndexPath) -> Category? {
-        guard let categoryList = self.categoryList else {
-            return nil
-        }
-        return categoryList.categories[indexPath.row]
     }
 }
 

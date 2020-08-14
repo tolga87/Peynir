@@ -21,7 +21,6 @@ public protocol DataProvider {
     var didUpdateNotification: Notification.Name { get }
 
     var state: DataProviderState { get }
+    var items: [DataType] { get }
     func fetch()
-    func numberOfItems() -> Int
-    func item(atIndexPath indexPath: IndexPath) -> DataType?
 }

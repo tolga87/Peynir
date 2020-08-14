@@ -8,6 +8,7 @@
 
 import UIKit
 import WebKit
+import PromiseKit
 
 protocol PostCellDelegate: class {
     func postCellDidResize(_ cell: PostCell)
@@ -19,11 +20,13 @@ protocol PostCellViewModelInterface {
     var avatarTemplate: String { get }
     var createdAt: String { get }
     var postContent: String { get }
+    var cacheKey: String { get }
 }
 
 class PostCell: UITableViewCell {
     static let reuseIdentifier = "PostCellReuseIdentifier"
     weak var delegate: PostCellDelegate?
+    weak var cacheManager: WebCacheManagerInterface?
 
     var viewModel: PostCellViewModelInterface? {
         didSet {
@@ -155,6 +158,10 @@ class PostCell: UITableViewCell {
             guard let self = self else { return }
 
             self.delegate?.postCellDidResize(self)
+
+            if let viewModel = self.viewModel {
+                let _ = self.cacheManager?.save(webView: self.postContentView, key: viewModel.cacheKey)
+            }
         }
     }
 }
@@ -162,6 +169,12 @@ class PostCell: UITableViewCell {
 extension PostCell: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         self.spinner.stopAnimating()
+
+//        guard let viewModel = self.viewModel else { return }
+
+//        DispatchQueue.main.asyncAfter(deadline: .now()) {
+//            let _ = self.cacheManager?.save(webView: self.postContentView, key: viewModel.cacheKey)
+//        }
     }
 }
 

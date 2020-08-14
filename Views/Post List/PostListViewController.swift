@@ -12,6 +12,7 @@ class PostListViewController: UIViewController {
     weak var deinitDelegate: DeinitDelegate?
 
     private let dataProvider: PostListDataProvider
+    private let webCacheManager: WebCacheManagerInterface
     private let tableView: UITableView
 
     lazy var refreshControl: UIRefreshControl = {
@@ -22,6 +23,7 @@ class PostListViewController: UIViewController {
 
     init(dataProvider: PostListDataProvider) {
         self.dataProvider = dataProvider
+        self.webCacheManager = WebCacheManager(dataCacheManager: DataCacheManager.sharedInstance)
         self.tableView = UITableView()
 
         super.init(nibName: nil, bundle: nil)
@@ -69,11 +71,11 @@ class PostListViewController: UIViewController {
 
 extension PostListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.dataProvider.numberOfItems()
+        return self.dataProvider.items.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let post = self.dataProvider.item(atIndexPath: indexPath) else {
+        guard let post = self.dataProvider.items[safe: indexPath.row] else {
             return UITableViewCell()
         }
 
@@ -85,10 +87,12 @@ extension PostListViewController: UITableViewDataSource {
                                                   username: post.username,
                                                   avatarTemplate: post.avatarTemplate,
                                                   createdAt: post.createdAt,
-                                                  postContent: post.cooked)
+                                                  postContent: post.cooked,
+                                                  cacheKey: "\(self.dataProvider.topicId)-\(post.id)")
 
         cell.resetContent()
         cell.delegate = self
+        cell.cacheManager = self.webCacheManager
         cell.viewModel = postCellViewModel
         return cell
     }
@@ -108,4 +112,5 @@ struct PostCellViewModel: PostCellViewModelInterface {
     let avatarTemplate: String
     let createdAt: String
     let postContent: String
+    let cacheKey: String
 }

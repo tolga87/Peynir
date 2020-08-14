@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -40,6 +40,8 @@
 		FD5F74CC238B4CA200DCEED3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD5F74CA238B4CA200DCEED3 /* LaunchScreen.storyboard */; };
 		FD5F74D7238B4CA200DCEED3 /* PeynirTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5F74D6238B4CA200DCEED3 /* PeynirTests.swift */; };
 		FD5F74E2238B4CA200DCEED3 /* PeynirUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5F74E1238B4CA200DCEED3 /* PeynirUITests.swift */; };
+		FD61ADBE24CE8FE800FEAF8E /* WebCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD61ADBD24CE8FE800FEAF8E /* WebCacheManager.swift */; };
+		FD61ADC024CE99C100FEAF8E /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD61ADBF24CE99C100FEAF8E /* Array+Extensions.swift */; };
 		FD65030223BAB80F00F110C5 /* DataCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD65030123BAB80F00F110C5 /* DataCacheManager.swift */; };
 		FD65030423BAC01900F110C5 /* NetworkImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD65030323BAC01900F110C5 /* NetworkImageView.swift */; };
 		FD65030623BAC1F200F110C5 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD65030523BAC1F200F110C5 /* UIView+Extensions.swift */; };
@@ -122,6 +124,8 @@
 		FD5F74DD238B4CA200DCEED3 /* PeynirUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PeynirUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD5F74E1238B4CA200DCEED3 /* PeynirUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeynirUITests.swift; sourceTree = "<group>"; };
 		FD5F74E3238B4CA200DCEED3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FD61ADBD24CE8FE800FEAF8E /* WebCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebCacheManager.swift; sourceTree = "<group>"; };
+		FD61ADBF24CE99C100FEAF8E /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
 		FD65030123BAB80F00F110C5 /* DataCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCacheManager.swift; sourceTree = "<group>"; };
 		FD65030323BAC01900F110C5 /* NetworkImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkImageView.swift; sourceTree = "<group>"; };
 		FD65030523BAC1F200F110C5 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
@@ -186,7 +190,6 @@
 				B29A5A7FD7140D04D1A9C456 /* Pods-Peynir.debug.xcconfig */,
 				1C516DE7E4752814F7B71AE4 /* Pods-Peynir.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -225,6 +228,7 @@
 				FDCA8683239473D800E41718 /* CacheManager.swift */,
 				FD65030123BAB80F00F110C5 /* DataCacheManager.swift */,
 				FDCA86852394764400E41718 /* NetworkManager.swift */,
+				FD61ADBD24CE8FE800FEAF8E /* WebCacheManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -371,6 +375,7 @@
 				FD9A665B2394B6AB00A10060 /* String+Extensions.swift */,
 				FD9A665D2394B6EA00A10060 /* Result+Extensions.swift */,
 				FD65030523BAC1F200F110C5 /* UIView+Extensions.swift */,
+				FD61ADBF24CE99C100FEAF8E /* Array+Extensions.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -651,6 +656,7 @@
 				FDCA86892394964A00E41718 /* CategoryListViewController.swift in Sources */,
 				FD8161F4239C6841005F65B2 /* Topic.swift in Sources */,
 				FDCA8684239473D800E41718 /* CacheManager.swift in Sources */,
+				FD61ADC024CE99C100FEAF8E /* Array+Extensions.swift in Sources */,
 				FD65030623BAC1F200F110C5 /* UIView+Extensions.swift in Sources */,
 				FD5F74BD238B4CA100DCEED3 /* AppDelegate.swift in Sources */,
 				FDDF124223CBAB5A0061AD3D /* TimeFormatter.swift in Sources */,
@@ -667,6 +673,7 @@
 				FD53DDE3238B5C89000F341D /* KeychainItemAccessibility.swift in Sources */,
 				FD19C450239DC43500AFBE0E /* CategoryListCoordinator.swift in Sources */,
 				FD19C452239DC54100AFBE0E /* SettingsCoordinator.swift in Sources */,
+				FD61ADBE24CE8FE800FEAF8E /* WebCacheManager.swift in Sources */,
 				FD54661D23A6CB85007556F2 /* Logging.swift in Sources */,
 				FDCA86862394764400E41718 /* NetworkManager.swift in Sources */,
 				FD53DDE5238B5CAE000F341D /* UserInfoManager.swift in Sources */,

@@ -74,12 +74,12 @@ class CategoryListViewController: UIViewController {
 
 extension CategoryListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.dataProvider.numberOfItems()
+        return self.dataProvider.items.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard
-            let category = self.dataProvider.item(atIndexPath: indexPath),
+            let category = self.dataProvider.items[safe: indexPath.row],
             let cell = tableView.dequeueReusableCell(withIdentifier: Consts.tableViewReuseId, for: indexPath) as? CategoryListCell else {
                 return UITableViewCell()
         }
@@ -95,7 +95,7 @@ extension CategoryListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
-        guard let category = self.dataProvider.item(atIndexPath: indexPath) else { return }
+        guard let category = self.dataProvider.items[safe: indexPath.row] else { return }
         self.actionHandler?.didSelectCategory(category)
     }
 }
