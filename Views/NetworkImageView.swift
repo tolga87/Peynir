@@ -47,7 +47,7 @@ class NetworkImageView: UIView {
 
         firstly {
             cacheManager.loadData(withKey: fileName)
-        }.done {
+        }.done(on: .main) {
             guard let image = UIImage(data: $0) else {
                 logError("Could not convert image date to UIImage")
                 return
@@ -74,7 +74,7 @@ private extension NetworkImageView {
     func downloadAndSetImage(fromUrl url: String, fileName: String) {
         firstly {
             self.networkManager.getData(atUrl: url)
-        }.done { imageData in
+        }.done(on: .main) { imageData in
             guard let image = UIImage(data: imageData) else {
                 throw NetworkImageViewError.badImageData
             }

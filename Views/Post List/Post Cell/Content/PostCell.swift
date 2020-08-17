@@ -15,16 +15,17 @@ protocol PostCellDelegate: class {
 }
 
 protocol PostCellViewModelInterface {
+    var id: String { get }
     var name: String { get }
     var username: String { get }
     var avatarTemplate: String { get }
     var createdAt: String { get }
     var postContent: String { get }
     var cacheKey: String { get }
+    var postWidth: CGFloat { get }
 }
 
 class PostCell: UITableViewCell {
-    static let reuseIdentifier = "PostCellReuseIdentifier"
     weak var delegate: PostCellDelegate?
     weak var cacheManager: WebCacheManagerInterface?
 
@@ -33,33 +34,10 @@ class PostCell: UITableViewCell {
             self.setupViews()
         }
     }
-
-    private var htmlContent: String {
-        let postContent = self.viewModel?.postContent ?? ""
-
-        return """
-            <html>
-                <head>
-                    <style>
-                        @media (prefers-color-scheme: dark) {
-                            body {
-                                background-color: rgb(38,38,41);
-                                color: white;
-                            }
-                            a:link {
-                                color: #0096e2;
-                            }
-                            a:visited {
-                                color: #9d57df;
-                            }
-                        }
-                    </style>
-                </head>
-            <body>
-            \(postContent)
-            </body>
-            </html>
-        """
+    var postContentSnapshotPromise: Promise<UIImage>? {
+        didSet {
+            self.postContentView.snapshotImagePromise = postContentSnapshotPromise
+        }
     }
 
     private var postMetadataView: PostMetadataView?
@@ -67,13 +45,6 @@ class PostCell: UITableViewCell {
     private var postMetadataHeightConstraint: NSLayoutConstraint!
 
     private var postContentView: PostContentView!
-
-    private lazy var spinner: UIActivityIndicatorView = {
-        let spinner = UIActivityIndicatorView(style: .medium)
-        spinner.translatesAutoresizingMaskIntoConstraints = false
-        spinner.hidesWhenStopped = true
-        return spinner
-    }()
 
     private lazy var webViewConfig: WKWebViewConfiguration = {
 
@@ -132,14 +103,13 @@ class PostCell: UITableViewCell {
             self.postMetadataHeightConstraint = self.postMetadataContainerView.heightAnchor.constraint(equalToConstant: 0)
         }
 
+        self.postMetadataHeightConstraint.priority = .defaultHigh
         self.postMetadataHeightConstraint.isActive = true
 
-        self.postContentView?.navigationDelegate = nil
         self.postContentView?.removeFromSuperview()
-        self.postContentView = PostContentView(frame: .zero, configuration: self.webViewConfig)
-        self.postContentView.scrollView.isScrollEnabled = false
+        self.postContentView = PostContentView(frame: .zero)
         self.postContentView.translatesAutoresizingMaskIntoConstraints = false
-        self.postContentView.htmlString = self.htmlContent
+
         self.contentView.addSubview(self.postContentView)
 
         self.postContentView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor).isActive = true
@@ -147,34 +117,10 @@ class PostCell: UITableViewCell {
         self.postContentView.topAnchor.constraint(equalTo: self.postMetadataContainerView.bottomAnchor).isActive = true
         self.postContentView.bottomAnchor.constraint(lessThanOrEqualTo: self.contentView.bottomAnchor).isActive = true
 
-        self.spinner.removeFromSuperview()
-        self.postContentView.addSubview(self.spinner)
-        self.spinner.constrainToCenter(ofView: self.postContentView)
-        self.spinner.startAnimating()
-
-        self.postContentView.navigationDelegate = self
-
-        self.postContentView.contentHeight.addObserver { [weak self] in
+        self.postContentView.contentSizeChangeCallback = { [weak self] contentSize in
             guard let self = self else { return }
-
             self.delegate?.postCellDidResize(self)
-
-            if let viewModel = self.viewModel {
-                let _ = self.cacheManager?.save(webView: self.postContentView, key: viewModel.cacheKey)
-            }
         }
-    }
-}
-
-extension PostCell: WKNavigationDelegate {
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        self.spinner.stopAnimating()
-
-//        guard let viewModel = self.viewModel else { return }
-
-//        DispatchQueue.main.asyncAfter(deadline: .now()) {
-//            let _ = self.cacheManager?.save(webView: self.postContentView, key: viewModel.cacheKey)
-//        }
     }
 }
 

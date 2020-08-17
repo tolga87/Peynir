@@ -32,6 +32,7 @@ enum DataCacheError: Error {
 class DataCacheManager: DataCacheManagerInterface {
     static let sharedInstance = DataCacheManager()
 
+    @discardableResult
     func saveData(_ data: Data, withKey key: String, group: String? = nil) -> Promise<Void> {
         return Promise<Void> { seal in
             if let group = group {
@@ -65,15 +66,11 @@ class DataCacheManager: DataCacheManagerInterface {
                 return
             }
 
-            DispatchQueue.global(qos: .userInitiated).async {
-                let data = FileManager.default.contents(atPath: fileUrl.path)
-                DispatchQueue.main.async {
-                    if let data = data {
-                        seal.fulfill(data)
-                    } else {
-                        seal.reject(DataCacheError.dataNotFound)
-                    }
-                }
+            let data = FileManager.default.contents(atPath: fileUrl.path)
+            if let data = data {
+                seal.fulfill(data)
+            } else {
+                seal.reject(DataCacheError.dataNotFound)
             }
         }
     }

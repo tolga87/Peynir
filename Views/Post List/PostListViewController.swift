@@ -14,6 +14,11 @@ class PostListViewController: UIViewController {
     private let dataProvider: PostListDataProvider
     private let webCacheManager: WebCacheManagerInterface
     private let tableView: UITableView
+    private var postContentWidth: CGFloat = 0
+
+    // Reusing cells with dynamically resizable webviews proved to be surprisingly difficult and prone to lots of nasty bugs.
+    // It's much simpler to allocate them statically without reusing. That's what we do here ¯\_(ツ)_/¯
+    private var cells: [PostCell] = []
 
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -28,6 +33,7 @@ class PostListViewController: UIViewController {
 
         super.init(nibName: nil, bundle: nil)
 
+        self.resetCells()
         NotificationCenter.default.addObserver(self, selector: #selector(dataProviderDidUpdate), name: dataProvider.didUpdateNotification, object: nil)
     }
 
@@ -43,7 +49,6 @@ class PostListViewController: UIViewController {
         super.viewDidLoad()
         self.title = self.dataProvider.topicTitle
 
-        self.tableView.register(PostCell.self, forCellReuseIdentifier: PostCell.reuseIdentifier)
         self.tableView.dataSource = self
         self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.estimatedRowHeight = 44
@@ -57,12 +62,55 @@ class PostListViewController: UIViewController {
         self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
     }
 
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        if self.postContentWidth != 0 && self.postContentWidth != self.tableView.frame.width {
+            // Cells need to be resized.
+            self.resetCells()
+            self.tableView.reloadData()
+        }
+    }
+
+    func resetCells() {
+        self.cells = self.dataProvider.items.map { _ in
+            PostCell(style: .default, reuseIdentifier: nil)
+        }
+    }
+
+    private func generateHtmlContent(forPostContent postContent: String) -> String {
+        return """
+            <html>
+                <head>
+                    <style>
+                        @media (prefers-color-scheme: dark) {
+                            body {
+                                background-color: rgb(38,38,41);
+                                color: white;
+                            }
+                            a:link {
+                                color: #0096e2;
+                            }
+                            a:visited {
+                                color: #9d57df;
+                            }
+                        }
+                    </style>
+                </head>
+            <body>
+            \(postContent)
+            </body>
+            </html>
+        """
+    }
+
     @objc func refreshControlDidTrigger() {
         self.dataProvider.fetch()
     }
 
     @objc func dataProviderDidUpdate() {
         DispatchQueue.main.async {
+            self.resetCells()
             self.refreshControl.endRefreshing()
             self.tableView.reloadData()
         }
@@ -71,46 +119,54 @@ class PostListViewController: UIViewController {
 
 extension PostListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.dataProvider.items.count
+        return self.cells.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let post = self.dataProvider.items[safe: indexPath.row] else {
-            return UITableViewCell()
+        guard
+            let post = self.dataProvider.items[safe: indexPath.row],
+            let cell = self.cells[safe: indexPath.row] else {
+                return UITableViewCell()
         }
 
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: PostCell.reuseIdentifier, for: indexPath) as? PostCell else {
-            return UITableViewCell()
+        self.postContentWidth = self.tableView.frame.width
+        if cell.viewModel == nil {
+            let postCellViewModel = PostCellViewModel(id: "\(post.id)",
+                                                      name: post.name,
+                                                      username: post.username,
+                                                      avatarTemplate: post.avatarTemplate,
+                                                      createdAt: post.createdAt,
+                                                      postContent: post.cooked,
+                                                      cacheKey: "\(self.dataProvider.topicId)-\(post.id)",
+                                                      postWidth: self.tableView.frame.width)
+
+            cell.delegate = self
+            cell.cacheManager = self.webCacheManager
+            cell.viewModel = postCellViewModel
+            cell.postContentSnapshotPromise = WebSnapshotManager.sharedInstance.snapshot(withId: postCellViewModel.cacheKey,
+                                                                                         htmlString: self.generateHtmlContent(forPostContent: post.cooked),
+                                                                                         width: tableView.frame.width)
         }
-
-        let postCellViewModel = PostCellViewModel(name: post.name,
-                                                  username: post.username,
-                                                  avatarTemplate: post.avatarTemplate,
-                                                  createdAt: post.createdAt,
-                                                  postContent: post.cooked,
-                                                  cacheKey: "\(self.dataProvider.topicId)-\(post.id)")
-
-        cell.resetContent()
-        cell.delegate = self
-        cell.cacheManager = self.webCacheManager
-        cell.viewModel = postCellViewModel
         return cell
     }
 }
 
 extension PostListViewController: PostCellDelegate {
     func postCellDidResize(_ cell: PostCell) {
-        // TODO(tolga): It looks like this can sometimes cause a crash. Investigate.
-        self.tableView.beginUpdates()
-        self.tableView.endUpdates()
+        UIView.performWithoutAnimation {
+            self.tableView.beginUpdates()
+            self.tableView.endUpdates()
+        }
     }
 }
 
 struct PostCellViewModel: PostCellViewModelInterface {
+    let id: String
     let name: String
     let username: String
     let avatarTemplate: String
     let createdAt: String
     let postContent: String
     let cacheKey: String
+    let postWidth: CGFloat
 }

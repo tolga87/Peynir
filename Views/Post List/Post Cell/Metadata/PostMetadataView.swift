@@ -55,7 +55,9 @@ class PostMetadataView: UIView {
         self.avatarView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Consts.horizontalPadding).isActive = true
         self.avatarView.topAnchor.constraint(equalTo: self.topAnchor, constant: Consts.verticalPadding).isActive = true
         self.avatarView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -Consts.verticalPadding).isActive = true
-        self.avatarView.widthAnchor.constraint(equalToConstant: CGFloat(imageSize)).isActive = true
+        let widthConstraint = self.avatarView.widthAnchor.constraint(equalToConstant: CGFloat(imageSize))
+        widthConstraint.priority = .defaultHigh  // This is to suppress `UIView-Encapsulated-Layout-Height` related warnings.
+        widthConstraint.isActive = true
         self.avatarView.heightAnchor.constraint(equalTo: self.avatarView.widthAnchor).isActive = true
 
         self.userNameLabel.leadingAnchor.constraint(equalTo: self.avatarView.trailingAnchor, constant: Consts.horizontalPadding).isActive = true

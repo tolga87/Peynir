@@ -23,6 +23,7 @@
 		FD19C456239DCA2C00AFBE0E /* TopicListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD19C455239DCA2C00AFBE0E /* TopicListViewController.swift */; };
 		FD19C45A239DCCF900AFBE0E /* CategoryListActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD19C459239DCCF900AFBE0E /* CategoryListActionHandler.swift */; };
 		FD2937E823B999AD007F1AF9 /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD2937E723B999AD007F1AF9 /* PostCell.swift */; };
+		FD4D391824E925F600FC9324 /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4D391724E925F600FC9324 /* ImageCacheManager.swift */; };
 		FD53DDDE238B585B000F341D /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD53DDDD238B585B000F341D /* LoginManager.swift */; };
 		FD53DDE1238B5C63000F341D /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD53DDE0238B5C63000F341D /* KeychainWrapper.swift */; };
 		FD53DDE3238B5C89000F341D /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD53DDE2238B5C89000F341D /* KeychainItemAccessibility.swift */; };
@@ -51,6 +52,7 @@
 		FD8161F2239C681C005F65B2 /* TopicListDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8161F1239C681C005F65B2 /* TopicListDataProvider.swift */; };
 		FD8161F4239C6841005F65B2 /* Topic.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8161F3239C6841005F65B2 /* Topic.swift */; };
 		FD8161F6239C6AC4005F65B2 /* TopicList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8161F5239C6AC4005F65B2 /* TopicList.swift */; };
+		FD81F64C24E8FF11009CFE1B /* WebSnapshotManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD81F64B24E8FF11009CFE1B /* WebSnapshotManager.swift */; };
 		FD9A665C2394B6AB00A10060 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9A665B2394B6AB00A10060 /* String+Extensions.swift */; };
 		FD9A665E2394B6EA00A10060 /* Result+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9A665D2394B6EA00A10060 /* Result+Extensions.swift */; };
 		FDCA867A2394395400E41718 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCA86792394395400E41718 /* JSON.swift */; };
@@ -101,6 +103,7 @@
 		FD19C455239DCA2C00AFBE0E /* TopicListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicListViewController.swift; sourceTree = "<group>"; };
 		FD19C459239DCCF900AFBE0E /* CategoryListActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListActionHandler.swift; sourceTree = "<group>"; };
 		FD2937E723B999AD007F1AF9 /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
+		FD4D391724E925F600FC9324 /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
 		FD53DDDD238B585B000F341D /* LoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
 		FD53DDE0238B5C63000F341D /* KeychainWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		FD53DDE2238B5C89000F341D /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainItemAccessibility.swift; sourceTree = "<group>"; };
@@ -135,6 +138,7 @@
 		FD8161F1239C681C005F65B2 /* TopicListDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicListDataProvider.swift; sourceTree = "<group>"; };
 		FD8161F3239C6841005F65B2 /* Topic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Topic.swift; sourceTree = "<group>"; };
 		FD8161F5239C6AC4005F65B2 /* TopicList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicList.swift; sourceTree = "<group>"; };
+		FD81F64B24E8FF11009CFE1B /* WebSnapshotManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSnapshotManager.swift; sourceTree = "<group>"; };
 		FD9A665B2394B6AB00A10060 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		FD9A665D2394B6EA00A10060 /* Result+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+Extensions.swift"; sourceTree = "<group>"; };
 		FDCA86792394395400E41718 /* JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
@@ -229,6 +233,8 @@
 				FD65030123BAB80F00F110C5 /* DataCacheManager.swift */,
 				FDCA86852394764400E41718 /* NetworkManager.swift */,
 				FD61ADBD24CE8FE800FEAF8E /* WebCacheManager.swift */,
+				FD81F64B24E8FF11009CFE1B /* WebSnapshotManager.swift */,
+				FD4D391724E925F600FC9324 /* ImageCacheManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -651,6 +657,7 @@
 				FD18AB7E23FB4F9F00537D04 /* CategoryListCellViewModel.swift in Sources */,
 				FD5F74C1238B4CA100DCEED3 /* RootViewController.swift in Sources */,
 				FD0A9A7D23B030E300715BAD /* TopicListActionHandler.swift in Sources */,
+				FD81F64C24E8FF11009CFE1B /* WebSnapshotManager.swift in Sources */,
 				FD5F001923A6E1BF00E319F3 /* DebugOptionsManager.swift in Sources */,
 				FD0A9A7B23B02F2500715BAD /* PostListViewController.swift in Sources */,
 				FDCA86892394964A00E41718 /* CategoryListViewController.swift in Sources */,
@@ -662,6 +669,7 @@
 				FDDF124223CBAB5A0061AD3D /* TimeFormatter.swift in Sources */,
 				FD18AB7C23FB4F5900537D04 /* CategoryListCell.swift in Sources */,
 				FD53DDE1238B5C63000F341D /* KeychainWrapper.swift in Sources */,
+				FD4D391824E925F600FC9324 /* ImageCacheManager.swift in Sources */,
 				FD0A9A7723B02AF800715BAD /* Post.swift in Sources */,
 				FD5F74C7238B4CA100DCEED3 /* Peynir.xcdatamodeld in Sources */,
 				FD8161F6239C6AC4005F65B2 /* TopicList.swift in Sources */,
