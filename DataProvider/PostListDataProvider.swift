@@ -34,13 +34,16 @@ class PostListDataProvider: DataProvider {
 
         firstly {
             self.apiClient.fetchPostList(withTopicId: self.topicId)
-        }.done {
+        }.done { newPostList in
             self.state = .loaded
-            self.postList = $0
-            self.saveToCache()
+
+            if newPostList != self.postList {
+                self.postList = newPostList
+                self.saveToCache()
+                NotificationCenter.default.post(name: self.didUpdateNotification, object: self)
+            }
         }.catch { error in
             self.state = .error(error)
-        }.finally {
             NotificationCenter.default.post(name: self.didUpdateNotification, object: self)
         }
     }

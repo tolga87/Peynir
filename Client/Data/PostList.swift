@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct PostList: JSONConstructable, JSONConvertable, Codable {
+struct PostList: JSONConstructable, JSONConvertable, Codable, Equatable {
 //    let canCreateTopic: Bool
     let posts: [Post]
 }

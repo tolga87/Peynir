@@ -8,7 +8,9 @@
 
 import Foundation
 
-struct Post: JSONConstructable, Codable {
+struct Post: JSONConstructable, Codable, Equatable {
+    // TODO: Should we consider only the `id` in equality checks to make it faster? 🤔
+
     let id: Int
     let name: String
     let username: String
