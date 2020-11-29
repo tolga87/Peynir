@@ -43,16 +43,6 @@ class MainCoordinator {
     public func start(completion: CoordinatorCompletionCallback?) {
         UITabBar.appearance().tintColor = UIColor.label
 
-        let categoryListDataProvider = CategoryListDataProvider(apiClient: self.apiClient, cacheManager: cacheManager)
-        let newsNavController = UINavigationController()
-        newsNavController.tabBarItem = UITabBarItem(title: "News", image: UIImage(named: "news")!, tag: 0)
-        self.categoryListCoordinator = CategoryListCoordinator(categoryListDataProvider: categoryListDataProvider,
-                                                               navigationController: newsNavController)
-
-        let settingsNavController = UINavigationController()
-        settingsNavController.tabBarItem = UITabBarItem(title: "Settings", image: UIImage(named: "settings")!, tag: 1)
-        self.settingsCoordinator = SettingsCoordinator(navigationController: settingsNavController)
-
         if self.loginManager.isLoggedIn {
             self.showHomeScreen()
         } else {
@@ -95,14 +85,26 @@ private extension MainCoordinator {
     }
 
     func showHomeScreen() {
-        let navigationViewControllers = [self.categoryListCoordinator?.navigationController, self.settingsCoordinator?.navigationController].compactMap { $0 }
+        let categoryListDataProvider = CategoryListDataProvider(apiClient: self.apiClient, cacheManager: self.cacheManager)
+        let newsNavController = UINavigationController()
+        newsNavController.tabBarItem = UITabBarItem(title: "News", image: UIImage(named: "news")!, tag: 0)
+        let categoryListCoordinator = CategoryListCoordinator(categoryListDataProvider: categoryListDataProvider,
+                                                              navigationController: newsNavController)
+        self.categoryListCoordinator = categoryListCoordinator
+
+        let settingsNavController = UINavigationController()
+        settingsNavController.tabBarItem = UITabBarItem(title: "Settings", image: UIImage(named: "settings")!, tag: 1)
+        let settingsCoordinator = SettingsCoordinator(navigationController: settingsNavController)
+        self.settingsCoordinator = settingsCoordinator
+
+        let navigationViewControllers = [categoryListCoordinator.navigationController, settingsCoordinator.navigationController]
         let homeViewController = HomeViewController(viewControllers: navigationViewControllers)
         homeViewController.modalPresentationStyle = .fullScreen
 
         let presentingViewController = self.rootViewController.presentedViewController ?? self.rootViewController
         presentingViewController.present(homeViewController, animated: false, completion: nil)
 
-        self.categoryListCoordinator?.start(completion: nil)
+        categoryListCoordinator.start(completion: nil)
     }
 
     // MARK: Callbacks
