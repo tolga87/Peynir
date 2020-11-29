@@ -4,6 +4,8 @@
 
 ## User settings
 xcuserdata/
+Peynir.xcworkspace/xcuserdata/tolga.xcuserdatad/
+Peynir.xcworkspace/xcuserdata/tolga.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
 
 ## compatibility with Xcode 8 and earlier (ignoring not required starting Xcode 9)
 *.xcscmblueprint
