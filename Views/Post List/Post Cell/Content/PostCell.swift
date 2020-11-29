@@ -41,10 +41,10 @@ class PostCell: UITableViewCell {
     }
 
     private var postMetadataView: PostMetadataView?
-    private var postMetadataContainerView: UIView!
+    private lazy var postMetadataContainerView = UIView()
     private var postMetadataHeightConstraint: NSLayoutConstraint!
 
-    private var postContentView: PostContentView!
+    private lazy var postContentView = PostContentView(frame: .zero)
 
     private lazy var webViewConfig: WKWebViewConfiguration = {
 
@@ -79,8 +79,7 @@ class PostCell: UITableViewCell {
     }
 
     private func setupViews() {
-        self.postMetadataContainerView?.removeFromSuperview()
-        self.postMetadataContainerView = UIView()
+        self.postMetadataContainerView.removeFromSuperview()
         self.postMetadataContainerView.translatesAutoresizingMaskIntoConstraints = false
         self.contentView.addSubview(self.postMetadataContainerView)
 
@@ -106,8 +105,7 @@ class PostCell: UITableViewCell {
         self.postMetadataHeightConstraint.priority = .defaultHigh
         self.postMetadataHeightConstraint.isActive = true
 
-        self.postContentView?.removeFromSuperview()
-        self.postContentView = PostContentView(frame: .zero)
+        self.postContentView.removeFromSuperview()
         self.postContentView.translatesAutoresizingMaskIntoConstraints = false
 
         self.contentView.addSubview(self.postContentView)

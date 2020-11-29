@@ -12,12 +12,19 @@ import PromiseKit
 class PostContentView: UIView {
     private let snapshotView: UIImageView
     private let imageHeightConstraint: NSLayoutConstraint
-    private let spinner: UIActivityIndicatorView
+    private lazy var spinner: UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView(style: .medium)
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        spinner.hidesWhenStopped = true
+        return spinner
+    }()
 
     var snapshotImagePromise: Promise<UIImage>? {
         didSet {
             guard let promise = snapshotImagePromise else { return }
             if self.snapshotView.image != nil { return }
+
+            self.spinner.startAnimating()
 
             firstly {
                 promise
@@ -41,20 +48,20 @@ class PostContentView: UIView {
         self.imageHeightConstraint = self.snapshotView.heightAnchor.constraint(equalToConstant: Consts.defaultPostHeight)
         self.imageHeightConstraint.priority = UILayoutPriority.defaultHigh
         
-        self.spinner = UIActivityIndicatorView(style: .medium)
-        self.spinner.translatesAutoresizingMaskIntoConstraints = false
-        self.spinner.hidesWhenStopped = true
-        self.spinner.stopAnimating()
         super.init(frame: frame)
         
         self.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(self.snapshotView)
+        self.addSubview(self.spinner)
         
         self.snapshotView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         self.snapshotView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
         self.snapshotView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         self.snapshotView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        
+
+        self.spinner.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        self.spinner.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+
         self.imageHeightConstraint.isActive = true
     }
 
