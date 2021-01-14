@@ -28,7 +28,7 @@ class PostListViewController: UIViewController {
 
     init(dataProvider: PostListDataProvider) {
         self.dataProvider = dataProvider
-        self.webCacheManager = WebCacheManager(dataCacheManager: DataCacheManager.sharedInstance)
+        self.webCacheManager = WebCacheManager(cacheManager: CacheManager.sharedInstance)
         self.tableView = UITableView()
 
         super.init(nibName: nil, bundle: nil)

@@ -24,12 +24,12 @@ protocol ImageCacheManagerInterface {
 }
 
 class ImageCacheManager: ImageCacheManagerInterface {
-    static let sharedInstance = ImageCacheManager(dataCacheManager: DataCacheManager.sharedInstance)
+    static let sharedInstance = ImageCacheManager(cacheManager: CacheManager.sharedInstance)
     
-    private let dataCacheManager: DataCacheManagerInterface
+    private let cacheManager: CacheManagerInterface
     
-    init(dataCacheManager: DataCacheManagerInterface) {
-        self.dataCacheManager = dataCacheManager
+    init(cacheManager: CacheManagerInterface) {
+        self.cacheManager = cacheManager
     }
 
     @discardableResult
@@ -37,11 +37,11 @@ class ImageCacheManager: ImageCacheManagerInterface {
         guard let pngData = image.pngData() else {
             return Promise(error: ImageCachingError.invalidImageData)
         }
-        return self.dataCacheManager.saveData(pngData, withKey: key, group: "snapshots")
+        return self.cacheManager.saveData(pngData, key: key, group: "snapshots")
     }
     
     func loadImage(withKey key: String, group: String?) -> Guarantee<CachedImageResult> {
-        return self.dataCacheManager.loadData(withKey: key, group: group).map { data in
+        return self.cacheManager.loadData(key: key, group: group).map { data in
             if let image = UIImage(data: data, scale: UIScreen.main.scale) {
                 return CachedImageResult.cached(image)
             } else {

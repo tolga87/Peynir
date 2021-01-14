@@ -43,7 +43,6 @@
 		FD5F74E2238B4CA200DCEED3 /* PeynirUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5F74E1238B4CA200DCEED3 /* PeynirUITests.swift */; };
 		FD61ADBE24CE8FE800FEAF8E /* WebCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD61ADBD24CE8FE800FEAF8E /* WebCacheManager.swift */; };
 		FD61ADC024CE99C100FEAF8E /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD61ADBF24CE99C100FEAF8E /* Array+Extensions.swift */; };
-		FD65030223BAB80F00F110C5 /* DataCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD65030123BAB80F00F110C5 /* DataCacheManager.swift */; };
 		FD65030423BAC01900F110C5 /* NetworkImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD65030323BAC01900F110C5 /* NetworkImageView.swift */; };
 		FD65030623BAC1F200F110C5 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD65030523BAC1F200F110C5 /* UIView+Extensions.swift */; };
 		FD65030923BAC9E400F110C5 /* PostMetadataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD65030823BAC9E400F110C5 /* PostMetadataView.swift */; };
@@ -131,7 +130,6 @@
 		FD5F74E3238B4CA200DCEED3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FD61ADBD24CE8FE800FEAF8E /* WebCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebCacheManager.swift; sourceTree = "<group>"; };
 		FD61ADBF24CE99C100FEAF8E /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
-		FD65030123BAB80F00F110C5 /* DataCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCacheManager.swift; sourceTree = "<group>"; };
 		FD65030323BAC01900F110C5 /* NetworkImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkImageView.swift; sourceTree = "<group>"; };
 		FD65030523BAC1F200F110C5 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		FD65030823BAC9E400F110C5 /* PostMetadataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMetadataView.swift; sourceTree = "<group>"; };
@@ -462,7 +460,6 @@
 			isa = PBXGroup;
 			children = (
 				FDEE267F25B0CD3C00E644D0 /* CacheManagerInterface.swift */,
-				FD65030123BAB80F00F110C5 /* DataCacheManager.swift */,
 			);
 			path = Cache;
 			sourceTree = "<group>";
@@ -710,7 +707,6 @@
 				FD53DDE5238B5CAE000F341D /* UserInfoManager.swift in Sources */,
 				FD5F74BF238B4CA100DCEED3 /* SceneDelegate.swift in Sources */,
 				FD71123A23B9981000B24384 /* PostContentView.swift in Sources */,
-				FD65030223BAB80F00F110C5 /* DataCacheManager.swift in Sources */,
 				FDCA86902394987600E41718 /* APIClient.swift in Sources */,
 				FD8E404F25B016B60078B68A /* TopicListTableViewCellViewModel.swift in Sources */,
 				FD2937E823B999AD007F1AF9 /* PostCell.swift in Sources */,

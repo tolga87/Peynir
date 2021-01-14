@@ -21,10 +21,10 @@ enum WebCacheManagerError: Error {
 }
 
 class WebCacheManager: WebCacheManagerInterface {
-    private let dataCacheManager: DataCacheManagerInterface
+    private let cacheManager: CacheManagerInterface
 
-    init(dataCacheManager: DataCacheManagerInterface) {
-        self.dataCacheManager = dataCacheManager
+    init(cacheManager: CacheManagerInterface) {
+        self.cacheManager = cacheManager
     }
 
     // MARK: - WebCacheManagerInterface
@@ -55,7 +55,7 @@ private extension WebCacheManager {
                 }
 
                 firstly {
-                    self.dataCacheManager.saveData(pngData, withKey: key, group: "snapshots")
+                    self.cacheManager.saveData(pngData, key: key, group: "snapshots")
                 }.done {
                     seal.fulfill(())
                 }.catch { error in
@@ -68,7 +68,7 @@ private extension WebCacheManager {
     func load(withKey key: String, fileExtension: String) -> Promise<UIImage> {
         return Promise<UIImage> { seal in
             firstly {
-                self.dataCacheManager.loadData(withKey: "\(key).\(fileExtension)")
+                self.cacheManager.loadData(key: "\(key).\(fileExtension)", group: nil)
             }.done {
                 guard let image = UIImage(data: $0) else {
                     seal.reject(WebCacheManagerError.couldNotConvertDataToImage)

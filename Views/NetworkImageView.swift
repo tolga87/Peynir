@@ -14,7 +14,7 @@ enum NetworkImageViewError: Error {
 }
 
 class NetworkImageView: UIView {
-    private let cacheManager: DataCacheManagerInterface
+    private let cacheManager: CacheManagerInterface
     private let networkManager: NetworkManagerInterface
 
     private lazy var imageView: UIImageView = {
@@ -31,7 +31,7 @@ class NetworkImageView: UIView {
         return spinner
     }()
 
-    init(url: String, fileName: String, cacheManager: DataCacheManagerInterface = DataCacheManager.sharedInstance, networkManager: NetworkManagerInterface = NetworkManager.sharedInstance) {
+    init(url: String, fileName: String, cacheManager: CacheManagerInterface = CacheManager.sharedInstance, networkManager: NetworkManagerInterface = NetworkManager.sharedInstance) {
         self.cacheManager = cacheManager
         self.networkManager = networkManager
 
@@ -46,7 +46,7 @@ class NetworkImageView: UIView {
         self.spinner.startAnimating()
 
         firstly {
-            cacheManager.loadData(withKey: fileName)
+            cacheManager.loadData(key: fileName, group: nil)
         }.done(on: .main) {
             guard let image = UIImage(data: $0) else {
                 logError("Could not convert image date to UIImage")
@@ -80,7 +80,7 @@ private extension NetworkImageView {
             }
 
             self.setImage(image)
-            _ = self.cacheManager.saveData(imageData, withKey: fileName)
+            _ = self.cacheManager.saveData(imageData, key: fileName, group: nil)
         }.catch { error in
             logError("Could not download image from `\(url): \(error)`")
         }
