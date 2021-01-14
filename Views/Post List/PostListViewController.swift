@@ -85,7 +85,7 @@ class PostListViewController: UIViewController {
                     <style>
                         @media (prefers-color-scheme: dark) {
                             body {
-                                background-color: rgb(38,38,41);
+                                background-color: rgb(0,0,0);
                                 color: white;
                             }
                             a:link {
