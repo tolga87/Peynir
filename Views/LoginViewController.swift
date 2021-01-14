@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PromiseKit
 
 class LoginViewController: UIViewController {
     private let loginManager: LoginManagerInterface
@@ -110,13 +111,19 @@ class LoginViewController: UIViewController {
         }
 
         self.spinner.startAnimating()
-        self.loginManager.login(username: username, password: password) { error in
-            DispatchQueue.main.async {
-                self.spinner.stopAnimating()
-                if error == nil {
-                    self.userInfoManager.saveUserCredentials(newCredentials: UserCredentials(username: username, password: password))
-                }
-            }
+
+        firstly {
+            self.loginManager.login(username: username, password: password)
+        }.done(on: .main) {
+            self.userInfoManager.saveUserCredentials(newCredentials: UserCredentials(username: username, password: password))
+        }.catch(on: .main) { _ in
+            let alert = UIAlertController(title: "Invalid credentials",
+                                          message: nil,
+                                          preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }.finally {
+            self.spinner.stopAnimating()
         }
     }
 }

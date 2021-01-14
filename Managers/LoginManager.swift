@@ -7,17 +7,17 @@
 //
 
 import Foundation
-
-typealias LoginCallback = (LoginError?) -> Void
+import PromiseKit
 
 public enum LoginError: Error {
+    case invalidCredentials
     case unknown
 }
 
 // TODO: Change this to use NetworkManager.
 protocol LoginManagerInterface {
     var isLoggedIn: Bool { get }
-    func login(username: String, password: String, completion: LoginCallback?)
+    func login(username: String, password: String) -> Promise<Void>
     var didLoginNotification: Notification.Name { get }
     var didLogoutNotification: Notification.Name { get }
 }
@@ -42,32 +42,37 @@ class LoginManager: LoginManagerInterface {
         return (cookies.count > 0)
     }
 
-    func login(username: String, password: String, completion: LoginCallback?) {
-        var request = URLRequest(url: self.loginUrl)
+    func login(username: String, password: String) -> Promise<Void> {
+        return Promise<Void> { seal in
+            var request = URLRequest(url: self.loginUrl)
 
-        request.httpMethod = "POST"
-        request.httpBody = "username=\(username)&password=\(password)".data(using: .utf8)
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            var isLoggedIn = false
-            if let cookies = HTTPCookieStorage.shared.cookies {
-                // Look for a cookie named "_t"
-                isLoggedIn = cookies.reduce(false) { (foundToken, cookie) -> Bool in
-                    if foundToken {
-                        return true
+            request.httpMethod = "POST"
+            request.httpBody = "username=\(username)&password=\(password)".data(using: .utf8)
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                var isLoggedIn = false
+                if let cookies = HTTPCookieStorage.shared.cookies {
+                    // Look for a cookie named "_t"
+                    isLoggedIn = cookies.reduce(false) { (foundToken, cookie) -> Bool in
+                        if foundToken {
+                            return true
+                        }
+                        return cookie.name == "_t"
                     }
-                    return cookie.name == "_t"
+                }
+
+                if isLoggedIn {
+                    NotificationCenter.default.post(name: self.didLoginNotification, object: self)
+                    seal.fulfill(())
+                } else {
+                    if let urlString = response?.url?.absoluteString, urlString.contains("invalid_credentials") {
+                        seal.reject(LoginError.invalidCredentials)
+                    } else {
+                        seal.reject(LoginError.unknown)
+                    }
                 }
             }
-
-            if isLoggedIn {
-                NotificationCenter.default.post(name: self.didLoginNotification, object: self)
-                completion?(nil)
-            } else {
-                completion?(.unknown)
-            }
+            task.resume()
         }
-        task.resume()
-
     }
 }
 
