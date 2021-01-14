@@ -6,6 +6,7 @@
 //  Copyright © 2019 Tolga AKIN. All rights reserved.
 //
 
+import PromiseKit
 import UIKit
 
 public protocol DeinitDelegate: class {
@@ -61,12 +62,15 @@ extension MainCoordinator: ShakeGestureListener {
                                           message: nil,
                                           preferredStyle: .actionSheet)
             let clearCacheAction = UIAlertAction(title: "Clear cache", style: .default) { _ in
-                if let error = self.cacheManager.clearAllJsons() {
-                    logError("Could not clear cache: \(error)")
-                } else {
+                firstly {
+                    self.cacheManager.clearAllJsons()
+                }.done {
                     logInfo("Cache cleared")
+                }.catch { error in
+                    logError("Could not clear cache: \(error)")
                 }
             }
+
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
             alert.addAction(clearCacheAction)
             alert.addAction(cancelAction)

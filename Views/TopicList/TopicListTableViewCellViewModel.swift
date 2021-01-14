@@ -13,6 +13,6 @@ struct TopicListTableViewCellViewModel {
     let likeCount: Int
     let postCount: Int
     let viewCount: Int
-    let lastPostedAt: String
+    let lastPostedAt: String?
     let hasAcceptedAnswer: Bool
 }

@@ -50,13 +50,19 @@ class CategoryListDataProvider: DataProvider {
 }
 
 private extension CategoryListDataProvider {
+    enum CacheKeys {
+        static let categoryListKey = "categories.json"
+    }
+
     func loadFromCache() {
-        if
-            let cachedCategoryListJson = self.cacheManager.loadJson(withId: self.cacheManager.keys.categoryListKey).successValue,
-            let cachedCategoryList = CategoryList.fromJson(json: cachedCategoryListJson) {
-                self.categoryList = cachedCategoryList
-                logDebug("Loaded \(cachedCategoryList.categories.count) categories from cache.")
-        } else {
+        firstly {
+            self.cacheManager.loadJson(key: CacheKeys.categoryListKey)
+        }.compactMap { cachedCategoryListJson in
+            CategoryList.fromJson(json: cachedCategoryListJson)
+        }.done { cachedCategoryList in
+            self.categoryList = cachedCategoryList
+            logDebug("Loaded \(cachedCategoryList.categories.count) categories from cache.")
+        }.catch { error in
             // TODO: Handle JSON schema changes.
             logDebug("Could not load category list from cache.")
         }
@@ -65,10 +71,12 @@ private extension CategoryListDataProvider {
     func saveToCache() {
         guard let categoryList = self.categoryList, let json = categoryList.toJson() else { return }
 
-        if let saveError = self.cacheManager.save(json: json, withId: self.cacheManager.keys.categoryListKey) {
-            logError("Could not save category list to cache: \(saveError)")
-        } else {
+        firstly {
+            self.cacheManager.saveJson(json, key: CacheKeys.categoryListKey)
+        }.done {
             logDebug("Saved \(categoryList.categories.count) categories to cache")
+        }.catch { error in
+            logError("Could not save category list to cache: \(error)")
         }
     }
 }

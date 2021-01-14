@@ -58,7 +58,6 @@
 		FD9A665C2394B6AB00A10060 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9A665B2394B6AB00A10060 /* String+Extensions.swift */; };
 		FD9A665E2394B6EA00A10060 /* Result+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9A665D2394B6EA00A10060 /* Result+Extensions.swift */; };
 		FDCA867A2394395400E41718 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCA86792394395400E41718 /* JSON.swift */; };
-		FDCA8684239473D800E41718 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCA8683239473D800E41718 /* CacheManager.swift */; };
 		FDCA86862394764400E41718 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCA86852394764400E41718 /* NetworkManager.swift */; };
 		FDCA86892394964A00E41718 /* CategoryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCA86882394964A00E41718 /* CategoryListViewController.swift */; };
 		FDCA868C239496B000E41718 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCA868B239496B000E41718 /* DataProvider.swift */; };
@@ -67,6 +66,7 @@
 		FDCA86942394A05500E41718 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCA86932394A05500E41718 /* Category.swift */; };
 		FDCA86962394A07D00E41718 /* CategoryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCA86952394A07D00E41718 /* CategoryList.swift */; };
 		FDDF124223CBAB5A0061AD3D /* TimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDDF124123CBAB590061AD3D /* TimeFormatter.swift */; };
+		FDEE268025B0CD3C00E644D0 /* CacheManagerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDEE267F25B0CD3C00E644D0 /* CacheManagerInterface.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,7 +147,6 @@
 		FD9A665D2394B6EA00A10060 /* Result+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+Extensions.swift"; sourceTree = "<group>"; };
 		FDCA86792394395400E41718 /* JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
 		FDCA868223944F3500E41718 /* Peynir.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Peynir.entitlements; sourceTree = "<group>"; };
-		FDCA8683239473D800E41718 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		FDCA86852394764400E41718 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		FDCA86882394964A00E41718 /* CategoryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListViewController.swift; sourceTree = "<group>"; };
 		FDCA868B239496B000E41718 /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
@@ -156,6 +155,7 @@
 		FDCA86932394A05500E41718 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		FDCA86952394A07D00E41718 /* CategoryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryList.swift; sourceTree = "<group>"; };
 		FDDF124123CBAB590061AD3D /* TimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatter.swift; sourceTree = "<group>"; };
+		FDEE267F25B0CD3C00E644D0 /* CacheManagerInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManagerInterface.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -231,10 +231,9 @@
 		FD53DDDC238B584A000F341D /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				FDEE267E25B0CCA300E644D0 /* Cache */,
 				FD53DDDD238B585B000F341D /* LoginManager.swift */,
 				FD53DDE4238B5CAE000F341D /* UserInfoManager.swift */,
-				FDCA8683239473D800E41718 /* CacheManager.swift */,
-				FD65030123BAB80F00F110C5 /* DataCacheManager.swift */,
 				FDCA86852394764400E41718 /* NetworkManager.swift */,
 				FD61ADBD24CE8FE800FEAF8E /* WebCacheManager.swift */,
 				FD81F64B24E8FF11009CFE1B /* WebSnapshotManager.swift */,
@@ -459,6 +458,15 @@
 			path = Content;
 			sourceTree = "<group>";
 		};
+		FDEE267E25B0CCA300E644D0 /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				FDEE267F25B0CD3C00E644D0 /* CacheManagerInterface.swift */,
+				FD65030123BAB80F00F110C5 /* DataCacheManager.swift */,
+			);
+			path = Cache;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -677,7 +685,6 @@
 				FD0A9A7B23B02F2500715BAD /* PostListViewController.swift in Sources */,
 				FDCA86892394964A00E41718 /* CategoryListViewController.swift in Sources */,
 				FD8161F4239C6841005F65B2 /* Topic.swift in Sources */,
-				FDCA8684239473D800E41718 /* CacheManager.swift in Sources */,
 				FD61ADC024CE99C100FEAF8E /* Array+Extensions.swift in Sources */,
 				FD65030623BAC1F200F110C5 /* UIView+Extensions.swift in Sources */,
 				FD5F74BD238B4CA100DCEED3 /* AppDelegate.swift in Sources */,
@@ -686,6 +693,7 @@
 				FD53DDE1238B5C63000F341D /* KeychainWrapper.swift in Sources */,
 				FD4D391824E925F600FC9324 /* ImageCacheManager.swift in Sources */,
 				FD0A9A7723B02AF800715BAD /* Post.swift in Sources */,
+				FDEE268025B0CD3C00E644D0 /* CacheManagerInterface.swift in Sources */,
 				FD5F74C7238B4CA100DCEED3 /* Peynir.xcdatamodeld in Sources */,
 				FD8161F6239C6AC4005F65B2 /* TopicList.swift in Sources */,
 				FD0A9A7F23B0329700715BAD /* PostListCoordinator.swift in Sources */,

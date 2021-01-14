@@ -16,7 +16,7 @@ class PostListDataProvider: DataProvider {
     public let cacheManager: CacheManagerInterface
     private var postList: PostList?
     private var postListCacheKey: String {
-        return String(format: self.cacheManager.keys.postListKeyFormat, self.topicId)
+        return String(format: CacheKeys.postListKeyFormat, self.topicId)
     }
 
     init(topicId: Int, topicTitle: String, apiClient: APIClientInterface, cacheManager: CacheManagerInterface) {
@@ -61,13 +61,19 @@ class PostListDataProvider: DataProvider {
 }
 
 private extension PostListDataProvider {
+    enum CacheKeys {
+        static let postListKeyFormat = "t/%d.json"
+    }
+
     func loadFromCache() {
-        if
-            let cachedPostListJson = self.cacheManager.loadJson(withId: self.postListCacheKey).successValue,
-            let cachedPostList = PostList.fromJson(json: cachedPostListJson) {
-                self.postList = cachedPostList
-                logDebug("Loaded \(cachedPostList.posts.count) posts from cache.")
-        } else {
+        firstly {
+            self.cacheManager.loadJson(key: self.postListCacheKey)
+        }.compactMap { json in
+            PostList.fromJson(json: json)
+        }.done { postList in
+            self.postList = postList
+            logDebug("Loaded \(postList.posts.count) posts from cache.")
+        }.catch { _ in
             // TODO: Handle JSON schema changes.
             logDebug("Could not load post list from cache.")
         }
@@ -76,10 +82,12 @@ private extension PostListDataProvider {
     func saveToCache() {
         guard let postList = self.postList, let json = postList.toJson() else { return }
 
-        if let saveError = self.cacheManager.save(json: json, withId: self.postListCacheKey) {
-            logError("Could not save post list to cache: \(saveError)")
-        } else {
+        firstly {
+            self.cacheManager.saveJson(json, key: self.postListCacheKey)
+        }.done {
             logDebug("Saved \(postList.posts.count) posts to cache")
+        }.catch { error in
+            logError("Could not save post list to cache: \(error)")
         }
     }
 }

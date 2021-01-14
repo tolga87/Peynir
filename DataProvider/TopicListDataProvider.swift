@@ -16,7 +16,7 @@ class TopicListDataProvider: DataProvider {
     public let cacheManager: CacheManagerInterface
     private var topicList: TopicList?
     private var topicListCacheKey: String {
-        return String(format: self.cacheManager.keys.topicListKeyFormat, self.categoryId)
+        return String(format: CacheKeys.topicListKeyFormat, self.categoryId)
     }
 
     init(categoryId: Int, categoryName: String, apiClient: APIClientInterface, cacheManager: CacheManagerInterface) {
@@ -57,25 +57,33 @@ class TopicListDataProvider: DataProvider {
 }
 
 private extension TopicListDataProvider {
+    enum CacheKeys {
+        static let topicListKeyFormat = "c/%d.json"
+    }
+
     func loadFromCache() {
-        if
-            let cachedtopicListJson = self.cacheManager.loadJson(withId: self.topicListCacheKey).successValue,
-            let cachedtopicList = TopicList.fromJson(json: cachedtopicListJson) {
-                self.topicList = cachedtopicList
-                logDebug("Loaded \(cachedtopicList.topics.count) topics from cache for category \(self.categoryId)")
-        } else {
-            logDebug("Could not load topic list from cache for category \(self.categoryId)")
+        firstly {
+            self.cacheManager.loadJson(key: self.topicListCacheKey)
+        }.compactMap { cachedtopicListJson in
+            TopicList.fromJson(json: cachedtopicListJson)
+        }.done { cachedtopicList in
+            self.topicList = cachedtopicList
+            logDebug("Loaded \(cachedtopicList.topics.count) topics from cache for category \(self.categoryId)")
+        }.catch { error in
             // TODO: Handle JSON schema changes.
+            logDebug("Could not load topic list from cache for category \(self.categoryId)")
         }
     }
 
     func saveToCache() {
         guard let topicList = self.topicList, let json = topicList.toJson() else { return }
 
-        if let saveError = self.cacheManager.save(json: json, withId: self.topicListCacheKey) {
-            logDebug("Could not save topic list to cache for category \(self.categoryId): \(saveError)")
-        } else {
+        firstly {
+            self.cacheManager.saveJson(json, key: self.topicListCacheKey)
+        }.done {
             logDebug("Saved \(topicList.topics.count) topics to cache for category \(self.categoryId)")
+        }.catch { error in
+            logDebug("Could not save topic list to cache for category \(self.categoryId): \(error)")
         }
     }
 }

@@ -18,8 +18,14 @@ class TopicListTableViewCell: UITableViewCell {
             }
 
             self.titleLabel.text = vm.title
-            let timeString = TimeFormatter.diffTimeString(withIso8601DateString: vm.lastPostedAt, mode: .short)
-            self.metadataLabel.text = "♡ \(vm.likeCount)   💬 \(vm.postCount)   👀 \(vm.viewCount)   🕒 \(timeString)"
+
+            var metadataText = "♡ \(vm.likeCount)   💬 \(vm.postCount)   👀 \(vm.viewCount)"
+            if let lastPostedAt = vm.lastPostedAt {
+                let timeString = TimeFormatter.diffTimeString(withIso8601DateString: lastPostedAt, mode: .short)
+                metadataText += "   🕒 \(timeString)"
+            }
+
+            self.metadataLabel.text = metadataText
         }
     }
 
