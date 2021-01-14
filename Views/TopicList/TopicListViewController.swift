@@ -37,7 +37,7 @@ class TopicListViewController: UIViewController {
         super.viewDidLoad()
         self.title = self.dataProvider.categoryName
 
-        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: Consts.tableViewReuseId)
+        self.tableView.register(TopicListTableViewCell.self, forCellReuseIdentifier: Consts.tableViewReuseId)
         self.tableView.dataSource = self
         self.tableView.delegate = self
 
@@ -68,16 +68,28 @@ extension TopicListViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let topic = self.dataProvider.items[safe: indexPath.row] else {
-            return UITableViewCell()
+            return TopicListTableViewCell()
         }
 
-        let cell = tableView.dequeueReusableCell(withIdentifier: Consts.tableViewReuseId, for: indexPath)
-        cell.textLabel?.text = topic.title
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: Consts.tableViewReuseId, for: indexPath) as? TopicListTableViewCell else {
+            return TopicListTableViewCell()
+        }
+
+        cell.viewModel = TopicListTableViewCellViewModel(title: topic.title,
+                                                        likeCount: topic.likeCount,
+                                                        postCount: topic.postsCount,
+                                                        viewCount: topic.views,
+                                                        lastPostedAt: topic.lastPostedAt,
+                                                        hasAcceptedAnswer: topic.hasAcceptedAnswer)
         return cell
     }
 }
 
 extension TopicListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 

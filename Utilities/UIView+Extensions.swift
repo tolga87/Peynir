@@ -9,16 +9,16 @@
 import UIKit
 
 extension UIView {
-    func constrainToEdges(ofView superview: UIView) {
+    func constrainToEdges(ofView superview: UIView, insets: UIEdgeInsets = .zero) {
         guard self.superview == superview else {
             logError("Can only constrain view to edges of its superview")
             return
         }
 
-        self.leadingAnchor.constraint(equalTo: superview.leadingAnchor).isActive = true
-        self.trailingAnchor.constraint(equalTo: superview.trailingAnchor).isActive = true
-        self.topAnchor.constraint(equalTo: superview.topAnchor).isActive = true
-        self.bottomAnchor.constraint(equalTo: superview.bottomAnchor).isActive = true
+        self.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: insets.left).isActive = true
+        self.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: -insets.right).isActive = true
+        self.topAnchor.constraint(equalTo: superview.topAnchor, constant: insets.top).isActive = true
+        self.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: -insets.bottom).isActive = true
     }
 
     func constrainToCenter(ofView superview: UIView) {

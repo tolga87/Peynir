@@ -53,6 +53,8 @@
 		FD8161F4239C6841005F65B2 /* Topic.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8161F3239C6841005F65B2 /* Topic.swift */; };
 		FD8161F6239C6AC4005F65B2 /* TopicList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8161F5239C6AC4005F65B2 /* TopicList.swift */; };
 		FD81F64C24E8FF11009CFE1B /* WebSnapshotManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD81F64B24E8FF11009CFE1B /* WebSnapshotManager.swift */; };
+		FD8E404425B0161D0078B68A /* TopicListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8E404325B0161D0078B68A /* TopicListTableViewCell.swift */; };
+		FD8E404F25B016B60078B68A /* TopicListTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8E404E25B016B60078B68A /* TopicListTableViewCellViewModel.swift */; };
 		FD9A665C2394B6AB00A10060 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9A665B2394B6AB00A10060 /* String+Extensions.swift */; };
 		FD9A665E2394B6EA00A10060 /* Result+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9A665D2394B6EA00A10060 /* Result+Extensions.swift */; };
 		FDCA867A2394395400E41718 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCA86792394395400E41718 /* JSON.swift */; };
@@ -139,6 +141,8 @@
 		FD8161F3239C6841005F65B2 /* Topic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Topic.swift; sourceTree = "<group>"; };
 		FD8161F5239C6AC4005F65B2 /* TopicList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicList.swift; sourceTree = "<group>"; };
 		FD81F64B24E8FF11009CFE1B /* WebSnapshotManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSnapshotManager.swift; sourceTree = "<group>"; };
+		FD8E404325B0161D0078B68A /* TopicListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicListTableViewCell.swift; sourceTree = "<group>"; };
+		FD8E404E25B016B60078B68A /* TopicListTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicListTableViewCellViewModel.swift; sourceTree = "<group>"; };
 		FD9A665B2394B6AB00A10060 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		FD9A665D2394B6EA00A10060 /* Result+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+Extensions.swift"; sourceTree = "<group>"; };
 		FDCA86792394395400E41718 /* JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
@@ -251,9 +255,9 @@
 		FD53DDE6238B5F7D000F341D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				FD8E404225B016000078B68A /* TopicList */,
 				FD18AB7A23FB4F4300537D04 /* CategoryList */,
 				FD71123823B997CF00B24384 /* Post List */,
-				FD19C455239DCA2C00AFBE0E /* TopicListViewController.swift */,
 				FD53DDE7238B5F8A000F341D /* LoginViewController.swift */,
 				FD53DDEC238B79A8000F341D /* HomeViewController.swift */,
 				FD65030323BAC01900F110C5 /* NetworkImageView.swift */,
@@ -368,6 +372,16 @@
 				FD65030723BAC9D000F110C5 /* Post Cell */,
 			);
 			path = "Post List";
+			sourceTree = "<group>";
+		};
+		FD8E404225B016000078B68A /* TopicList */ = {
+			isa = PBXGroup;
+			children = (
+				FD19C455239DCA2C00AFBE0E /* TopicListViewController.swift */,
+				FD8E404325B0161D0078B68A /* TopicListTableViewCell.swift */,
+				FD8E404E25B016B60078B68A /* TopicListTableViewCellViewModel.swift */,
+			);
+			path = TopicList;
 			sourceTree = "<group>";
 		};
 		FDCA86782394392300E41718 /* Utilities */ = {
@@ -642,6 +656,7 @@
 				FD6F7E6223CB96040042C513 /* PostMetadataViewModel.swift in Sources */,
 				FD0705A3243D4611006AA1B7 /* Observable.swift in Sources */,
 				FD53DDDE238B585B000F341D /* LoginManager.swift in Sources */,
+				FD8E404425B0161D0078B68A /* TopicListTableViewCell.swift in Sources */,
 				FDCA86942394A05500E41718 /* Category.swift in Sources */,
 				FD19C454239DC93E00AFBE0E /* TopicListCoordinator.swift in Sources */,
 				FDCA868C239496B000E41718 /* DataProvider.swift in Sources */,
@@ -689,6 +704,7 @@
 				FD71123A23B9981000B24384 /* PostContentView.swift in Sources */,
 				FD65030223BAB80F00F110C5 /* DataCacheManager.swift in Sources */,
 				FDCA86902394987600E41718 /* APIClient.swift in Sources */,
+				FD8E404F25B016B60078B68A /* TopicListTableViewCellViewModel.swift in Sources */,
 				FD2937E823B999AD007F1AF9 /* PostCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

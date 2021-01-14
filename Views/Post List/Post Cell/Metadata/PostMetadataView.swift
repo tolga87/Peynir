@@ -29,7 +29,7 @@ class PostMetadataView: UIView {
 
         if let createdDate = dateFormatter.date(from: self.viewModel.createdAt) {
             let elapsedTimeSinceCreated = Int(Date().timeIntervalSince1970 - createdDate.timeIntervalSince1970)
-            label.text = TimeFormatter.diffTimeString(withTimeElapsed: elapsedTimeSinceCreated)
+            label.text = TimeFormatter.diffTimeString(withTimeElapsed: elapsedTimeSinceCreated, mode: .long)
         }
         return label
     }()

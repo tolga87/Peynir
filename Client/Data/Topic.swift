@@ -11,7 +11,12 @@ import Foundation
 struct Topic: JSONConstructable, Codable {
     let id: Int
     let title: String
-    let replyCount: Int
+    let lastPostedAt: String
+
     let views: Int
-    let lastPostedAt: String?
+    let likeCount: Int
+    let replyCount: Int
+    let postsCount: Int
+
+    let hasAcceptedAnswer: Bool
 }
