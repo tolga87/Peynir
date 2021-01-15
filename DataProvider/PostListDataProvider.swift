@@ -14,7 +14,14 @@ class PostListDataProvider: DataProvider {
 
     public let apiClient: APIClientInterface
     public let cacheManager: CacheManagerInterface
-    private var postList: PostList?
+    private var postList: PostList? {
+        didSet {
+            if postList != oldValue {
+                self.saveToCache()
+                NotificationCenter.default.post(name: self.didUpdateNotification, object: self)
+            }
+        }
+    }
     private var postListCacheKey: String {
         return String(format: CacheKeys.postListKeyFormat, self.topicId)
     }
@@ -36,12 +43,7 @@ class PostListDataProvider: DataProvider {
             self.apiClient.fetchPostList(withTopicId: self.topicId)
         }.done { newPostList in
             self.state = .loaded
-
-            if newPostList != self.postList {
-                self.postList = newPostList
-                self.saveToCache()
-                NotificationCenter.default.post(name: self.didUpdateNotification, object: self)
-            }
+            self.postList = newPostList
         }.catch { error in
             self.state = .error(error)
             NotificationCenter.default.post(name: self.didUpdateNotification, object: self)
