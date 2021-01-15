@@ -10,7 +10,7 @@ import PromiseKit
 import WebKit
 
 protocol WebSnapshotManagerInterface {
-    func snapshot(withId id: String, htmlString: String, width: CGFloat) -> Promise<UIImage>
+    func snapshot(withId id: String, htmlString: String, width: CGFloat) -> Promise<WebSnapshot>
 }
 
 enum WebSnapshotManagerError: Error {
@@ -19,42 +19,51 @@ enum WebSnapshotManagerError: Error {
 }
 
 class WebSnapshotManager: WebSnapshotManagerInterface {
-    static let sharedInstance = WebSnapshotManager(imageCacheManager: ImageCacheManager.sharedInstance)
-    
-    private let imageCacheManager: ImageCacheManagerInterface
+    private let cacheManager: WebSnapshotCacheManagerInterface
     private var renderers: [String: SnapshotRenderer] = [:]
 
-    private init(imageCacheManager: ImageCacheManagerInterface) {
-        self.imageCacheManager = imageCacheManager
+    init(cacheManager: WebSnapshotCacheManagerInterface) {
+        self.cacheManager = cacheManager
     }
     
-    func snapshot(withId id: String, htmlString: String, width: CGFloat) -> Promise<UIImage> {
+    func snapshot(withId id: String, htmlString: String, width: CGFloat) -> Promise<WebSnapshot> {
         let key = WebSnapshotManager.keyForImage(withId: id, width: width)
-        
-        return firstly {
-            self.imageCacheManager.loadImage(withKey: key, group: "snapshots")
-        }.then { (result: CachedImageResult) -> Promise<UIImage> in
-            switch result {
-            case CachedImageResult.cached(let image):
-                return .value(image)
-                
-            case CachedImageResult.notCached:
-                var renderer: SnapshotRenderer
-                let key = WebSnapshotManager.keyForImage(withId: id, width: width)
 
-                if let r = self.renderers[key] {
-                    renderer = r
-                } else {
-                    renderer = SnapshotRenderer(id: id, htmlString: htmlString, width: width)
-                    self.renderers[key] = renderer
-                }
-                return renderer.loadSnapshot()
+        return firstly {
+            self.cacheManager.loadImage(key: key, group: Consts.snapshotFileGroupName)
+        }.recover { error -> Promise<UIImage> in
+            var renderer: SnapshotRenderer
+            let snapshotImageKey = WebSnapshotManager.keyForImage(withId: id, width: width)
+
+            if let r = self.renderers[snapshotImageKey] {
+                renderer = r
+            } else {
+                renderer = SnapshotRenderer(id: id, htmlString: htmlString, width: width)
+                self.renderers[key] = renderer
             }
+
+            let loadSnapshotPromise = renderer.loadSnapshot()
+            firstly {
+                loadSnapshotPromise
+            }.then { image in
+                // Save newly generated web snapshot to cache
+                self.cacheManager.saveImage(image, key: snapshotImageKey, group: Consts.snapshotFileGroupName)
+            }.done {
+                logDebug("Web snapshot `\(snapshotImageKey)` saved to cache.")
+            }.catch { error in
+                logDebug("Web snapshot `\(snapshotImageKey)` could not be saved to cache: \(error)")
+            }
+
+            return loadSnapshotPromise
         }
     }
     
     static func keyForImage(withId id: String, width: CGFloat) -> String {
         return "\(id)@\(width).png"
+    }
+
+    private enum Consts {
+        static let snapshotFileGroupName = "snapshots"
     }
 }
 
@@ -137,20 +146,14 @@ fileprivate class SnapshotRenderer: NSObject {
             let snapshotConfig = WKSnapshotConfiguration()
             snapshotConfig.rect = CGRect(origin: .zero, size: contentSize)
             self.webView.takeSnapshot(with: snapshotConfig) { (image, error) in
-
                 DispatchQueue.main.async {
                     self.imageSnapshotCallback?(image, error)
                     self.imageSnapshotCallback = nil
                 }
-
-                if let image = image {
-                    let imageKey = WebSnapshotManager.keyForImage(withId: self.id, width: self.width)
-                    ImageCacheManager.sharedInstance.saveImage(image: image, withKey: imageKey, group: "snapshots")
-                }
             }
     }
     
-    struct Consts {
+    enum Consts {
         static let contentSizeKey = "scrollView.contentSize"
     }
 }

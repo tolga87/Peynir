@@ -23,7 +23,6 @@
 		FD19C456239DCA2C00AFBE0E /* TopicListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD19C455239DCA2C00AFBE0E /* TopicListViewController.swift */; };
 		FD19C45A239DCCF900AFBE0E /* CategoryListActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD19C459239DCCF900AFBE0E /* CategoryListActionHandler.swift */; };
 		FD2937E823B999AD007F1AF9 /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD2937E723B999AD007F1AF9 /* PostCell.swift */; };
-		FD4D391824E925F600FC9324 /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4D391724E925F600FC9324 /* ImageCacheManager.swift */; };
 		FD53DDDE238B585B000F341D /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD53DDDD238B585B000F341D /* LoginManager.swift */; };
 		FD53DDE1238B5C63000F341D /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD53DDE0238B5C63000F341D /* KeychainWrapper.swift */; };
 		FD53DDE3238B5C89000F341D /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD53DDE2238B5C89000F341D /* KeychainItemAccessibility.swift */; };
@@ -41,7 +40,6 @@
 		FD5F74CC238B4CA200DCEED3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD5F74CA238B4CA200DCEED3 /* LaunchScreen.storyboard */; };
 		FD5F74D7238B4CA200DCEED3 /* PeynirTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5F74D6238B4CA200DCEED3 /* PeynirTests.swift */; };
 		FD5F74E2238B4CA200DCEED3 /* PeynirUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5F74E1238B4CA200DCEED3 /* PeynirUITests.swift */; };
-		FD61ADBE24CE8FE800FEAF8E /* WebCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD61ADBD24CE8FE800FEAF8E /* WebCacheManager.swift */; };
 		FD61ADC024CE99C100FEAF8E /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD61ADBF24CE99C100FEAF8E /* Array+Extensions.swift */; };
 		FD65030423BAC01900F110C5 /* NetworkImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD65030323BAC01900F110C5 /* NetworkImageView.swift */; };
 		FD65030623BAC1F200F110C5 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD65030523BAC1F200F110C5 /* UIView+Extensions.swift */; };
@@ -104,7 +102,6 @@
 		FD19C455239DCA2C00AFBE0E /* TopicListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicListViewController.swift; sourceTree = "<group>"; };
 		FD19C459239DCCF900AFBE0E /* CategoryListActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListActionHandler.swift; sourceTree = "<group>"; };
 		FD2937E723B999AD007F1AF9 /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
-		FD4D391724E925F600FC9324 /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
 		FD53DDDD238B585B000F341D /* LoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
 		FD53DDE0238B5C63000F341D /* KeychainWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		FD53DDE2238B5C89000F341D /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainItemAccessibility.swift; sourceTree = "<group>"; };
@@ -128,7 +125,6 @@
 		FD5F74DD238B4CA200DCEED3 /* PeynirUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PeynirUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD5F74E1238B4CA200DCEED3 /* PeynirUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeynirUITests.swift; sourceTree = "<group>"; };
 		FD5F74E3238B4CA200DCEED3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FD61ADBD24CE8FE800FEAF8E /* WebCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebCacheManager.swift; sourceTree = "<group>"; };
 		FD61ADBF24CE99C100FEAF8E /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
 		FD65030323BAC01900F110C5 /* NetworkImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkImageView.swift; sourceTree = "<group>"; };
 		FD65030523BAC1F200F110C5 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
@@ -233,9 +229,7 @@
 				FD53DDDD238B585B000F341D /* LoginManager.swift */,
 				FD53DDE4238B5CAE000F341D /* UserInfoManager.swift */,
 				FDCA86852394764400E41718 /* NetworkManager.swift */,
-				FD61ADBD24CE8FE800FEAF8E /* WebCacheManager.swift */,
 				FD81F64B24E8FF11009CFE1B /* WebSnapshotManager.swift */,
-				FD4D391724E925F600FC9324 /* ImageCacheManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -688,7 +682,6 @@
 				FDDF124223CBAB5A0061AD3D /* TimeFormatter.swift in Sources */,
 				FD18AB7C23FB4F5900537D04 /* CategoryListCell.swift in Sources */,
 				FD53DDE1238B5C63000F341D /* KeychainWrapper.swift in Sources */,
-				FD4D391824E925F600FC9324 /* ImageCacheManager.swift in Sources */,
 				FD0A9A7723B02AF800715BAD /* Post.swift in Sources */,
 				FDEE268025B0CD3C00E644D0 /* CacheManagerInterface.swift in Sources */,
 				FD5F74C7238B4CA100DCEED3 /* Peynir.xcdatamodeld in Sources */,
@@ -701,7 +694,6 @@
 				FD53DDE3238B5C89000F341D /* KeychainItemAccessibility.swift in Sources */,
 				FD19C450239DC43500AFBE0E /* CategoryListCoordinator.swift in Sources */,
 				FD19C452239DC54100AFBE0E /* SettingsCoordinator.swift in Sources */,
-				FD61ADBE24CE8FE800FEAF8E /* WebCacheManager.swift in Sources */,
 				FD54661D23A6CB85007556F2 /* Logging.swift in Sources */,
 				FDCA86862394764400E41718 /* NetworkManager.swift in Sources */,
 				FD53DDE5238B5CAE000F341D /* UserInfoManager.swift in Sources */,

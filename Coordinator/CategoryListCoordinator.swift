@@ -13,9 +13,11 @@ class CategoryListCoordinator: Coordinator {
     var navigationController: UINavigationController
 
     private let categoryListDataProvider: CategoryListDataProvider
+    private let cacheManager: CacheManagerInterface
 
-    init(categoryListDataProvider: CategoryListDataProvider, navigationController: UINavigationController) {
+    init(categoryListDataProvider: CategoryListDataProvider, cacheManager: CacheManagerInterface, navigationController: UINavigationController) {
         self.categoryListDataProvider = categoryListDataProvider
+        self.cacheManager = cacheManager
         self.navigationController = navigationController
     }
 
@@ -32,7 +34,9 @@ extension CategoryListCoordinator: CategoryListActionHandler {
                                                           categoryName: category.name,
                                                           apiClient: self.categoryListDataProvider.apiClient,
                                                           cacheManager: self.categoryListDataProvider.cacheManager)
-        let topicListCoordinator = TopicListCoordinator(topicListDataProvider: topicListDataProvider, navigationController: self.navigationController)
+        let topicListCoordinator = TopicListCoordinator(topicListDataProvider: topicListDataProvider,
+                                                        cacheManager: self.cacheManager,
+                                                        navigationController: self.navigationController)
         self.childCoordinators.append(topicListCoordinator)
 
         topicListCoordinator.start(completion: nil)

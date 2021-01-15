@@ -13,13 +13,13 @@ class TopicListDataProvider: DataProvider {
     let categoryName: String
 
     public let apiClient: APIClientInterface
-    public let cacheManager: CacheManagerInterface
+    private let cacheManager: JsonCacheManagerInterface
     private var topicList: TopicList?
     private var topicListCacheKey: String {
         return String(format: CacheKeys.topicListKeyFormat, self.categoryId)
     }
 
-    init(categoryId: Int, categoryName: String, apiClient: APIClientInterface, cacheManager: CacheManagerInterface) {
+    init(categoryId: Int, categoryName: String, apiClient: APIClientInterface, cacheManager: JsonCacheManagerInterface) {
         self.categoryId = categoryId
         self.categoryName = categoryName
         self.apiClient = apiClient

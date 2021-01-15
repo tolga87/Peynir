@@ -12,7 +12,8 @@ class PostListViewController: UIViewController {
     weak var deinitDelegate: DeinitDelegate?
 
     private let dataProvider: PostListDataProvider
-    private let webCacheManager: WebCacheManagerInterface
+    private let webCacheManager: WebSnapshotCacheManagerInterface
+    private let webSnapshotManager: WebSnapshotManagerInterface
     private let tableView: UITableView
     private var postContentWidth: CGFloat = 0
 
@@ -26,9 +27,10 @@ class PostListViewController: UIViewController {
         return refreshControl
     }()
 
-    init(dataProvider: PostListDataProvider) {
+    init(dataProvider: PostListDataProvider, webCacheManager: WebSnapshotCacheManagerInterface, webSnapshotManager: WebSnapshotManagerInterface) {
         self.dataProvider = dataProvider
-        self.webCacheManager = WebCacheManager(cacheManager: CacheManager.sharedInstance)
+        self.webCacheManager = webCacheManager
+        self.webSnapshotManager = webSnapshotManager
         self.tableView = UITableView()
 
         super.init(nibName: nil, bundle: nil)
@@ -141,11 +143,11 @@ extension PostListViewController: UITableViewDataSource {
                                                       postWidth: self.tableView.frame.width)
 
             cell.delegate = self
-            cell.cacheManager = self.webCacheManager
+//            cell.cacheManager = self.webCacheManager
             cell.viewModel = postCellViewModel
-            cell.postContentSnapshotPromise = WebSnapshotManager.sharedInstance.snapshot(withId: postCellViewModel.cacheKey,
-                                                                                         htmlString: self.generateHtmlContent(forPostContent: post.cooked),
-                                                                                         width: tableView.frame.width)
+            cell.postContentSnapshotPromise = self.webSnapshotManager.snapshot(withId: postCellViewModel.cacheKey,
+                                                                               htmlString: self.generateHtmlContent(forPostContent: post.cooked),
+                                                                               width: tableView.frame.width)
         }
         return cell
     }

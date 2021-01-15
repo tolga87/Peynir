@@ -10,20 +10,35 @@ import CoreData
 import Foundation
 import PromiseKit
 import UIKit
+import WebKit
 
-public protocol CacheManagerInterface {
+public protocol JsonCacheManagerInterface: AnyObject {
     func saveJson(_ json: JSON, key: String) -> Promise<Void>
     func saveObject(_ object: JSONConvertable, key: String) -> Promise<Void>
     func loadJson(key: String) -> Promise<JSON>
     func clearAllJsons() -> Promise<Void>
+}
 
+public protocol DataCacheManagerInterface: AnyObject {
     func saveData(_ data: Data, key: String, group: String?) -> Promise<Void>
     func loadData(key: String, group: String?) -> Promise<Data>
 }
 
+public protocol ImageCacheManagerInterface: AnyObject {
+    func saveImage(_ image: UIImage, key: String, group: String?) -> Promise<Void>
+    func loadImage(key: String, group: String?) -> Promise<UIImage>
+}
+
+typealias WebSnapshot = UIImage
+typealias WebSnapshotCacheManagerInterface = ImageCacheManagerInterface
+
+typealias CacheManagerInterface = (JsonCacheManagerInterface & DataCacheManagerInterface & ImageCacheManagerInterface & WebSnapshotCacheManagerInterface)
+
 public enum CacheError: Error {
     case unknown
     case dataNotFound
+    case invalidImageData
+    case couldNotSnapshotWebView
     case other(String)
 }
 
@@ -37,6 +52,8 @@ public class CacheManager: CacheManagerInterface {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         self.managedContext = appDelegate.persistentContainer.viewContext
     }
+
+    // MARK: - JSON
 
     public func saveJson(_ json: JSON, key: String) -> Promise<Void> {
         return Promise<Void> { seal in
@@ -120,6 +137,8 @@ public class CacheManager: CacheManagerInterface {
         }
     }
 
+    // MARK: - Data
+
     public func saveData(_ data: Data, key: String, group: String? = nil) -> Promise<Void> {
         return Promise<Void> { seal in
             if let group = group {
@@ -159,6 +178,21 @@ public class CacheManager: CacheManagerInterface {
             } else {
                 seal.reject(CacheError.dataNotFound)
             }
+        }
+    }
+
+    // MARK: - Image
+
+    public func saveImage(_ image: UIImage, key: String, group: String?) -> Promise<Void> {
+        guard let pngData = image.pngData() else {
+            return Promise(error: CacheError.invalidImageData)
+        }
+        return self.saveData(pngData, key: key, group: group)
+    }
+
+    public func loadImage(key: String, group: String?) -> Promise<UIImage> {
+        return self.loadData(key: key, group: group).compactMap { data in
+            return UIImage(data: data, scale: UIScreen.main.scale)
         }
     }
 }

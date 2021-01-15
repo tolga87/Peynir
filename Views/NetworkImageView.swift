@@ -14,7 +14,7 @@ enum NetworkImageViewError: Error {
 }
 
 class NetworkImageView: UIView {
-    private let cacheManager: CacheManagerInterface
+    private let cacheManager: ImageCacheManagerInterface
     private let networkManager: NetworkManagerInterface
 
     private lazy var imageView: UIImageView = {
@@ -31,7 +31,7 @@ class NetworkImageView: UIView {
         return spinner
     }()
 
-    init(url: String, fileName: String, cacheManager: CacheManagerInterface = CacheManager.sharedInstance, networkManager: NetworkManagerInterface = NetworkManager.sharedInstance) {
+    init(url: String, fileName: String, cacheManager: ImageCacheManagerInterface = CacheManager.sharedInstance, networkManager: NetworkManagerInterface = NetworkManager.sharedInstance) {
         self.cacheManager = cacheManager
         self.networkManager = networkManager
 
@@ -46,13 +46,8 @@ class NetworkImageView: UIView {
         self.spinner.startAnimating()
 
         firstly {
-            cacheManager.loadData(key: fileName, group: nil)
-        }.done(on: .main) {
-            guard let image = UIImage(data: $0) else {
-                logError("Could not convert image date to UIImage")
-                return
-            }
-
+            cacheManager.loadImage(key: fileName, group: Consts.avatarImageFileGroupName)
+        }.done(on: .main) { image in
             self.setImage(image)
         }.catch { _ in
             logDebug("Could not find image in cache. Starting download from `\(url)`")
@@ -66,6 +61,10 @@ class NetworkImageView: UIView {
 }
 
 private extension NetworkImageView {
+    enum Consts {
+        static let avatarImageFileGroupName = "avatars"
+    }
+
     func setImage(_ image: UIImage) {
         self.imageView.image = image
         self.spinner.stopAnimating()
@@ -80,7 +79,7 @@ private extension NetworkImageView {
             }
 
             self.setImage(image)
-            _ = self.cacheManager.saveData(imageData, key: fileName, group: nil)
+            self.cacheManager.saveImage(image, key: fileName, group: Consts.avatarImageFileGroupName).cauterize()
         }.catch { error in
             logError("Could not download image from `\(url): \(error)`")
         }

@@ -10,10 +10,10 @@ import PromiseKit
 
 class CategoryListDataProvider: DataProvider {
     public let apiClient: APIClientInterface
-    public let cacheManager: CacheManagerInterface
+    public let cacheManager: JsonCacheManagerInterface
     private var categoryList: CategoryList?
 
-    init(apiClient: APIClientInterface, cacheManager: CacheManagerInterface) {
+    init(apiClient: APIClientInterface, cacheManager: JsonCacheManagerInterface) {
         self.apiClient = apiClient
         self.cacheManager = cacheManager
 

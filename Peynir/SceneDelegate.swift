@@ -32,7 +32,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let userInfoManager = UserInfoManager()
         let loginManager = LoginManager(networkManager: networkManager, userInfoManager: userInfoManager)
         let apiClient = APIClient(networkManager: networkManager)
-        let cacheManager = CacheManager()
+        let cacheManager = CacheManager.sharedInstance
         self.coordinator = MainCoordinator(apiClient: apiClient, cacheManager: cacheManager, userInfoManager: userInfoManager, loginManager: loginManager, rootViewController: rootViewController)
         self.coordinator?.start(completion: nil)
     }

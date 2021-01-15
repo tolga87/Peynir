@@ -32,7 +32,11 @@ class MainCoordinator {
     private var categoryListCoordinator: CategoryListCoordinator?
     private var settingsCoordinator: SettingsCoordinator?
 
-    public init(apiClient: APIClientInterface, cacheManager: CacheManagerInterface, userInfoManager: UserInfoManagerInterface, loginManager: LoginManagerInterface, rootViewController: RootViewController) {
+    public init(apiClient: APIClientInterface,
+                cacheManager: CacheManagerInterface,
+                userInfoManager: UserInfoManagerInterface,
+                loginManager: LoginManagerInterface,
+                rootViewController: RootViewController) {
         self.apiClient = apiClient
         self.cacheManager = cacheManager
         self.userInfoManager = userInfoManager
@@ -93,6 +97,7 @@ private extension MainCoordinator {
         let newsNavController = UINavigationController()
         newsNavController.tabBarItem = UITabBarItem(title: "News", image: UIImage(named: "news")!, tag: 0)
         let categoryListCoordinator = CategoryListCoordinator(categoryListDataProvider: categoryListDataProvider,
+                                                              cacheManager: self.cacheManager,
                                                               navigationController: newsNavController)
         self.categoryListCoordinator = categoryListCoordinator
 

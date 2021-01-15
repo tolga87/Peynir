@@ -27,7 +27,6 @@ protocol PostCellViewModelInterface {
 
 class PostCell: UITableViewCell {
     weak var delegate: PostCellDelegate?
-    weak var cacheManager: WebCacheManagerInterface?
 
     var viewModel: PostCellViewModelInterface? {
         didSet {
