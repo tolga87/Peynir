@@ -50,6 +50,7 @@
 		FD8161F4239C6841005F65B2 /* Topic.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8161F3239C6841005F65B2 /* Topic.swift */; };
 		FD8161F6239C6AC4005F65B2 /* TopicList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8161F5239C6AC4005F65B2 /* TopicList.swift */; };
 		FD81F64C24E8FF11009CFE1B /* WebSnapshotManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD81F64B24E8FF11009CFE1B /* WebSnapshotManager.swift */; };
+		FD85B21A25B246FF0098B3AF /* UserCredentialTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD85B21925B246FF0098B3AF /* UserCredentialTextField.swift */; };
 		FD8E404425B0161D0078B68A /* TopicListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8E404325B0161D0078B68A /* TopicListTableViewCell.swift */; };
 		FD8E404F25B016B60078B68A /* TopicListTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8E404E25B016B60078B68A /* TopicListTableViewCellViewModel.swift */; };
 		FD9A665C2394B6AB00A10060 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9A665B2394B6AB00A10060 /* String+Extensions.swift */; };
@@ -62,6 +63,7 @@
 		FDCA86902394987600E41718 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCA868F2394987600E41718 /* APIClient.swift */; };
 		FDCA86942394A05500E41718 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCA86932394A05500E41718 /* Category.swift */; };
 		FDCA86962394A07D00E41718 /* CategoryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCA86952394A07D00E41718 /* CategoryList.swift */; };
+		FDD02E0B25B24B920016FF10 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD02E0A25B24B920016FF10 /* UIColor+Extensions.swift */; };
 		FDDF124223CBAB5A0061AD3D /* TimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDDF124123CBAB590061AD3D /* TimeFormatter.swift */; };
 		FDEE268025B0CD3C00E644D0 /* CacheManagerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDEE267F25B0CD3C00E644D0 /* CacheManagerInterface.swift */; };
 /* End PBXBuildFile section */
@@ -135,6 +137,7 @@
 		FD8161F3239C6841005F65B2 /* Topic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Topic.swift; sourceTree = "<group>"; };
 		FD8161F5239C6AC4005F65B2 /* TopicList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicList.swift; sourceTree = "<group>"; };
 		FD81F64B24E8FF11009CFE1B /* WebSnapshotManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSnapshotManager.swift; sourceTree = "<group>"; };
+		FD85B21925B246FF0098B3AF /* UserCredentialTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCredentialTextField.swift; sourceTree = "<group>"; };
 		FD8E404325B0161D0078B68A /* TopicListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicListTableViewCell.swift; sourceTree = "<group>"; };
 		FD8E404E25B016B60078B68A /* TopicListTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicListTableViewCellViewModel.swift; sourceTree = "<group>"; };
 		FD9A665B2394B6AB00A10060 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
@@ -148,6 +151,7 @@
 		FDCA868F2394987600E41718 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		FDCA86932394A05500E41718 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		FDCA86952394A07D00E41718 /* CategoryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryList.swift; sourceTree = "<group>"; };
+		FDD02E0A25B24B920016FF10 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		FDDF124123CBAB590061AD3D /* TimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatter.swift; sourceTree = "<group>"; };
 		FDEE267F25B0CD3C00E644D0 /* CacheManagerInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManagerInterface.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -246,10 +250,10 @@
 		FD53DDE6238B5F7D000F341D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				FD85B21825B246DE0098B3AF /* Login */,
 				FD8E404225B016000078B68A /* TopicList */,
 				FD18AB7A23FB4F4300537D04 /* CategoryList */,
 				FD71123823B997CF00B24384 /* Post List */,
-				FD53DDE7238B5F8A000F341D /* LoginViewController.swift */,
 				FD53DDEC238B79A8000F341D /* HomeViewController.swift */,
 				FD65030323BAC01900F110C5 /* NetworkImageView.swift */,
 			);
@@ -365,6 +369,15 @@
 			path = "Post List";
 			sourceTree = "<group>";
 		};
+		FD85B21825B246DE0098B3AF /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				FD53DDE7238B5F8A000F341D /* LoginViewController.swift */,
+				FD85B21925B246FF0098B3AF /* UserCredentialTextField.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		FD8E404225B016000078B68A /* TopicList */ = {
 			isa = PBXGroup;
 			children = (
@@ -387,6 +400,7 @@
 				FD9A665D2394B6EA00A10060 /* Result+Extensions.swift */,
 				FD65030523BAC1F200F110C5 /* UIView+Extensions.swift */,
 				FD61ADBF24CE99C100FEAF8E /* Array+Extensions.swift */,
+				FDD02E0A25B24B920016FF10 /* UIColor+Extensions.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -675,6 +689,7 @@
 				FD5F001923A6E1BF00E319F3 /* DebugOptionsManager.swift in Sources */,
 				FD0A9A7B23B02F2500715BAD /* PostListViewController.swift in Sources */,
 				FDCA86892394964A00E41718 /* CategoryListViewController.swift in Sources */,
+				FDD02E0B25B24B920016FF10 /* UIColor+Extensions.swift in Sources */,
 				FD8161F4239C6841005F65B2 /* Topic.swift in Sources */,
 				FD61ADC024CE99C100FEAF8E /* Array+Extensions.swift in Sources */,
 				FD65030623BAC1F200F110C5 /* UIView+Extensions.swift in Sources */,
@@ -682,6 +697,7 @@
 				FDDF124223CBAB5A0061AD3D /* TimeFormatter.swift in Sources */,
 				FD18AB7C23FB4F5900537D04 /* CategoryListCell.swift in Sources */,
 				FD53DDE1238B5C63000F341D /* KeychainWrapper.swift in Sources */,
+				FD85B21A25B246FF0098B3AF /* UserCredentialTextField.swift in Sources */,
 				FD0A9A7723B02AF800715BAD /* Post.swift in Sources */,
 				FDEE268025B0CD3C00E644D0 /* CacheManagerInterface.swift in Sources */,
 				FD5F74C7238B4CA100DCEED3 /* Peynir.xcdatamodeld in Sources */,
