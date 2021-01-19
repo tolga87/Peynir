@@ -8,19 +8,37 @@
 
 import UIKit
 
-class RootViewController: UIViewController {
+protocol RootViewControllerInterface {
+    func push(_ viewController: UIViewController, animated: Bool)
+    func pop(animated: Bool)
+    func popToRoot(animated: Bool)
+}
+
+class RootViewController: UINavigationController, RootViewControllerInterface {
+
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+        self.setNavigationBarHidden(true, animated: false)
     }
 
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
             NotificationCenter.default.post(name: DebugOptionsManager.shakeGestureNotification, object: self)
         }
+    }
+
+    // MARK: - RootViewControllerInterface
+
+    func push(_ viewController: UIViewController, animated: Bool) {
+        self.pushViewController(viewController, animated: animated)
+    }
+
+    func pop(animated: Bool) {
+        self.popViewController(animated: animated)
+    }
+
+    func popToRoot(animated: Bool) {
+        self.popToRootViewController(animated: animated)
     }
 }
 

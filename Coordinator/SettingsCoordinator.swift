@@ -13,13 +13,23 @@ class SettingsCoordinator: Coordinator {
 
     var navigationController: UINavigationController
 
-    init(navigationController: UINavigationController) {
+    private let loginManager: LoginManagerInterface
+
+    private lazy var settingsViewModel =
+        SettingsViewModel(actions: [
+                            SettingsAction(title: "Log Out") {
+                                _ = self.loginManager.logout()
+                            }
+        ])
+
+    init(navigationController: UINavigationController, loginManager: LoginManagerInterface) {
         self.navigationController = navigationController
+        self.loginManager = loginManager
         self.childCoordinators = []
     }
 
     func start(completion: CoordinatorCompletionCallback?) {
-        let settingsViewController = UIViewController()
+        let settingsViewController = SettingsViewController(viewModel: self.settingsViewModel)
         self.navigationController.pushViewController(settingsViewController, animated: false)
     }
 }

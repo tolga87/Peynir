@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C96C170AAB9844D33762ADAB /* Pods_Peynir.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3BF68C65C0390DA464D0203 /* Pods_Peynir.framework */; };
+		FD05D97A25B66F5600C2A118 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD05D97925B66F5600C2A118 /* SettingsViewModel.swift */; };
 		FD0705A3243D4611006AA1B7 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0705A2243D4611006AA1B7 /* Observable.swift */; };
 		FD0A9A7523B02ADF00715BAD /* PostList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0A9A7423B02ADF00715BAD /* PostList.swift */; };
 		FD0A9A7723B02AF800715BAD /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0A9A7623B02AF800715BAD /* Post.swift */; };
@@ -55,6 +56,7 @@
 		FD8E404F25B016B60078B68A /* TopicListTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8E404E25B016B60078B68A /* TopicListTableViewCellViewModel.swift */; };
 		FD9A665C2394B6AB00A10060 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9A665B2394B6AB00A10060 /* String+Extensions.swift */; };
 		FD9A665E2394B6EA00A10060 /* Result+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9A665D2394B6EA00A10060 /* Result+Extensions.swift */; };
+		FDAC521E25B6578E00AA953E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAC521D25B6578E00AA953E /* SettingsViewController.swift */; };
 		FDCA867A2394395400E41718 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCA86792394395400E41718 /* JSON.swift */; };
 		FDCA86862394764400E41718 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCA86852394764400E41718 /* NetworkManager.swift */; };
 		FDCA86892394964A00E41718 /* CategoryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCA86882394964A00E41718 /* CategoryListViewController.swift */; };
@@ -89,6 +91,7 @@
 		1C516DE7E4752814F7B71AE4 /* Pods-Peynir.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Peynir.release.xcconfig"; path = "Target Support Files/Pods-Peynir/Pods-Peynir.release.xcconfig"; sourceTree = "<group>"; };
 		A3BF68C65C0390DA464D0203 /* Pods_Peynir.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Peynir.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B29A5A7FD7140D04D1A9C456 /* Pods-Peynir.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Peynir.debug.xcconfig"; path = "Target Support Files/Pods-Peynir/Pods-Peynir.debug.xcconfig"; sourceTree = "<group>"; };
+		FD05D97925B66F5600C2A118 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		FD0705A2243D4611006AA1B7 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		FD0A9A7423B02ADF00715BAD /* PostList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostList.swift; sourceTree = "<group>"; };
 		FD0A9A7623B02AF800715BAD /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
@@ -142,6 +145,7 @@
 		FD8E404E25B016B60078B68A /* TopicListTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicListTableViewCellViewModel.swift; sourceTree = "<group>"; };
 		FD9A665B2394B6AB00A10060 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		FD9A665D2394B6EA00A10060 /* Result+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+Extensions.swift"; sourceTree = "<group>"; };
+		FDAC521D25B6578E00AA953E /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		FDCA86792394395400E41718 /* JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
 		FDCA868223944F3500E41718 /* Peynir.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Peynir.entitlements; sourceTree = "<group>"; };
 		FDCA86852394764400E41718 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -250,6 +254,7 @@
 		FD53DDE6238B5F7D000F341D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				FDAC521C25B6576700AA953E /* Settings */,
 				FD85B21825B246DE0098B3AF /* Login */,
 				FD8E404225B016000078B68A /* TopicList */,
 				FD18AB7A23FB4F4300537D04 /* CategoryList */,
@@ -386,6 +391,15 @@
 				FD8E404E25B016B60078B68A /* TopicListTableViewCellViewModel.swift */,
 			);
 			path = TopicList;
+			sourceTree = "<group>";
+		};
+		FDAC521C25B6576700AA953E /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				FDAC521D25B6578E00AA953E /* SettingsViewController.swift */,
+				FD05D97925B66F5600C2A118 /* SettingsViewModel.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		FDCA86782394392300E41718 /* Utilities */ = {
@@ -677,6 +691,7 @@
 				FD65030423BAC01900F110C5 /* NetworkImageView.swift in Sources */,
 				FD9A665E2394B6EA00A10060 /* Result+Extensions.swift in Sources */,
 				FD53DDEB238B6BE6000F341D /* MainCoordinator.swift in Sources */,
+				FDAC521E25B6578E00AA953E /* SettingsViewController.swift in Sources */,
 				FD8161F2239C681C005F65B2 /* TopicListDataProvider.swift in Sources */,
 				FDCA867A2394395400E41718 /* JSON.swift in Sources */,
 				FDCA86962394A07D00E41718 /* CategoryList.swift in Sources */,
@@ -718,6 +733,7 @@
 				FDCA86902394987600E41718 /* APIClient.swift in Sources */,
 				FD8E404F25B016B60078B68A /* TopicListTableViewCellViewModel.swift in Sources */,
 				FD2937E823B999AD007F1AF9 /* PostCell.swift in Sources */,
+				FD05D97A25B66F5600C2A118 /* SettingsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

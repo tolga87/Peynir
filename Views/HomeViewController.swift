@@ -23,7 +23,6 @@ class HomeViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.view.backgroundColor = UIColor.systemPurple.withAlphaComponent(0.65)
         self.viewControllers = self.containedViewControllers
     }
 }

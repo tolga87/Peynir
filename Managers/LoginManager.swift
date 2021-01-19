@@ -18,6 +18,8 @@ public enum LoginError: Error {
 protocol LoginManagerInterface {
     var isLoggedIn: Bool { get }
     func login(username: String, password: String) -> Promise<Void>
+    func logout() -> Guarantee<Void>
+
     var didLoginNotification: Notification.Name { get }
     var didLogoutNotification: Notification.Name { get }
 }
@@ -72,6 +74,20 @@ class LoginManager: LoginManagerInterface {
                 }
             }
             task.resume()
+        }
+    }
+
+    func logout() -> Guarantee<Void> {
+        return Guarantee<Void> { seal in
+            guard self.isLoggedIn else {
+                NotificationCenter.default.post(name: self.didLogoutNotification, object: self)
+                seal(())
+                return
+            }
+
+            HTTPCookieStorage.shared.removeCookies(since: Date(timeIntervalSince1970: 0))
+            NotificationCenter.default.post(name: self.didLogoutNotification, object: self)
+            seal(())
         }
     }
 }

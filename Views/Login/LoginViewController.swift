@@ -101,7 +101,12 @@ class LoginViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+
+        self.usernameField.text = ""
+        self.passwordField.text = ""
+
         self.updateLoginButton()
+        self.usernameField.becomeFirstResponder()
     }
 
     @objc func didUpdateText() {
@@ -118,6 +123,7 @@ class LoginViewController: UIViewController {
         self.spinner.startAnimating()
 
         firstly {
+            // TODO: Move this logic elsewhere.
             self.loginManager.login(username: username, password: password)
         }.done(on: .main) {
             self.userInfoManager.saveUserCredentials(newCredentials: UserCredentials(username: username, password: password))

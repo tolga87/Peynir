@@ -48,11 +48,13 @@ class MainCoordinator {
     public func start(completion: CoordinatorCompletionCallback?) {
         UITabBar.appearance().tintColor = UIColor.label
 
+        NotificationCenter.default.addObserver(self, selector: #selector(didLogout), name: self.loginManager.didLogoutNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didLogin), name: self.loginManager.didLoginNotification, object: nil)
+
+        self.pushLoginScreen()
+
         if self.loginManager.isLoggedIn {
-            self.showHomeScreen()
-        } else {
-            NotificationCenter.default.addObserver(self, selector: #selector(didLogin), name: self.loginManager.didLoginNotification, object: nil)
-            self.showLoginScreen()
+            self.pushHomeScreen()
         }
 
         DebugOptionsManager.sharedInstance.addShakeGestureListener(listener: self)
@@ -86,13 +88,12 @@ extension MainCoordinator: ShakeGestureListener {
 }
 
 private extension MainCoordinator {
-    func showLoginScreen() {
+    func pushLoginScreen() {
         let loginViewController = LoginViewController(loginManager: self.loginManager, userInfoManager: self.userInfoManager)
-        loginViewController.modalPresentationStyle = .fullScreen
-        self.rootViewController.present(loginViewController, animated: false, completion: nil)
+        self.rootViewController.push(loginViewController, animated: false)
     }
 
-    func showHomeScreen() {
+    func pushHomeScreen() {
         let categoryListDataProvider = CategoryListDataProvider(apiClient: self.apiClient, cacheManager: self.cacheManager)
         let newsNavController = UINavigationController()
         newsNavController.tabBarItem = UITabBarItem(title: "News", image: UIImage(named: "news")!, tag: 0)
@@ -103,24 +104,40 @@ private extension MainCoordinator {
 
         let settingsNavController = UINavigationController()
         settingsNavController.tabBarItem = UITabBarItem(title: "Settings", image: UIImage(named: "settings")!, tag: 1)
-        let settingsCoordinator = SettingsCoordinator(navigationController: settingsNavController)
+        let settingsCoordinator = SettingsCoordinator(navigationController: settingsNavController, loginManager: self.loginManager)
         self.settingsCoordinator = settingsCoordinator
 
         let navigationViewControllers = [categoryListCoordinator.navigationController, settingsCoordinator.navigationController]
         let homeViewController = HomeViewController(viewControllers: navigationViewControllers)
-        homeViewController.modalPresentationStyle = .fullScreen
-
-        let presentingViewController = self.rootViewController.presentedViewController ?? self.rootViewController
-        presentingViewController.present(homeViewController, animated: false, completion: nil)
+        self.rootViewController.push(homeViewController, animated: false)
 
         categoryListCoordinator.start(completion: nil)
+        settingsCoordinator.start(completion: nil)
     }
 
     // MARK: Callbacks
 
     @objc func didLogin() {
+        guard self.categoryListCoordinator == nil else {
+            logWarning("Did receive login notification with active `categoryListCoordinator`")
+            return
+        }
+
         DispatchQueue.main.async {
-            self.showHomeScreen()
+            self.pushHomeScreen()
+        }
+    }
+
+    @objc func didLogout() {
+        if self.categoryListCoordinator == nil {
+            logWarning("Did receive logout notification with nil `categoryListCoordinator`")
+        }
+
+        DispatchQueue.main.async {
+            self.rootViewController.popToRoot(animated: false)
+
+            self.categoryListCoordinator = nil
+            self.settingsCoordinator = nil
         }
     }
 }
