@@ -21,12 +21,6 @@ class RootViewController: UINavigationController, RootViewControllerInterface {
         self.setNavigationBarHidden(true, animated: false)
     }
 
-    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
-        if motion == .motionShake {
-            NotificationCenter.default.post(name: DebugOptionsManager.shakeGestureNotification, object: self)
-        }
-    }
-
     // MARK: - RootViewControllerInterface
 
     func push(_ viewController: UIViewController, animated: Bool) {

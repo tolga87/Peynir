@@ -34,7 +34,6 @@
 		FD53DDEB238B6BE6000F341D /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD53DDEA238B6BE6000F341D /* MainCoordinator.swift */; };
 		FD53DDED238B79A8000F341D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD53DDEC238B79A8000F341D /* HomeViewController.swift */; };
 		FD54661D23A6CB85007556F2 /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD54661C23A6CB85007556F2 /* Logging.swift */; };
-		FD5F001923A6E1BF00E319F3 /* DebugOptionsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5F001823A6E1BF00E319F3 /* DebugOptionsManager.swift */; };
 		FD5F74BD238B4CA100DCEED3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5F74BC238B4CA100DCEED3 /* AppDelegate.swift */; };
 		FD5F74BF238B4CA100DCEED3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5F74BE238B4CA100DCEED3 /* SceneDelegate.swift */; };
 		FD5F74C1238B4CA100DCEED3 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5F74C0238B4CA100DCEED3 /* RootViewController.swift */; };
@@ -119,7 +118,6 @@
 		FD53DDEA238B6BE6000F341D /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		FD53DDEC238B79A8000F341D /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		FD54661C23A6CB85007556F2 /* Logging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = "<group>"; };
-		FD5F001823A6E1BF00E319F3 /* DebugOptionsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugOptionsManager.swift; sourceTree = "<group>"; };
 		FD5F74B9238B4CA100DCEED3 /* Peynir.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Peynir.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD5F74BC238B4CA100DCEED3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FD5F74BE238B4CA100DCEED3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -305,14 +303,6 @@
 			path = Logging;
 			sourceTree = "<group>";
 		};
-		FD5F001723A6E1AF00E319F3 /* Debug */ = {
-			isa = PBXGroup;
-			children = (
-				FD5F001823A6E1BF00E319F3 /* DebugOptionsManager.swift */,
-			);
-			path = Debug;
-			sourceTree = "<group>";
-		};
 		FD5F74B0238B4CA100DCEED3 = {
 			isa = PBXGroup;
 			children = (
@@ -429,7 +419,6 @@
 				FD4BC6B225BE25CF0094D8B4 /* FileSize */,
 				FD0705A1243D4600006AA1B7 /* Observable */,
 				FDDF124023CBAB4E0061AD3D /* Time */,
-				FD5F001723A6E1AF00E319F3 /* Debug */,
 				FD54661B23A6CB68007556F2 /* Logging */,
 				FDCA86792394395400E41718 /* JSON.swift */,
 				FD9A665B2394B6AB00A10060 /* String+Extensions.swift */,
@@ -723,7 +712,6 @@
 				FD5F74C1238B4CA100DCEED3 /* RootViewController.swift in Sources */,
 				FD0A9A7D23B030E300715BAD /* TopicListActionHandler.swift in Sources */,
 				FD81F64C24E8FF11009CFE1B /* WebSnapshotManager.swift in Sources */,
-				FD5F001923A6E1BF00E319F3 /* DebugOptionsManager.swift in Sources */,
 				FD0A9A7B23B02F2500715BAD /* PostListViewController.swift in Sources */,
 				FDCA86892394964A00E41718 /* CategoryListViewController.swift in Sources */,
 				FDD02E0B25B24B920016FF10 /* UIColor+Extensions.swift in Sources */,

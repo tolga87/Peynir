@@ -56,34 +56,6 @@ class MainCoordinator {
         if self.loginManager.isLoggedIn {
             self.pushHomeScreen()
         }
-
-        DebugOptionsManager.sharedInstance.addShakeGestureListener(listener: self)
-    }
-}
-
-extension MainCoordinator: ShakeGestureListener {
-    func didReceiveShakeGesture() {
-        DispatchQueue.main.async {
-            let alert = UIAlertController(title: "Debug Options",
-                                          message: nil,
-                                          preferredStyle: .actionSheet)
-            let clearCacheAction = UIAlertAction(title: "Clear cache", style: .default) { _ in
-                firstly {
-                    self.cacheManager.clearAllJsons()
-                }.done {
-                    logInfo("Cache cleared")
-                }.catch { error in
-                    logError("Could not clear cache: \(error)")
-                }
-            }
-
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-            alert.addAction(clearCacheAction)
-            alert.addAction(cancelAction)
-
-            let presentingViewController = self.rootViewController.presentedViewController ?? self.rootViewController
-            presentingViewController.present(alert, animated: true, completion: nil)
-        }
     }
 }
 
