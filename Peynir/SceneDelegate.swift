@@ -33,6 +33,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let loginManager = LoginManager(networkManager: networkManager, userInfoManager: userInfoManager)
         let apiClient = APIClient(networkManager: networkManager)
         let cacheManager = CacheManager.sharedInstance
+
+        if UserDefaults.standard.bool(forKey: "isRunningTests") {
+            // We don't need coordinators in tests.
+            return
+        }
+
         self.coordinator = MainCoordinator(apiClient: apiClient, cacheManager: cacheManager, userInfoManager: userInfoManager, loginManager: loginManager, rootViewController: rootViewController)
         self.coordinator?.start(completion: nil)
     }

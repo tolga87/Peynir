@@ -8,6 +8,7 @@
 
 import Foundation
 
+// TODO: Add tests.
 class TimeFormatter {
     enum Mode {
         case short

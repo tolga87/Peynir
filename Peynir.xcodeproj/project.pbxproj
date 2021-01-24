@@ -24,6 +24,8 @@
 		FD19C456239DCA2C00AFBE0E /* TopicListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD19C455239DCA2C00AFBE0E /* TopicListViewController.swift */; };
 		FD19C45A239DCCF900AFBE0E /* CategoryListActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD19C459239DCCF900AFBE0E /* CategoryListActionHandler.swift */; };
 		FD2937E823B999AD007F1AF9 /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD2937E723B999AD007F1AF9 /* PostCell.swift */; };
+		FD4BC6B425BE25DF0094D8B4 /* FileSizeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4BC6B325BE25DF0094D8B4 /* FileSizeFormatter.swift */; };
+		FD4BC6BF25BE29B70094D8B4 /* FileSizeFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4BC6BE25BE29B70094D8B4 /* FileSizeFormatterTests.swift */; };
 		FD53DDDE238B585B000F341D /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD53DDDD238B585B000F341D /* LoginManager.swift */; };
 		FD53DDE1238B5C63000F341D /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD53DDE0238B5C63000F341D /* KeychainWrapper.swift */; };
 		FD53DDE3238B5C89000F341D /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD53DDE2238B5C89000F341D /* KeychainItemAccessibility.swift */; };
@@ -107,6 +109,8 @@
 		FD19C455239DCA2C00AFBE0E /* TopicListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicListViewController.swift; sourceTree = "<group>"; };
 		FD19C459239DCCF900AFBE0E /* CategoryListActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListActionHandler.swift; sourceTree = "<group>"; };
 		FD2937E723B999AD007F1AF9 /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
+		FD4BC6B325BE25DF0094D8B4 /* FileSizeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSizeFormatter.swift; sourceTree = "<group>"; };
+		FD4BC6BE25BE29B70094D8B4 /* FileSizeFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSizeFormatterTests.swift; sourceTree = "<group>"; };
 		FD53DDDD238B585B000F341D /* LoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
 		FD53DDE0238B5C63000F341D /* KeychainWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		FD53DDE2238B5C89000F341D /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainItemAccessibility.swift; sourceTree = "<group>"; };
@@ -230,6 +234,22 @@
 			path = "Data Actions";
 			sourceTree = "<group>";
 		};
+		FD4BC6B225BE25CF0094D8B4 /* FileSize */ = {
+			isa = PBXGroup;
+			children = (
+				FD4BC6B325BE25DF0094D8B4 /* FileSizeFormatter.swift */,
+			);
+			path = FileSize;
+			sourceTree = "<group>";
+		};
+		FD4BC6BD25BE29A20094D8B4 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				FD4BC6BE25BE29B70094D8B4 /* FileSizeFormatterTests.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		FD53DDDC238B584A000F341D /* Managers */ = {
 			isa = PBXGroup;
 			children = (
@@ -341,6 +361,7 @@
 		FD5F74D5238B4CA200DCEED3 /* PeynirTests */ = {
 			isa = PBXGroup;
 			children = (
+				FD4BC6BD25BE29A20094D8B4 /* Utilities */,
 				FD5F74D6238B4CA200DCEED3 /* PeynirTests.swift */,
 				FD5F74D8238B4CA200DCEED3 /* Info.plist */,
 			);
@@ -405,6 +426,7 @@
 		FDCA86782394392300E41718 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				FD4BC6B225BE25CF0094D8B4 /* FileSize */,
 				FD0705A1243D4600006AA1B7 /* Observable */,
 				FDDF124023CBAB4E0061AD3D /* Time */,
 				FD5F001723A6E1AF00E319F3 /* Debug */,
@@ -705,6 +727,7 @@
 				FD0A9A7B23B02F2500715BAD /* PostListViewController.swift in Sources */,
 				FDCA86892394964A00E41718 /* CategoryListViewController.swift in Sources */,
 				FDD02E0B25B24B920016FF10 /* UIColor+Extensions.swift in Sources */,
+				FD4BC6B425BE25DF0094D8B4 /* FileSizeFormatter.swift in Sources */,
 				FD8161F4239C6841005F65B2 /* Topic.swift in Sources */,
 				FD61ADC024CE99C100FEAF8E /* Array+Extensions.swift in Sources */,
 				FD65030623BAC1F200F110C5 /* UIView+Extensions.swift in Sources */,
@@ -742,6 +765,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FD5F74D7238B4CA200DCEED3 /* PeynirTests.swift in Sources */,
+				FD4BC6BF25BE29B70094D8B4 /* FileSizeFormatterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
