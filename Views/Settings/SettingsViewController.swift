@@ -9,11 +9,16 @@
 import UIKit
 import PromiseKit
 
-class SettingsViewController: UITableViewController {
-    private let viewModel: SettingsViewModel
+protocol SettingsViewControllerDataSource: AnyObject {
+    func getViewModel() -> SettingsViewModel
+    func reloadData()
+}
 
-    init(viewModel: SettingsViewModel) {
-        self.viewModel = viewModel
+class SettingsViewController: UITableViewController {
+    weak var dataSource: SettingsViewControllerDataSource?
+
+    init(dataSource: SettingsViewControllerDataSource) {
+        self.dataSource = dataSource
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -30,18 +35,30 @@ class SettingsViewController: UITableViewController {
         self.tableView.tableFooterView = UIView()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        self.dataSource?.reloadData()
+        self.tableView.reloadData()
+    }
+
     // MARK: - UITableViewDataSource
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard section == 0 else { return 0 }
+        guard
+            let dataSource = self.dataSource,
+            section == 0 else {
+                return 0
+        }
 
-        return self.viewModel.actions.count
+        return dataSource.getViewModel().actions.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard
             let cell = tableView.dequeueReusableCell(withIdentifier: Consts.tableViewReuseId),
-            let action = self.viewModel.actions[safe: indexPath.row] else {
+            let dataSource = self.dataSource,
+            let action = dataSource.getViewModel().actions[safe: indexPath.row] else {
                 return UITableViewCell()
         }
 
@@ -60,7 +77,9 @@ class SettingsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
-        guard let action = self.viewModel.actions[safe: indexPath.row] else {
+        guard
+            let dataSource = self.dataSource,
+            let action = dataSource.getViewModel().actions[safe: indexPath.row] else {
             return
         }
 

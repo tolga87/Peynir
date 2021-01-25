@@ -40,6 +40,7 @@ public enum CacheError: Error {
     case invalidImageData
     case couldNotSnapshotWebView
     case couldNotCalculateCacheSize
+    case couldNotClearCache
     case other(String)
 }
 
@@ -247,10 +248,50 @@ public class CacheManager: CacheManagerInterface {
         }
     }
 
+    private func removeFile(at url: URL) -> Promise<Void> {
+        return Promise<Void> { seal in
+            do {
+                try FileManager.default.removeItem(at: url)
+                seal.fulfill(())
+            } catch {
+                logError("Could not remove file at: `\(url.absoluteString)`: \(error)")
+                seal.reject(error)
+            }
+        }
+    }
+
     public func clearCache() -> Promise<Void> {
-        // TODO: Implement.
-        let error = NSError(domain: "NotImplemented", code: 1, userInfo: [NSLocalizedDescriptionKey: "Not implemented"])
-        return Promise(error: error)
+        // `skipsSubdirectoryDescendants` performs a shallow search;
+        // i.e. it'll return only files and folders immediately under the `Documents` folder.
+        guard
+            let documentDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first,
+            let documentUrls = FileManager.default.enumerator(at: documentDirectoryUrl,
+                                                              includingPropertiesForKeys: nil,
+                                                              options: [.skipsSubdirectoryDescendants])?.allObjects as? [URL] else {
+                return Promise(error: CacheError.couldNotClearCache)
+        }
+
+        let fileRemovalPromises = documentUrls.map {
+            self.removeFile(at: $0)
+        }
+
+        // Try to remove all files/folders even if we encounter errors.
+        return when(resolved: fileRemovalPromises).then { results -> Promise<Void> in
+            let fulfilled = results.filter {
+                if case .fulfilled = $0 {
+                    return true
+                } else {
+                    return false
+                }
+            }
+
+            // Consider it a success if we have at least one successful removal.
+            if fulfilled.count > 0 {
+                return Promise.value(())
+            } else {
+                return Promise(error: CacheError.couldNotClearCache)
+            }
+        }
     }
 }
 
