@@ -76,7 +76,9 @@ private extension MainCoordinator {
 
         let settingsNavController = UINavigationController()
         settingsNavController.tabBarItem = UITabBarItem(title: "Settings", image: UIImage(named: "settings")!, tag: 1)
-        let settingsCoordinator = SettingsCoordinator(navigationController: settingsNavController, loginManager: self.loginManager)
+        let settingsCoordinator = SettingsCoordinator(navigationController: settingsNavController,
+                                                      loginManager: self.loginManager,
+                                                      cacheManager: self.cacheManager)
         self.settingsCoordinator = settingsCoordinator
 
         let navigationViewControllers = [categoryListCoordinator.navigationController, settingsCoordinator.navigationController]

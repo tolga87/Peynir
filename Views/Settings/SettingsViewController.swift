@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PromiseKit
 
 class SettingsViewController: UITableViewController {
     private let viewModel: SettingsViewModel
@@ -44,7 +45,13 @@ class SettingsViewController: UITableViewController {
                 return UITableViewCell()
         }
 
-        cell.textLabel?.text = action.title
+        cell.textLabel?.text = "..."
+        firstly {
+            action.title
+        }.done {
+            cell.textLabel?.text = $0
+        }
+
         return cell
     }
 

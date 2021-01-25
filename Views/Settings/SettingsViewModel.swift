@@ -7,12 +7,13 @@
 //
 
 import Foundation
+import PromiseKit
 
 class SettingsAction {
-    let title: String
+    let title: Guarantee<String>
     let callback: (() -> Void)?
 
-    init(title: String, callback: (() -> Void)?) {
+    init(title: Guarantee<String>, callback: (() -> Void)?) {
         self.title = title
         self.callback = callback
     }

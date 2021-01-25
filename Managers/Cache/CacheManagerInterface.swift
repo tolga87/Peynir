@@ -12,16 +12,16 @@ import PromiseKit
 import UIKit
 import WebKit
 
+public protocol CacheOperationsManagerInterface: AnyObject {
+    func cacheSize() -> Promise<Int>
+    func clearCache() -> Promise<Void>
+}
+
 public protocol JsonCacheManagerInterface: AnyObject {
     func saveJson(_ json: JSON, key: String) -> Promise<Void>
     func saveObject(_ object: JSONConvertable, key: String) -> Promise<Void>
     func loadJson(key: String) -> Promise<JSON>
     func clearAllJsons() -> Promise<Void>
-}
-
-public protocol DataCacheManagerInterface: AnyObject {
-    func saveData(_ data: Data, key: String, group: String?) -> Promise<Void>
-    func loadData(key: String, group: String?) -> Promise<Data>
 }
 
 public protocol ImageCacheManagerInterface: AnyObject {
@@ -32,13 +32,14 @@ public protocol ImageCacheManagerInterface: AnyObject {
 typealias WebSnapshot = UIImage
 typealias WebSnapshotCacheManagerInterface = ImageCacheManagerInterface
 
-typealias CacheManagerInterface = (JsonCacheManagerInterface & DataCacheManagerInterface & ImageCacheManagerInterface & WebSnapshotCacheManagerInterface)
+typealias CacheManagerInterface = (JsonCacheManagerInterface & ImageCacheManagerInterface & WebSnapshotCacheManagerInterface & CacheOperationsManagerInterface)
 
 public enum CacheError: Error {
     case unknown
     case dataNotFound
     case invalidImageData
     case couldNotSnapshotWebView
+    case couldNotCalculateCacheSize
     case other(String)
 }
 
@@ -193,6 +194,79 @@ public class CacheManager: CacheManagerInterface {
     public func loadImage(key: String, group: String?) -> Promise<UIImage> {
         return self.loadData(key: key, group: group).compactMap { data in
             return UIImage(data: data, scale: UIScreen.main.scale)
+        }
+    }
+
+    // MARK: - Cache Operations
+
+    private func documentDirectorySize() -> Promise<Int> {
+        guard let documentDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            return Promise(error: CacheError.couldNotCalculateCacheSize)
+        }
+
+        guard
+            let documentUrls = FileManager.default.enumerator(at: documentDirectoryUrl, includingPropertiesForKeys: nil)?.allObjects as? [URL] else {
+            return Promise(error: CacheError.couldNotCalculateCacheSize)
+        }
+
+        let sizeGuarantees: [Guarantee<Int>] = documentUrls.lazy.map { (documentUrl: URL) -> Guarantee<Int> in
+            // Keep trying to calculate total size even if we can't get size data from some directories.
+            return documentUrl.fileSize().recover { error -> Guarantee<Int> in
+                return .value(0)
+            }
+        }
+
+        return when(fulfilled: sizeGuarantees).then { (results: [Int]) -> Promise<Int> in
+            let totalSize = results.reduce(0, +)
+            if totalSize == 0 {
+                return Promise(error: CacheError.couldNotCalculateCacheSize)
+            } else {
+                return Promise.value(totalSize)
+            }
+        }
+    }
+
+    private func databaseSize() -> Promise<Int> {
+        guard let storeUrl = self.managedContext.persistentStoreCoordinator?.persistentStores.first?.url else {
+            return Promise(error: CacheError.couldNotCalculateCacheSize)
+        }
+
+        return storeUrl.fileSize()
+    }
+
+    public func cacheSize() -> Promise<Int> {
+        let sizePromises = [self.databaseSize(), self.documentDirectorySize()]
+
+        return when(fulfilled: sizePromises).then { (results: [Int]) -> Promise<Int> in
+            let totalSize = results.reduce(0, +)
+            if totalSize == 0 {
+                return Promise(error: CacheError.couldNotCalculateCacheSize)
+            } else {
+                return Promise.value(totalSize)
+            }
+        }
+    }
+
+    public func clearCache() -> Promise<Void> {
+        // TODO: Implement.
+        let error = NSError(domain: "NotImplemented", code: 1, userInfo: [NSLocalizedDescriptionKey: "Not implemented"])
+        return Promise(error: error)
+    }
+}
+
+private extension URL {
+    func fileSize() -> Promise<Int> {
+        return Promise<Int> { seal in
+            do {
+                let resourceValues = try self.resourceValues(forKeys: [.totalFileAllocatedSizeKey, .fileAllocatedSizeKey])
+                guard let size = resourceValues.totalFileAllocatedSize ?? resourceValues.fileAllocatedSize else {
+                    seal.reject(CacheError.couldNotCalculateCacheSize)
+                    return
+                }
+                seal.fulfill(size)
+            } catch {
+                seal.reject(error)
+            }
         }
     }
 }
