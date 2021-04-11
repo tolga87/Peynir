@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		C96C170AAB9844D33762ADAB /* Pods_Peynir.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3BF68C65C0390DA464D0203 /* Pods_Peynir.framework */; };
 		FD05D97A25B66F5600C2A118 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD05D97925B66F5600C2A118 /* SettingsViewModel.swift */; };
-		FD0705A3243D4611006AA1B7 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0705A2243D4611006AA1B7 /* Observable.swift */; };
 		FD0A9A7523B02ADF00715BAD /* PostList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0A9A7423B02ADF00715BAD /* PostList.swift */; };
 		FD0A9A7723B02AF800715BAD /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0A9A7623B02AF800715BAD /* Post.swift */; };
 		FD0A9A7923B02C5400715BAD /* PostListDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0A9A7823B02C5400715BAD /* PostListDataProvider.swift */; };
@@ -24,6 +23,8 @@
 		FD19C456239DCA2C00AFBE0E /* TopicListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD19C455239DCA2C00AFBE0E /* TopicListViewController.swift */; };
 		FD19C45A239DCCF900AFBE0E /* CategoryListActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD19C459239DCCF900AFBE0E /* CategoryListActionHandler.swift */; };
 		FD2937E823B999AD007F1AF9 /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD2937E723B999AD007F1AF9 /* PostCell.swift */; };
+		FD473484262392FC004F2C54 /* CategoryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD473483262392FC004F2C54 /* CategoryListViewModel.swift */; };
+		FD47348C262396C8004F2C54 /* CategoryListItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD47348B262396C8004F2C54 /* CategoryListItemViewModel.swift */; };
 		FD4BC6B425BE25DF0094D8B4 /* FileSizeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4BC6B325BE25DF0094D8B4 /* FileSizeFormatter.swift */; };
 		FD4BC6BF25BE29B70094D8B4 /* FileSizeFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4BC6BE25BE29B70094D8B4 /* FileSizeFormatterTests.swift */; };
 		FD53DDDE238B585B000F341D /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD53DDDD238B585B000F341D /* LoginManager.swift */; };
@@ -96,7 +97,6 @@
 		A3BF68C65C0390DA464D0203 /* Pods_Peynir.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Peynir.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B29A5A7FD7140D04D1A9C456 /* Pods-Peynir.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Peynir.debug.xcconfig"; path = "Target Support Files/Pods-Peynir/Pods-Peynir.debug.xcconfig"; sourceTree = "<group>"; };
 		FD05D97925B66F5600C2A118 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
-		FD0705A2243D4611006AA1B7 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		FD0A9A7423B02ADF00715BAD /* PostList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostList.swift; sourceTree = "<group>"; };
 		FD0A9A7623B02AF800715BAD /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		FD0A9A7823B02C5400715BAD /* PostListDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostListDataProvider.swift; sourceTree = "<group>"; };
@@ -111,6 +111,8 @@
 		FD19C455239DCA2C00AFBE0E /* TopicListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicListViewController.swift; sourceTree = "<group>"; };
 		FD19C459239DCCF900AFBE0E /* CategoryListActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListActionHandler.swift; sourceTree = "<group>"; };
 		FD2937E723B999AD007F1AF9 /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
+		FD473483262392FC004F2C54 /* CategoryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListViewModel.swift; sourceTree = "<group>"; };
+		FD47348B262396C8004F2C54 /* CategoryListItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListItemViewModel.swift; sourceTree = "<group>"; };
 		FD4BC6B325BE25DF0094D8B4 /* FileSizeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSizeFormatter.swift; sourceTree = "<group>"; };
 		FD4BC6BE25BE29B70094D8B4 /* FileSizeFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSizeFormatterTests.swift; sourceTree = "<group>"; };
 		FD53DDDD238B585B000F341D /* LoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
@@ -211,20 +213,9 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		FD0705A1243D4600006AA1B7 /* Observable */ = {
-			isa = PBXGroup;
-			children = (
-				FD0705A2243D4611006AA1B7 /* Observable.swift */,
-			);
-			path = Observable;
-			sourceTree = "<group>";
-		};
 		FD18AB7A23FB4F4300537D04 /* CategoryList */ = {
 			isa = PBXGroup;
 			children = (
-				FDCA86882394964A00E41718 /* CategoryListViewController.swift */,
-				FD18AB7B23FB4F5900537D04 /* CategoryListCell.swift */,
-				FD18AB7D23FB4F9F00537D04 /* CategoryListCellViewModel.swift */,
 			);
 			path = CategoryList;
 			sourceTree = "<group>";
@@ -236,6 +227,19 @@
 				FD0A9A7C23B030E300715BAD /* TopicListActionHandler.swift */,
 			);
 			path = "Data Actions";
+			sourceTree = "<group>";
+		};
+		FD473482262392A1004F2C54 /* CategoryList */ = {
+			isa = PBXGroup;
+			children = (
+				FD18AB7B23FB4F5900537D04 /* CategoryListCell.swift */,
+				FD18AB7D23FB4F9F00537D04 /* CategoryListCellViewModel.swift */,
+				FDCA868D2394980400E41718 /* CategoryListDataProvider.swift */,
+				FD47348B262396C8004F2C54 /* CategoryListItemViewModel.swift */,
+				FDCA86882394964A00E41718 /* CategoryListViewController.swift */,
+				FD473483262392FC004F2C54 /* CategoryListViewModel.swift */,
+			);
+			path = CategoryList;
 			sourceTree = "<group>";
 		};
 		FD4BC6B225BE25CF0094D8B4 /* FileSize */ = {
@@ -322,6 +326,7 @@
 		FD5F74B0238B4CA100DCEED3 = {
 			isa = PBXGroup;
 			children = (
+				FD473482262392A1004F2C54 /* CategoryList */,
 				FDCA86912394A03A00E41718 /* Client */,
 				FDCA868A239496A300E41718 /* DataProvider */,
 				FD19C458239DCCDB00AFBE0E /* Data Actions */,
@@ -434,7 +439,6 @@
 			isa = PBXGroup;
 			children = (
 				FD4BC6B225BE25CF0094D8B4 /* FileSize */,
-				FD0705A1243D4600006AA1B7 /* Observable */,
 				FDDF124023CBAB4E0061AD3D /* Time */,
 				FD54661B23A6CB68007556F2 /* Logging */,
 				FDCA86792394395400E41718 /* JSON.swift */,
@@ -451,7 +455,6 @@
 			isa = PBXGroup;
 			children = (
 				FDCA868B239496B000E41718 /* DataProvider.swift */,
-				FDCA868D2394980400E41718 /* CategoryListDataProvider.swift */,
 				FD8161F1239C681C005F65B2 /* TopicListDataProvider.swift */,
 				FD0A9A7823B02C5400715BAD /* PostListDataProvider.swift */,
 			);
@@ -712,7 +715,6 @@
 				FD53DDE8238B5F8A000F341D /* LoginViewController.swift in Sources */,
 				FD9A665C2394B6AB00A10060 /* String+Extensions.swift in Sources */,
 				FD6F7E6223CB96040042C513 /* PostMetadataViewModel.swift in Sources */,
-				FD0705A3243D4611006AA1B7 /* Observable.swift in Sources */,
 				FD53DDDE238B585B000F341D /* LoginManager.swift in Sources */,
 				FD8E404425B0161D0078B68A /* TopicListTableViewCell.swift in Sources */,
 				FDCA86942394A05500E41718 /* Category.swift in Sources */,
@@ -722,6 +724,7 @@
 				FD65030423BAC01900F110C5 /* NetworkImageView.swift in Sources */,
 				FD9A665E2394B6EA00A10060 /* Result+Extensions.swift in Sources */,
 				FD53DDEB238B6BE6000F341D /* MainCoordinator.swift in Sources */,
+				FD47348C262396C8004F2C54 /* CategoryListItemViewModel.swift in Sources */,
 				FDAC521E25B6578E00AA953E /* SettingsViewController.swift in Sources */,
 				FD8161F2239C681C005F65B2 /* TopicListDataProvider.swift in Sources */,
 				FDCA867A2394395400E41718 /* JSON.swift in Sources */,
@@ -747,6 +750,7 @@
 				FD0A9A7723B02AF800715BAD /* Post.swift in Sources */,
 				FDEE268025B0CD3C00E644D0 /* CacheManagerInterface.swift in Sources */,
 				FD5F74C7238B4CA100DCEED3 /* Peynir.xcdatamodeld in Sources */,
+				FD473484262392FC004F2C54 /* CategoryListViewModel.swift in Sources */,
 				FD8161F6239C6AC4005F65B2 /* TopicList.swift in Sources */,
 				FD0A9A7F23B0329700715BAD /* PostListCoordinator.swift in Sources */,
 				FD0A9A7923B02C5400715BAD /* PostListDataProvider.swift in Sources */,

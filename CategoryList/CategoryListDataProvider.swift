@@ -6,45 +6,40 @@
 //  Copyright © 2019 Tolga AKIN. All rights reserved.
 //
 
+import Combine
 import PromiseKit
 
-class CategoryListDataProvider: DataProvider {
+class CategoryListDataProvider: BaseDataProvider<CategoryList> {
+
+    // TODO: Fix these public properties.
     public let apiClient: APIClientInterface
     public let cacheManager: JsonCacheManagerInterface
-    private var categoryList: CategoryList?
 
     init(apiClient: APIClientInterface, cacheManager: JsonCacheManagerInterface) {
         self.apiClient = apiClient
         self.cacheManager = cacheManager
 
+        super.init()
+
         self.loadFromCache()
-        self.fetch()
+        self.requestFetch()
     }
 
     // MARK: - DataProvider
 
-    typealias DataType = Category
-
-    let didUpdateNotification = Notification.Name("CategoryListDataProviderDidUpdate")
-
-    var state: DataProviderState = .unknown
-    var items: [Category] {
-        return self.categoryList?.categories ?? []
+    override var fetchPromise: Promise<CategoryList> {
+        return self.apiClient.fetchCategoryList()
     }
 
-    func fetch() {
-        self.state = .loading
+    override func didReceiveUpdate(_ update: DataProviderState<CategoryList>) {
+        super.didReceiveUpdate(update)
 
-        firstly {
-            self.apiClient.fetchCategoryList()
-        }.done {
-            self.state = .loaded
-            self.categoryList = $0
-            self.saveToCache()
-        }.catch { error in
-            self.state = .error(error)
-        }.finally {
-            NotificationCenter.default.post(name: self.didUpdateNotification, object: self)
+        switch update {
+        case .loaded(let newCategoryList):
+            self.saveToCache(categoryList: newCategoryList)
+
+        case .unknown, .loading, .error:
+            ()
         }
     }
 }
@@ -55,21 +50,23 @@ private extension CategoryListDataProvider {
     }
 
     func loadFromCache() {
-        firstly {
-            self.cacheManager.loadJson(key: CacheKeys.categoryListKey)
+        firstly { () -> Promise<JSON> in
+            self.subject.value = .loading(self.data)
+            return self.cacheManager.loadJson(key: CacheKeys.categoryListKey)
         }.compactMap { cachedCategoryListJson in
             CategoryList.fromJson(json: cachedCategoryListJson)
         }.done { cachedCategoryList in
-            self.categoryList = cachedCategoryList
+            self.subject.value = .loaded(cachedCategoryList)
             logDebug("Loaded \(cachedCategoryList.categories.count) categories from cache.")
         }.catch { error in
+            self.subject.value = .error(error)
             // TODO: Handle JSON schema changes.
             logDebug("Could not load category list from cache.")
         }
     }
 
-    func saveToCache() {
-        guard let categoryList = self.categoryList, let json = categoryList.toJson() else { return }
+    func saveToCache(categoryList: CategoryList) {
+        guard let json = categoryList.toJson() else { return }
 
         firstly {
             self.cacheManager.saveJson(json, key: CacheKeys.categoryListKey)

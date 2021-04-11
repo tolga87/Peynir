@@ -6,15 +6,17 @@
 //  Copyright © 2019 Tolga AKIN. All rights reserved.
 //
 
+import Combine
 import PromiseKit
 
-class TopicListDataProvider: DataProvider {
+class TopicListDataProvider: BaseDataProvider<TopicList> {
+
     let categoryId: Int
     let categoryName: String
 
     public let apiClient: APIClientInterface
     private let cacheManager: JsonCacheManagerInterface
-    private var topicList: TopicList?
+//    private var topicList: TopicList?
     private var topicListCacheKey: String {
         return String(format: CacheKeys.topicListKeyFormat, self.categoryId)
     }
@@ -25,33 +27,25 @@ class TopicListDataProvider: DataProvider {
         self.apiClient = apiClient
         self.cacheManager = cacheManager
 
+        super.init()
+
         self.loadFromCache()
-        self.fetch()
+        self.requestFetch()
     }
 
-    // MARK: - DataProvider
-
-    typealias DataType = Topic
-    let didUpdateNotification = Notification.Name("TopicsDataProviderDidUpdate")
-
-    var state: DataProviderState = .unknown
-    var items: [Topic] {
-        return self.topicList?.topics ?? []
+    override var fetchPromise: Promise<TopicList> {
+        return self.apiClient.fetchTopicList(withCategoryId: self.categoryId)
     }
 
-    func fetch() {
-        self.state = .loading
+    override func didReceiveUpdate(_ update: DataProviderState<TopicList>) {
+        super.didReceiveUpdate(update)
 
-        firstly {
-            self.apiClient.fetchTopicList(withCategoryId: self.categoryId)
-        }.done {
-            self.state = .loaded
-            self.topicList = $0
-            self.saveToCache()
-        }.catch { error in
-            self.state = .error(error)
-        }.finally {
-            NotificationCenter.default.post(name: self.didUpdateNotification, object: self)
+        switch update {
+        case .loaded(let newTopicList):
+            self.saveToCache(topicList: newTopicList)
+
+        case .unknown, .loading, .error:
+            ()
         }
     }
 }
@@ -62,21 +56,23 @@ private extension TopicListDataProvider {
     }
 
     func loadFromCache() {
-        firstly {
-            self.cacheManager.loadJson(key: self.topicListCacheKey)
+        firstly { () -> Promise<JSON> in
+            self.subject.value = .loading(self.data)
+            return self.cacheManager.loadJson(key: self.topicListCacheKey)
         }.compactMap { cachedtopicListJson in
             TopicList.fromJson(json: cachedtopicListJson)
         }.done { cachedtopicList in
-            self.topicList = cachedtopicList
+            self.subject.value = .loaded(cachedtopicList)
             logDebug("Loaded \(cachedtopicList.topics.count) topics from cache for category \(self.categoryId)")
         }.catch { error in
+            self.subject.value = .error(error)
             // TODO: Handle JSON schema changes.
             logDebug("Could not load topic list from cache for category \(self.categoryId)")
         }
     }
 
-    func saveToCache() {
-        guard let topicList = self.topicList, let json = topicList.toJson() else { return }
+    func saveToCache(topicList: TopicList) {
+        guard let json = topicList.toJson() else { return }
 
         firstly {
             self.cacheManager.saveJson(json, key: self.topicListCacheKey)

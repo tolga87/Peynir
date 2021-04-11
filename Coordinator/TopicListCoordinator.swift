@@ -22,8 +22,10 @@ class TopicListCoordinator: Coordinator {
     }
 
     func start(completion: CoordinatorCompletionCallback?) {
-        let categoryListViewController = TopicListViewController(dataProvider: topicListDataProvider)
-        categoryListViewController.actionHandler = self
+        let categoryListViewController = TopicListViewController(
+            // dataProvider: topicListDataProvider
+        )
+//        categoryListViewController.actionHandler = self
         self.navigationController.pushViewController(categoryListViewController, animated: true)
     }
 }

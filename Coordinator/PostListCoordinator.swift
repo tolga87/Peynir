@@ -27,9 +27,11 @@ class PostListCoordinator: Coordinator {
         self.completionCallback = completion
         let webSnapshotManager = WebSnapshotManager(cacheManager: self.cacheManager)
 
-        let postListViewController = PostListViewController(dataProvider: self.postListDataProvider,
-                                                            webCacheManager: self.cacheManager,
-                                                            webSnapshotManager: webSnapshotManager)
+        let postListViewController = PostListViewController(
+//                                                            dataProvider: self.postListDataProvider,
+//                                                            webCacheManager: self.cacheManager,
+//                                                            webSnapshotManager: webSnapshotManager
+        )
         postListViewController.deinitDelegate = self
         self.navigationController.pushViewController(postListViewController, animated: true)
     }

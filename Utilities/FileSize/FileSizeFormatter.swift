@@ -8,6 +8,7 @@
 
 import Foundation
 
+// TODO: Remove.
 class FileSizeFormatter {
     static func fileSizeString(fileSizeInBytes fileSize: Int) -> String {
         var bytes = Double(fileSize)

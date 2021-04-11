@@ -6,6 +6,7 @@
 //  Copyright © 2019 Tolga AKIN. All rights reserved.
 //
 
+import Combine
 import UIKit
 
 class CategoryListViewController: UIViewController {
@@ -13,6 +14,7 @@ class CategoryListViewController: UIViewController {
 
     private let dataProvider: CategoryListDataProvider
     private let tableView: UITableView
+    private var cancellables: [AnyCancellable] = []
 
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -26,7 +28,21 @@ class CategoryListViewController: UIViewController {
 
         super.init(nibName: nil, bundle: nil)
 
-        NotificationCenter.default.addObserver(self, selector: #selector(dataProviderDidUpdate), name: dataProvider.didUpdateNotification, object: nil)
+        self.dataProvider.subject
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] viewState in
+                guard let self = self, self.isViewLoaded else { return }
+
+                switch viewState {
+                case .unknown, .loading:
+                    self.setRefreshing(true)
+                case .loaded, .error:
+                    self.setRefreshing(false)
+                }
+
+                self.tableView.reloadData()
+            }
+            .store(in: &self.cancellables)
 
         self.tableView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(self.tableView)
@@ -55,31 +71,40 @@ class CategoryListViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        if case .loading = self.dataProvider.state {
+        if case .loading = self.dataProvider.subject.value {
             self.refreshControl.beginRefreshing()
         }
     }
 
     @objc func refreshControlDidTrigger() {
-        self.dataProvider.fetch()
+        self.dataProvider.requestFetch()
     }
 
-    @objc func dataProviderDidUpdate() {
-        DispatchQueue.main.async {
+    private func setRefreshing(_ refreshing: Bool) {
+        if refreshing {
+            self.refreshControl.beginRefreshing()
+            self.tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.contentOffset.y - (self.refreshControl.frame.height)), animated: true)
+        } else {
             self.refreshControl.endRefreshing()
-            self.tableView.reloadData()
         }
     }
 }
 
 extension CategoryListViewController: UITableViewDataSource {
+    private func getCategory(atIndexPath indexPath: IndexPath) -> Category? {
+        guard let categories = self.dataProvider.subject.value.getData()?.categories else { return nil }
+
+        return categories[safe: indexPath.row]
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.dataProvider.items.count
+        let categories = self.dataProvider.subject.value.getData()?.categories
+        return categories?.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard
-            let category = self.dataProvider.items[safe: indexPath.row],
+            let category = self.getCategory(atIndexPath: indexPath),
             let cell = tableView.dequeueReusableCell(withIdentifier: Consts.tableViewReuseId, for: indexPath) as? CategoryListCell else {
                 return UITableViewCell()
         }
@@ -95,7 +120,7 @@ extension CategoryListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
-        guard let category = self.dataProvider.items[safe: indexPath.row] else { return }
+        guard let category = self.getCategory(atIndexPath: indexPath) else { return }
         self.actionHandler?.didSelectCategory(category)
     }
 }
