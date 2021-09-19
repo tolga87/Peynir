@@ -6,12 +6,14 @@
 //  Copyright © 2019 Tolga AKIN. All rights reserved.
 //
 
-import UIKit
+import Combine
 import PromiseKit
+import UIKit
 
 class LoginViewController: UIViewController {
     private let loginManager: LoginManagerInterface
     private let userInfoManager: UserInfoManagerInterface
+    private var cancellables: Set<AnyCancellable> = []
 
     private lazy var usernameField: UserCredentialTextField = {
         let field = UserCredentialTextField()
@@ -97,15 +99,27 @@ class LoginViewController: UIViewController {
         spinner.constrainToCenter(ofView: loginButton)
         spinner.heightAnchor.constraint(equalTo: loginButton.heightAnchor).isActive = true
         spinner.widthAnchor.constraint(equalTo: spinner.heightAnchor).isActive = true
+
+        self.loginManager.authStatus.receive(on: DispatchQueue.main).sink { [weak self] authStatus in
+            switch authStatus {
+            case .loggingIn:
+                self?.spinner.startAnimating()
+            default:
+                self?.spinner.stopAnimating()
+            }
+        }.store(in: &self.cancellables)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        self.usernameField.text = ""
+        self.passwordField.text = ""
+        self.updateLoginButton()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
-        self.usernameField.text = ""
-        self.passwordField.text = ""
-
-        self.updateLoginButton()
         self.usernameField.becomeFirstResponder()
     }
 
@@ -120,21 +134,17 @@ class LoginViewController: UIViewController {
                 return
         }
 
-        self.spinner.startAnimating()
-
         firstly {
             // TODO: Move this logic elsewhere.
             self.loginManager.login(username: username, password: password)
         }.done(on: .main) {
             self.userInfoManager.saveUserCredentials(newCredentials: UserCredentials(username: username, password: password))
         }.catch(on: .main) { _ in
-            let alert = UIAlertController(title: "Invalid credentials",
-                                          message: nil,
+            let alert = UIAlertController(title: "",
+                                          message: "Invalid username/password. Please try again.",
                                           preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
-        }.finally {
-            self.spinner.stopAnimating()
         }
     }
 }
@@ -151,6 +161,9 @@ private extension LoginViewController {
     func updateLoginButton() {
         let username = self.usernameField.text ?? ""
         let password = self.passwordField.text ?? ""
-        self.loginButton.isEnabled = (!username.isEmpty && !password.isEmpty)
+
+        let enabled = (!username.isEmpty && !password.isEmpty)
+        self.loginButton.isEnabled = enabled
+        self.loginButton.alpha = enabled ? 1 : 0.35
     }
 }

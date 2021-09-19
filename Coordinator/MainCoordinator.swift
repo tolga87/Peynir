@@ -6,10 +6,11 @@
 //  Copyright © 2019 Tolga AKIN. All rights reserved.
 //
 
+import Combine
 import PromiseKit
 import UIKit
 
-public protocol DeinitDelegate: class {
+public protocol DeinitDelegate: AnyObject {
     func didDeinit(sender: Any)
 }
 
@@ -32,6 +33,8 @@ class MainCoordinator {
     private var categoryListCoordinator: CategoryListCoordinator?
     private var settingsCoordinator: SettingsCoordinator?
 
+    private var cancellables: Set<AnyCancellable> = []
+
     public init(apiClient: APIClientInterface,
                 cacheManager: CacheManagerInterface,
                 userInfoManager: UserInfoManagerInterface,
@@ -48,12 +51,13 @@ class MainCoordinator {
     public func start(completion: CoordinatorCompletionCallback?) {
         UITabBar.appearance().tintColor = UIColor.label
 
-        NotificationCenter.default.addObserver(self, selector: #selector(didLogout), name: self.loginManager.didLogoutNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(didLogin), name: self.loginManager.didLoginNotification, object: nil)
+        self.loginManager.authStatus.receive(on: DispatchQueue.main).sink { [weak self] _ in
+            self?.authStatusDidChange()
+        }.store(in: &self.cancellables)
 
         self.pushLoginScreen()
 
-        if self.loginManager.isLoggedIn {
+        if self.loginManager.authStatus.value == .loggedIn {
             self.pushHomeScreen()
         }
     }
@@ -91,27 +95,28 @@ private extension MainCoordinator {
 
     // MARK: Callbacks
 
-    @objc func didLogin() {
-        guard self.categoryListCoordinator == nil else {
-            logWarning("Did receive login notification with active `categoryListCoordinator`")
-            return
-        }
-
+    func authStatusDidChange() {
         DispatchQueue.main.async {
-            self.pushHomeScreen()
-        }
-    }
+            switch self.loginManager.authStatus.value {
+            case .loggedIn:
+                guard self.categoryListCoordinator == nil else {
+                    logWarning("Did receive login notification with active `categoryListCoordinator`")
+                    return
+                }
+                self.pushHomeScreen()
 
-    @objc func didLogout() {
-        if self.categoryListCoordinator == nil {
-            logWarning("Did receive logout notification with nil `categoryListCoordinator`")
-        }
+            case .loggedOut:
+                if self.categoryListCoordinator == nil {
+                    logWarning("Did receive logout notification with nil `categoryListCoordinator`")
+                }
 
-        DispatchQueue.main.async {
-            self.rootViewController.popToRoot(animated: false)
+                self.rootViewController.popToRoot(animated: false)
+                self.categoryListCoordinator = nil
+                self.settingsCoordinator = nil
 
-            self.categoryListCoordinator = nil
-            self.settingsCoordinator = nil
+            case .unknown, .loggingIn:
+                ()  // Do nothing
+            }
         }
     }
 }

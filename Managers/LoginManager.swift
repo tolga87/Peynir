@@ -6,6 +6,7 @@
 //  Copyright © 2019 Tolga AKIN. All rights reserved.
 //
 
+import Combine
 import Foundation
 import PromiseKit
 
@@ -14,19 +15,22 @@ public enum LoginError: Error {
     case unknown
 }
 
+public enum AuthStatus {
+    case unknown
+    case loggingIn
+    case loggedIn
+    case loggedOut
+}
+
 // TODO: Change this to use NetworkManager.
 protocol LoginManagerInterface {
-    var isLoggedIn: Bool { get }
+    var authStatus: CurrentValueSubject<AuthStatus, Never> { get }
     func login(username: String, password: String) -> Promise<Void>
     func logout() -> Guarantee<Void>
-
-    var didLoginNotification: Notification.Name { get }
-    var didLogoutNotification: Notification.Name { get }
 }
 
 class LoginManager: LoginManagerInterface {
-    var didLoginNotification = Notification.Name("LoginManagerDidLogin")
-    var didLogoutNotification = Notification.Name("LoginManagerDidLogout")
+    var authStatus = CurrentValueSubject<AuthStatus, Never>(.unknown)
 
     private let userInfoManager: UserInfoManagerInterface
     private let networkManager: NetworkManagerInterface
@@ -34,17 +38,17 @@ class LoginManager: LoginManagerInterface {
     public init(networkManager: NetworkManagerInterface, userInfoManager: UserInfoManagerInterface) {
         self.networkManager = networkManager
         self.userInfoManager = userInfoManager
-    }
 
-    var isLoggedIn: Bool {
-        guard let cookies = HTTPCookieStorage.shared.cookies else {
-            return false
+        if let cookies = HTTPCookieStorage.shared.cookies, cookies.count > 0 {
+            self.authStatus.value = .loggedIn
+        } else {
+            self.authStatus.value = .loggedOut
         }
-
-        return (cookies.count > 0)
     }
 
     func login(username: String, password: String) -> Promise<Void> {
+        self.authStatus.value = .loggingIn
+
         return Promise<Void> { seal in
             var request = URLRequest(url: self.loginUrl)
 
@@ -63,9 +67,10 @@ class LoginManager: LoginManagerInterface {
                 }
 
                 if isLoggedIn {
-                    NotificationCenter.default.post(name: self.didLoginNotification, object: self)
+                    self.authStatus.value = .loggedIn
                     seal.fulfill(())
                 } else {
+                    self.authStatus.value = .loggedOut
                     if let urlString = response?.url?.absoluteString, urlString.contains("invalid_credentials") {
                         seal.reject(LoginError.invalidCredentials)
                     } else {
@@ -79,14 +84,14 @@ class LoginManager: LoginManagerInterface {
 
     func logout() -> Guarantee<Void> {
         return Guarantee<Void> { seal in
-            guard self.isLoggedIn else {
-                NotificationCenter.default.post(name: self.didLogoutNotification, object: self)
+            guard self.authStatus.value == .loggedIn else {
+                self.authStatus.value = .loggedOut
                 seal(())
                 return
             }
 
             HTTPCookieStorage.shared.removeCookies(since: Date(timeIntervalSince1970: 0))
-            NotificationCenter.default.post(name: self.didLogoutNotification, object: self)
+            self.authStatus.value = .loggedOut
             seal(())
         }
     }
