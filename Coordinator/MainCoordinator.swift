@@ -30,6 +30,7 @@ class MainCoordinator {
     private let loginManager: LoginManagerInterface
     private let rootViewController: RootViewController
 
+    private var loginCoordinator: LoginCoordinator?
     private var categoryListCoordinator: CategoryListCoordinator?
     private var settingsCoordinator: SettingsCoordinator?
 
@@ -51,25 +52,45 @@ class MainCoordinator {
     public func start(completion: CoordinatorCompletionCallback?) {
         UITabBar.appearance().tintColor = UIColor.label
 
-        self.loginManager.authStatus.receive(on: DispatchQueue.main).sink { [weak self] _ in
-            self?.authStatusDidChange()
+        self.loginManager.authStatus.receive(on: DispatchQueue.main).removeDuplicates().sink { [weak self] authStatus in
+            guard let self = self else { return }
+
+            switch authStatus {
+            case .loggingIn:
+                ()  // Do nothing
+
+            case .loggedOut:
+                if self.loginCoordinator != nil {
+                    // We're already displaying the login screen. No need to restart the flow.
+                    return
+                }
+
+                self.rootViewController.popToRoot(animated: false)
+                self.categoryListCoordinator = nil
+                self.settingsCoordinator = nil
+                self.startLoginFlow()
+
+            case .loggedIn:
+                guard self.categoryListCoordinator == nil else {
+                    logWarning("Did receive login notification with active `categoryListCoordinator`")
+                    return
+                }
+
+                self.rootViewController.popToRoot(animated: false)
+                self.loginCoordinator = nil
+                self.showHomeScreen()
+            }
         }.store(in: &self.cancellables)
-
-        self.pushLoginScreen()
-
-        if self.loginManager.authStatus.value == .loggedIn {
-            self.pushHomeScreen()
-        }
     }
 }
 
 private extension MainCoordinator {
-    func pushLoginScreen() {
-        let loginViewController = LoginViewController(loginManager: self.loginManager, userInfoManager: self.userInfoManager)
-        self.rootViewController.push(loginViewController, animated: false)
+    func startLoginFlow() {
+        self.loginCoordinator = LoginCoordinator(loginManager: self.loginManager, userInfoManager: self.userInfoManager, navigationController: self.rootViewController)
+        self.loginCoordinator?.start(completion: nil)
     }
 
-    func pushHomeScreen() {
+    func showHomeScreen() {
         let categoryListDataProvider = CategoryListDataProvider(apiClient: self.apiClient, cacheManager: self.cacheManager)
         let newsNavController = UINavigationController()
         newsNavController.tabBarItem = UITabBarItem(title: "News", image: UIImage(named: "news")!, tag: 0)
@@ -91,32 +112,5 @@ private extension MainCoordinator {
 
         categoryListCoordinator.start(completion: nil)
         settingsCoordinator.start(completion: nil)
-    }
-
-    // MARK: Callbacks
-
-    func authStatusDidChange() {
-        DispatchQueue.main.async {
-            switch self.loginManager.authStatus.value {
-            case .loggedIn:
-                guard self.categoryListCoordinator == nil else {
-                    logWarning("Did receive login notification with active `categoryListCoordinator`")
-                    return
-                }
-                self.pushHomeScreen()
-
-            case .loggedOut:
-                if self.categoryListCoordinator == nil {
-                    logWarning("Did receive logout notification with nil `categoryListCoordinator`")
-                }
-
-                self.rootViewController.popToRoot(animated: false)
-                self.categoryListCoordinator = nil
-                self.settingsCoordinator = nil
-
-            case .unknown, .loggingIn:
-                ()  // Do nothing
-            }
-        }
     }
 }

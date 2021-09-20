@@ -73,6 +73,13 @@
 		FDD02E0B25B24B920016FF10 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD02E0A25B24B920016FF10 /* UIColor+Extensions.swift */; };
 		FDDF124223CBAB5A0061AD3D /* TimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDDF124123CBAB590061AD3D /* TimeFormatter.swift */; };
 		FDEE268025B0CD3C00E644D0 /* CacheManagerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDEE267F25B0CD3C00E644D0 /* CacheManagerInterface.swift */; };
+		FDFC4CB426F7DD4B00AA1B6B /* LoginInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFC4CB326F7DD4B00AA1B6B /* LoginInteractor.swift */; };
+		FDFC4CB626F7DED600AA1B6B /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFC4CB526F7DED600AA1B6B /* LoginPresenter.swift */; };
+		FDFC4CB826F7DF3100AA1B6B /* Interactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFC4CB726F7DF3100AA1B6B /* Interactor.swift */; };
+		FDFC4CBA26F7E1A400AA1B6B /* Presenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFC4CB926F7E1A400AA1B6B /* Presenter.swift */; };
+		FDFC4CBD26F7E21900AA1B6B /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFC4CBC26F7E21900AA1B6B /* Types.swift */; };
+		FDFC4CBF26F7E97C00AA1B6B /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFC4CBE26F7E97C00AA1B6B /* LoginCoordinator.swift */; };
+		FDFC4CC126F8179F00AA1B6B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFC4CC026F8179F00AA1B6B /* ViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -168,6 +175,13 @@
 		FDD02E0A25B24B920016FF10 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		FDDF124123CBAB590061AD3D /* TimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatter.swift; sourceTree = "<group>"; };
 		FDEE267F25B0CD3C00E644D0 /* CacheManagerInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManagerInterface.swift; sourceTree = "<group>"; };
+		FDFC4CB326F7DD4B00AA1B6B /* LoginInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInteractor.swift; sourceTree = "<group>"; };
+		FDFC4CB526F7DED600AA1B6B /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
+		FDFC4CB726F7DF3100AA1B6B /* Interactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interactor.swift; sourceTree = "<group>"; };
+		FDFC4CB926F7E1A400AA1B6B /* Presenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Presenter.swift; sourceTree = "<group>"; };
+		FDFC4CBC26F7E21900AA1B6B /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
+		FDFC4CBE26F7E97C00AA1B6B /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
+		FDFC4CC026F8179F00AA1B6B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -412,6 +426,9 @@
 			children = (
 				FD53DDE7238B5F8A000F341D /* LoginViewController.swift */,
 				FD85B21925B246FF0098B3AF /* UserCredentialTextField.swift */,
+				FDFC4CB326F7DD4B00AA1B6B /* LoginInteractor.swift */,
+				FDFC4CB526F7DED600AA1B6B /* LoginPresenter.swift */,
+				FDFC4CBE26F7E97C00AA1B6B /* LoginCoordinator.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -438,6 +455,7 @@
 		FDCA86782394392300E41718 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				FDFC4CBB26F7E20A00AA1B6B /* VIPER */,
 				FD4BC6B225BE25CF0094D8B4 /* FileSize */,
 				FDDF124023CBAB4E0061AD3D /* Time */,
 				FD54661B23A6CB68007556F2 /* Logging */,
@@ -515,6 +533,17 @@
 				FDEE267F25B0CD3C00E644D0 /* CacheManagerInterface.swift */,
 			);
 			path = Cache;
+			sourceTree = "<group>";
+		};
+		FDFC4CBB26F7E20A00AA1B6B /* VIPER */ = {
+			isa = PBXGroup;
+			children = (
+				FDFC4CB726F7DF3100AA1B6B /* Interactor.swift */,
+				FDFC4CB926F7E1A400AA1B6B /* Presenter.swift */,
+				FDFC4CBC26F7E21900AA1B6B /* Types.swift */,
+				FDFC4CC026F8179F00AA1B6B /* ViewController.swift */,
+			);
+			path = VIPER;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -715,6 +744,7 @@
 				FD53DDE8238B5F8A000F341D /* LoginViewController.swift in Sources */,
 				FD9A665C2394B6AB00A10060 /* String+Extensions.swift in Sources */,
 				FD6F7E6223CB96040042C513 /* PostMetadataViewModel.swift in Sources */,
+				FDFC4CBD26F7E21900AA1B6B /* Types.swift in Sources */,
 				FD53DDDE238B585B000F341D /* LoginManager.swift in Sources */,
 				FD8E404425B0161D0078B68A /* TopicListTableViewCell.swift in Sources */,
 				FDCA86942394A05500E41718 /* Category.swift in Sources */,
@@ -744,6 +774,8 @@
 				FD65030623BAC1F200F110C5 /* UIView+Extensions.swift in Sources */,
 				FD5F74BD238B4CA100DCEED3 /* AppDelegate.swift in Sources */,
 				FDDF124223CBAB5A0061AD3D /* TimeFormatter.swift in Sources */,
+				FDFC4CB426F7DD4B00AA1B6B /* LoginInteractor.swift in Sources */,
+				FDFC4CBA26F7E1A400AA1B6B /* Presenter.swift in Sources */,
 				FD18AB7C23FB4F5900537D04 /* CategoryListCell.swift in Sources */,
 				FD53DDE1238B5C63000F341D /* KeychainWrapper.swift in Sources */,
 				FD85B21A25B246FF0098B3AF /* UserCredentialTextField.swift in Sources */,
@@ -753,11 +785,15 @@
 				FD473484262392FC004F2C54 /* CategoryListViewModel.swift in Sources */,
 				FD8161F6239C6AC4005F65B2 /* TopicList.swift in Sources */,
 				FD0A9A7F23B0329700715BAD /* PostListCoordinator.swift in Sources */,
+				FDFC4CB826F7DF3100AA1B6B /* Interactor.swift in Sources */,
 				FD0A9A7923B02C5400715BAD /* PostListDataProvider.swift in Sources */,
+				FDFC4CC126F8179F00AA1B6B /* ViewController.swift in Sources */,
+				FDFC4CB626F7DED600AA1B6B /* LoginPresenter.swift in Sources */,
 				FD53DDED238B79A8000F341D /* HomeViewController.swift in Sources */,
 				FD65030923BAC9E400F110C5 /* PostMetadataView.swift in Sources */,
 				FD19C45A239DCCF900AFBE0E /* CategoryListActionHandler.swift in Sources */,
 				FD53DDE3238B5C89000F341D /* KeychainItemAccessibility.swift in Sources */,
+				FDFC4CBF26F7E97C00AA1B6B /* LoginCoordinator.swift in Sources */,
 				FD19C450239DC43500AFBE0E /* CategoryListCoordinator.swift in Sources */,
 				FD19C452239DC54100AFBE0E /* SettingsCoordinator.swift in Sources */,
 				FD54661D23A6CB85007556F2 /* Logging.swift in Sources */,

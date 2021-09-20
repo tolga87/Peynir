@@ -10,11 +10,26 @@ import Combine
 import PromiseKit
 import UIKit
 
-class LoginViewController: UIViewController {
-    private let loginManager: LoginManagerInterface
-    private let userInfoManager: UserInfoManagerInterface
-    private var cancellables: Set<AnyCancellable> = []
+public struct LoginViewState: ViewState {
+    var username: String
+    var password: String
+    var isInputValid: Bool
+    var isLoading: Bool
 
+    init(username: String = "", password: String = "", isInputValid: Bool = false, isLoading: Bool = false) {
+        self.username = username
+        self.password = password
+        self.isInputValid = isInputValid
+        self.isLoading = isLoading
+    }
+}
+
+public enum LoginViewAction: ViewAction {
+    case loginRequested
+    case textEntered(username: String, password: String)
+}
+
+class LoginViewController: ViewController<LoginViewState, LoginViewAction, LoginEvent> {
     private lazy var usernameField: UserCredentialTextField = {
         let field = UserCredentialTextField()
         field.translatesAutoresizingMaskIntoConstraints = false
@@ -49,11 +64,24 @@ class LoginViewController: UIViewController {
         return spinner
     }()
 
-    init(loginManager: LoginManagerInterface, userInfoManager: UserInfoManagerInterface) {
-        self.loginManager = loginManager
-        self.userInfoManager = userInfoManager
+    private var usernameInput: String {
+        return self.usernameField.text ?? ""
+    }
 
-        super.init(nibName: nil, bundle: nil)
+    private var passwordInput: String {
+        return self.passwordField.text ?? ""
+    }
+
+    init(presenter: LoginPresenter) {
+        super.init(presenter: presenter)
+
+        presenter.displayAlertCallback = { [weak self] message in
+            guard let self = self else { return }
+
+            let alert = UIAlertController(title: "", message: message, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
     }
 
     required init?(coder: NSCoder) {
@@ -99,23 +127,12 @@ class LoginViewController: UIViewController {
         spinner.constrainToCenter(ofView: loginButton)
         spinner.heightAnchor.constraint(equalTo: loginButton.heightAnchor).isActive = true
         spinner.widthAnchor.constraint(equalTo: spinner.heightAnchor).isActive = true
-
-        self.loginManager.authStatus.receive(on: DispatchQueue.main).sink { [weak self] authStatus in
-            switch authStatus {
-            case .loggingIn:
-                self?.spinner.startAnimating()
-            default:
-                self?.spinner.stopAnimating()
-            }
-        }.store(in: &self.cancellables)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        self.usernameField.text = ""
-        self.passwordField.text = ""
-        self.updateLoginButton()
+        self.updateView(state: self.presenter.viewState)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -123,29 +140,29 @@ class LoginViewController: UIViewController {
         self.usernameField.becomeFirstResponder()
     }
 
+    func updateView(state: LoginViewState) {
+        self.usernameField.text = state.username
+        self.passwordField.text = state.password
+        self.loginButton.isEnabled = state.isInputValid
+        self.loginButton.alpha = state.isInputValid ? 1 : 0.35
+
+        if state.isLoading {
+            self.spinner.startAnimating()
+        } else {
+            self.spinner.stopAnimating()
+        }
+    }
+
     @objc func didUpdateText() {
-        self.updateLoginButton()
+        self.presenter.handleAction(.textEntered(username: self.usernameInput, password: self.passwordInput))
     }
 
     @objc func didTapLogin() {
-        guard
-            let username = self.usernameField.text, username.count > 0,
-            let password = self.passwordField.text, password.count > 0 else {
-                return
-        }
+        self.presenter.handleAction(.loginRequested)
+    }
 
-        firstly {
-            // TODO: Move this logic elsewhere.
-            self.loginManager.login(username: username, password: password)
-        }.done(on: .main) {
-            self.userInfoManager.saveUserCredentials(newCredentials: UserCredentials(username: username, password: password))
-        }.catch(on: .main) { _ in
-            let alert = UIAlertController(title: "",
-                                          message: "Invalid username/password. Please try again.",
-                                          preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-        }
+    override func handle(viewState: LoginViewState) {
+        self.updateView(state: viewState)
     }
 }
 
@@ -156,14 +173,5 @@ private extension LoginViewController {
         static let verticalPadding: CGFloat = 10
         static let inputElementHeight: CGFloat = 44
         static let loginButtonWidth: CGFloat = 120
-    }
-
-    func updateLoginButton() {
-        let username = self.usernameField.text ?? ""
-        let password = self.passwordField.text ?? ""
-
-        let enabled = (!username.isEmpty && !password.isEmpty)
-        self.loginButton.isEnabled = enabled
-        self.loginButton.alpha = enabled ? 1 : 0.35
     }
 }

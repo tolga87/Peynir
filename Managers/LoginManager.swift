@@ -16,10 +16,9 @@ public enum LoginError: Error {
 }
 
 public enum AuthStatus {
-    case unknown
+    case loggedOut
     case loggingIn
     case loggedIn
-    case loggedOut
 }
 
 // TODO: Change this to use NetworkManager.
@@ -30,7 +29,7 @@ protocol LoginManagerInterface {
 }
 
 class LoginManager: LoginManagerInterface {
-    var authStatus = CurrentValueSubject<AuthStatus, Never>(.unknown)
+    let authStatus: CurrentValueSubject<AuthStatus, Never>
 
     private let userInfoManager: UserInfoManagerInterface
     private let networkManager: NetworkManagerInterface
@@ -40,9 +39,9 @@ class LoginManager: LoginManagerInterface {
         self.userInfoManager = userInfoManager
 
         if let cookies = HTTPCookieStorage.shared.cookies, cookies.count > 0 {
-            self.authStatus.value = .loggedIn
+            self.authStatus = CurrentValueSubject<AuthStatus, Never>(.loggedIn)
         } else {
-            self.authStatus.value = .loggedOut
+            self.authStatus = CurrentValueSubject<AuthStatus, Never>(.loggedOut)
         }
     }
 
